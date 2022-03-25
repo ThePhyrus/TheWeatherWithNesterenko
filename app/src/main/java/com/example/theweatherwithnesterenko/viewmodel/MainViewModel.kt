@@ -21,12 +21,12 @@ class MainViewModel(
     fun getWeather() {
         Thread {
             liveData.postValue(AppState.Loading)
-            if ((0..10).random() > 5){
+            if ((0..10).random() > 5) {
                 val answer = repository.getWeatherFromServer()
                 //TODO HW val answer = if(узнать локально или сервер) repository.getWeatherFromServer() else repository.getWeatherFromLocalStorage()
+                    // с этим заданием я не справился (не смог понять, что делать вообще)
                 liveData.postValue(AppState.Success(answer))
-            }
-            else
+            } else
                 liveData.postValue(AppState.Error(IllegalAccessException()))
         }.start()
     }

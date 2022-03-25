@@ -14,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
 
-
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
 
