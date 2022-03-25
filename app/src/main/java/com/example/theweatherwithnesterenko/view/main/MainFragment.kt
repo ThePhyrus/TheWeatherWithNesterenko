@@ -15,31 +15,21 @@ import com.google.android.material.snackbar.Snackbar
 class MainFragment : Fragment() {
 
 
-    lateinit var binding: FragmentMainBinding// утечка памяти
-
-    override fun onDestroy() {
-        super.onDestroy()
-        //binding=null // TODO HW попробуйте занулить
-    }
+    private var _binding: FragmentMainBinding? = null
+    private val binding: FragmentMainBinding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
-        //return inflater.inflate(R.layout.fragment_main, container, false)
+    ): View {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //binding.btnOne.setOnClickListener {  }
-        // view.findViewById<TextView>(R.id.btnOne).setOnClickListener {  }
-        // view.findViewById<Button>(R.id.btnOne).setOnClickListener {  }
-
         val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        //val observer = Observer<Any>{ renderData(it) }
         val observer = object : Observer<AppState> {
             override fun onChanged(data: AppState) {
                 renderData(data)
@@ -67,7 +57,6 @@ class MainFragment : Fragment() {
                 binding.cityCoordinates.text =
                     "${data.weatherData.city.lat} ${data.weatherData.city.lon}"
                 Snackbar.make(binding.mainView, "Получилось", Snackbar.LENGTH_LONG).show()
-                //Toast.makeText(requireContext(),"РАБОТАЕТ",Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -75,5 +64,10 @@ class MainFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = MainFragment()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
