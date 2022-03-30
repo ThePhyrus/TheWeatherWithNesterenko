@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
 import com.example.theweatherwithnesterenko.repository.TheWeather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER
 import com.google.android.material.snackbar.Snackbar
 
-private const val SNACKBAR_SUCCESS_RENDERING: String = "Data rendering is complete"
 
 class DetailsFragment : Fragment() {
 
@@ -35,18 +35,18 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val theWeather: TheWeather = requireArguments().getParcelable<TheWeather>(KEY_BUNDLE_WEATHER)!!
-        renderData(theWeather)
+        val weather: TheWeather =
+            requireArguments().getParcelable<TheWeather>(KEY_BUNDLE_WEATHER)!!
+        renderData(weather)
     }
 
-    private fun renderData(theWeather: TheWeather) = with(binding) {
+    private fun renderData(weatherDataForRendering: TheWeather) = with(binding) {
         layoutZagruzki.visibility = View.GONE
-        cityName.text = theWeather.city.name.toString()
-        temperatureValue.text = theWeather.temperature.toString()
-        feelsLikeValue.text = theWeather.feelsLike.toString()
-        cityCoordinates.text = "${theWeather.city.lat} ${theWeather.city.lon}"
-        //FIXME текст для снекбара в ресурсы лучше выносить или в константы?
-        Snackbar.make(mainView, SNACKBAR_SUCCESS_RENDERING, Snackbar.LENGTH_LONG).show()
+        cityName.text = weatherDataForRendering.city.name.toString()
+        temperatureValue.text = weatherDataForRendering.temperature.toString()
+        feelsLikeValue.text = weatherDataForRendering.feelsLike.toString()
+        cityCoordinates.text = "${weatherDataForRendering.city.lat} ${weatherDataForRendering.city.lon}"
+        Snackbar.make(mainView, R.string.data_rendering_success, Snackbar.LENGTH_LONG).show()
     }
 
     companion object {

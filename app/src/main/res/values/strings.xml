@@ -30,7 +30,8 @@
 
 
     <!--    Text for a snackbar-->
-    <string name="sb_on_the_main_view">ok</string>
+    <string name="data_rendering_success">Data rendering is complete</string>
+    <string name="matrix_has_you">The matrix has you!</string>
 
 
 

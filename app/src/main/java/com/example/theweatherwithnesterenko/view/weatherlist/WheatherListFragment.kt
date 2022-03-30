@@ -81,20 +81,23 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         binding.krutilcaView.adapter = theAdapter
     }
 
-    private fun renderData(data: AppState) = with(binding) {
-        when (data) {
-            is AppState.Error -> {
+    private fun renderData(someData: AppState) = with(binding) {
+        when (someData) {
+            is AppState.FatalError -> {
                 layoutZagruzki.visibility = View.GONE
-                Snackbar.make(binding.root, "Не получилось ${data.error}", Snackbar.LENGTH_LONG)
+                Snackbar.make(
+                    binding.root,
+                    "${R.string.matrix_has_you} ${someData.error}",
+                    Snackbar.LENGTH_LONG
+                )
                     .show()
             }
-            is AppState.Loading -> {
+            is AppState.LoadingProcess -> {
                 layoutZagruzki.visibility = View.VISIBLE
             }
             is AppState.Success -> {
                 layoutZagruzki.visibility = View.GONE
-                theAdapter.setData(data.theWeatherList)
-
+                theAdapter.setData(someData.weatherList)
             }
         }
     }
@@ -104,9 +107,9 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         fun newInstance() = WeatherListFragment()
     }
 
-    override fun onItemClick(theWeather: TheWeather) { //FIXME что такое Bundle?
+    override fun onItemClick(weather: TheWeather) { //FIXME что такое Bundle?
         val bundle = Bundle()
-        bundle.putParcelable(KEY_BUNDLE_WEATHER, theWeather)
+        bundle.putParcelable(KEY_BUNDLE_WEATHER, weather)
         requireActivity().supportFragmentManager.beginTransaction().replace(
             R.id.box_for_fragment,
             DetailsFragment.newInstance(bundle)

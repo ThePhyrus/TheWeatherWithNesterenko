@@ -19,14 +19,14 @@ class MainViewModel(
 
     private fun getWeather(isRussian:Boolean) {
         Thread {
-            liveData.postValue(AppState.Loading)
+            liveData.postValue(AppState.LoadingProcess)
             if (true){
                 val answer = if(!isRussian) repository.getWorldWeatherFromLocalStorage()
                 else repository.getRussianWeatherFromLocalStorage()
                 liveData.postValue(AppState.Success(answer))
             }
             else
-                liveData.postValue(AppState.Error(IllegalAccessException()))
+                liveData.postValue(AppState.FatalError(IllegalAccessException()))
         }.start()
     }
 

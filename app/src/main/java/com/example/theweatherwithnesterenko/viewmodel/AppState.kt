@@ -5,7 +5,12 @@ import com.example.theweatherwithnesterenko.repository.TheWeather
 
 //todo разобраться
 sealed class AppState { //FIXME не понял как работает этот класс
-    object Loading : AppState()
-    data class Success(val theWeatherList: List<TheWeather>) : AppState()
-    data class Error(val error: Throwable) : AppState()
+
+    object LoadingProcess : AppState()
+
+    data class Success(val weatherList: List<TheWeather>) : AppState()
+    data class FatalError(val error: Throwable) : AppState()
+
+
+    data class RenderingDataSuccess(val theData: List<TheWeather>) : AppState()
 }
