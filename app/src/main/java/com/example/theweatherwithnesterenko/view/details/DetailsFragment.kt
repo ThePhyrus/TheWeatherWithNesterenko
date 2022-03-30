@@ -1,15 +1,16 @@
 package com.example.theweatherwithnesterenko.view.details
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
-import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.repository.TheWeather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER
 import com.google.android.material.snackbar.Snackbar
 
+private const val SNACKBAR_SUCCESS_RENDERING: String = "Data rendering is complete"
 
 class DetailsFragment : Fragment() {
 
@@ -34,17 +35,18 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather: Weather = requireArguments().getParcelable<Weather>(KEY_BUNDLE_WEATHER)!!
-        renderData(weather)
+        val theWeather: TheWeather = requireArguments().getParcelable<TheWeather>(KEY_BUNDLE_WEATHER)!!
+        renderData(theWeather)
     }
 
-    private fun renderData(weather: Weather) = with(binding) {
-        loadingLayout.visibility = View.GONE
-        cityName.text = weather.city.name.toString()
-        temperatureValue.text = weather.temperature.toString()
-        feelsLikeValue.text = weather.feelsLike.toString()
-        cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
-        Snackbar.make(binding.mainView, "Получилось", Snackbar.LENGTH_LONG).show()
+    private fun renderData(theWeather: TheWeather) = with(binding) {
+        layoutZagruzki.visibility = View.GONE
+        cityName.text = theWeather.city.name.toString()
+        temperatureValue.text = theWeather.temperature.toString()
+        feelsLikeValue.text = theWeather.feelsLike.toString()
+        cityCoordinates.text = "${theWeather.city.lat} ${theWeather.city.lon}"
+        //FIXME текст для снекбара в ресурсы лучше выносить или в константы?
+        Snackbar.make(mainView, SNACKBAR_SUCCESS_RENDERING, Snackbar.LENGTH_LONG).show()
     }
 
     companion object {

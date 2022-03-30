@@ -2,13 +2,11 @@ package com.example.theweatherwithnesterenko.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.theweatherwithnesterenko.repository.Repository
-import com.example.theweatherwithnesterenko.repository.RepositoryImpl
-import java.lang.Thread.sleep
+import com.example.theweatherwithnesterenko.repository.DepositoryImpl
 
 class MainViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData(),
-    private val repository: RepositoryImpl = RepositoryImpl()
+    private val repository: DepositoryImpl = DepositoryImpl()
 ) :
     ViewModel() {
 

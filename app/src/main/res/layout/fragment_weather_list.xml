@@ -8,7 +8,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/krutilca_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
@@ -24,7 +24,7 @@
         android:src="@drawable/ic_russia"/>
 
     <FrameLayout
-        android:id="@+id/loadingLayout"
+        android:id="@+id/layoutZagruzki"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"

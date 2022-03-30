@@ -1,16 +1,16 @@
 package com.example.theweatherwithnesterenko.view.weatherlist
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListBinding
-import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.repository.TheWeather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER
 import com.example.theweatherwithnesterenko.view.details.DetailsFragment
 import com.example.theweatherwithnesterenko.viewmodel.AppState
@@ -26,7 +26,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
             return _binding!!
         }
 
-    val adapter = WeatherListAdapter(this)
+    private val theAdapter = WeatherListAdapter(this)
 
     override fun onDestroy() {
         super.onDestroy()
@@ -43,9 +43,9 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
 
     var isRussian = true
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.adapter = adapter // TODO HW вынесты в initRecycler()
+        initRecycleView() // TODO HW вынесты в initRecycler()
         val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val observer = object : Observer<AppState> {
             override fun onChanged(data: AppState) {
@@ -77,19 +77,23 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         viewModel.getWeatherRussia()
     }
 
+    private fun initRecycleView() {
+        binding.krutilcaView.adapter = theAdapter
+    }
+
     private fun renderData(data: AppState) = with(binding) {
         when (data) {
             is AppState.Error -> {
-                loadingLayout.visibility = View.GONE
+                layoutZagruzki.visibility = View.GONE
                 Snackbar.make(binding.root, "Не получилось ${data.error}", Snackbar.LENGTH_LONG)
                     .show()
             }
             is AppState.Loading -> {
-                loadingLayout.visibility = View.VISIBLE
+                layoutZagruzki.visibility = View.VISIBLE
             }
             is AppState.Success -> {
-                loadingLayout.visibility = View.GONE
-                adapter.setData(data.weatherList)
+                layoutZagruzki.visibility = View.GONE
+                theAdapter.setData(data.theWeatherList)
 
             }
         }
@@ -100,11 +104,11 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         fun newInstance() = WeatherListFragment()
     }
 
-    override fun onItemClick(weather: Weather) { //FIXME что такое Bundle?
+    override fun onItemClick(theWeather: TheWeather) { //FIXME что такое Bundle?
         val bundle = Bundle()
-        bundle.putParcelable(KEY_BUNDLE_WEATHER, weather)
+        bundle.putParcelable(KEY_BUNDLE_WEATHER, theWeather)
         requireActivity().supportFragmentManager.beginTransaction().replace(
-            R.id.container,
+            R.id.box_for_fragment,
             DetailsFragment.newInstance(bundle)
         ).addToBackStack("").commit()
     }

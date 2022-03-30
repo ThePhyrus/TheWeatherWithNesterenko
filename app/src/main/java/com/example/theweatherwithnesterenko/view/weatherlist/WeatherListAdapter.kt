@@ -5,17 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListRecyclerItemBinding
-import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.repository.TheWeather
 
 class WeatherListAdapter(
     private val onItemListClickListener: OnItemListClickListener,
-    private var data: List<Weather> = listOf()
+    private var data: List<TheWeather> = listOf()
 ) :
     RecyclerView.Adapter<WeatherListAdapter.CityHolder>() {
 
-    fun setData(dataNew: List<Weather>) {
+    fun setData(dataNew: List<TheWeather>) {
         this.data = dataNew
-        notifyDataSetChanged() //DiffUtil кому интересно
+        notifyDataSetChanged() //todo DiffUtil
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityHolder {
@@ -34,11 +34,11 @@ class WeatherListAdapter(
     override fun getItemCount() = data.size
 
     inner class CityHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(weather: Weather) {
+        fun bind(theWeather: TheWeather) {
             val binding = FragmentWeatherListRecyclerItemBinding.bind(itemView)
-            binding.tvCityName.text = weather.city.name
+            binding.tvCityName.text = theWeather.city.name
             binding.root.setOnClickListener {
-                onItemListClickListener.onItemClick(weather)
+                onItemListClickListener.onItemClick(theWeather)
             }
         }
     }
