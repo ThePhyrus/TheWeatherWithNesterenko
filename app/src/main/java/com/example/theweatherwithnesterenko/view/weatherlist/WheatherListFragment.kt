@@ -17,7 +17,7 @@ import com.example.theweatherwithnesterenko.viewmodel.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class WeatherListFragment : Fragment(),OnItemListClickListener {
+class WeatherListFragment : Fragment(), OnItemListClickListener {
 
 
     private var _binding: FragmentWeatherListBinding? = null
@@ -36,22 +36,17 @@ class WeatherListFragment : Fragment(),OnItemListClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentWeatherListBinding.inflate(inflater, container, false)
-        //return inflater.inflate(R.layout.fragment_main, container, false)
         return binding.root
     }
 
     var isRussian = true
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
-        //binding.btnOne.setOnClickListener {  }
-        // view.findViewById<TextView>(R.id.btnOne).setOnClickListener {  }
-        // view.findViewById<Button>(R.id.btnOne).setOnClickListener {  }
         binding.recyclerView.adapter = adapter // TODO HW вынесты в initRecycler()
         val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        //val observer = Observer<Any>{ renderData(it) }
         val observer = object : Observer<AppState> {
             override fun onChanged(data: AppState) {
                 renderData(data)
@@ -82,27 +77,20 @@ class WeatherListFragment : Fragment(),OnItemListClickListener {
         viewModel.getWeatherRussia()
     }
 
-    private fun renderData(data: AppState) {
+    private fun renderData(data: AppState) = with(binding) {
         when (data) {
             is AppState.Error -> {
-                binding.loadingLayout.visibility = View.GONE
+                loadingLayout.visibility = View.GONE
                 Snackbar.make(binding.root, "Не получилось ${data.error}", Snackbar.LENGTH_LONG)
                     .show()
             }
             is AppState.Loading -> {
-                binding.loadingLayout.visibility = View.VISIBLE
+                loadingLayout.visibility = View.VISIBLE
             }
             is AppState.Success -> {
-                binding.loadingLayout.visibility = View.GONE
+                loadingLayout.visibility = View.GONE
                 adapter.setData(data.weatherList)
 
-
-                /* binding.cityName.text = data.weatherData.city.name.toString()
-                 binding.temperatureValue.text = data.weatherData.temperature.toString()
-                 binding.feelsLikeValue.text = data.weatherData.feelsLike.toString()
-                 binding.cityCoordinates.text = "${data.weatherData.city.lat} ${data.weatherData.city.lon}"
-                 Snackbar.make(binding.mainView, "Получилось", Snackbar.LENGTH_LONG).show()*/
-                //Toast.makeText(requireContext(),"РАБОТАЕТ",Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -112,10 +100,10 @@ class WeatherListFragment : Fragment(),OnItemListClickListener {
         fun newInstance() = WeatherListFragment()
     }
 
-    override fun onItemClick(weather: Weather) {
+    override fun onItemClick(weather: Weather) { //FIXME что такое Bundle?
         val bundle = Bundle()
         bundle.putParcelable(KEY_BUNDLE_WEATHER, weather)
-        requireActivity().supportFragmentManager.beginTransaction().add(
+        requireActivity().supportFragmentManager.beginTransaction().replace(
             R.id.container,
             DetailsFragment.newInstance(bundle)
         ).addToBackStack("").commit()

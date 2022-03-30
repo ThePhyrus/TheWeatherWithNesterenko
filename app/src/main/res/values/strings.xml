@@ -5,4 +5,26 @@
     <string name="city_coordinates">lt/ln: %s, %s"</string>
     <string name="error">Error</string>
     <string name="reload">Reload</string>
+    <!--    Cities names world-->
+    <string name="london">London</string>
+    <string name="tokyo">Tokyo</string>
+    <string name="paris">Paris</string>
+    <string name="berlin">Berlin</string>
+    <string name="rome">Rome</string>
+    <string name="minsk">Minsk</string>
+    <string name="istanbul">Istanbul</string>
+    <string name="washington">Washington</string>
+    <string name="kiev">Kiev</string>
+    <string name="beijing">Beijing</string>
+    <!--    Cities names Rus-->
+    <string name="moscow">Moscow</string>
+    <string name="saint_petersburg">Saint-Petersburg</string>
+    <string name="novosibirsk">Novosibirsk</string>
+    <string name="ekaterinburg">Ekaterinburg</string>
+    <string name="nizhniy_novgorod">Nizhniy Novgorod</string>
+    <string name="kazan">Kazan</string>
+    <string name="chelyabinsk">Chelyabinsk</string>
+    <string name="omsk">Omsk</string>
+    <string name="rostov_on_don">Rostov-on-Don</string>
+    <string name="ufa">Ufa</string>
 </resources>

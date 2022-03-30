@@ -5,39 +5,43 @@ import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-data class Weather(val city: City = getDefaultCity(),val temperature:Int=0,val feelsLike:Int=0):Parcelable
+data class Weather(
+    val city: City = getDefaultCity(),
+    val temperature: Int = 0,
+    val feelsLike: Int = 0
+) : Parcelable
 
-fun getDefaultCity() = City("Москва", 55.75,37.61)
+fun getDefaultCity() = City("saint-Petersburg", 59.939099, 30.315877)
 
 @Parcelize
-data class City(val name:String,val lat:Double,val lon:Double):Parcelable
+data class City(val name: String, val lat: Double, val lon: Double) : Parcelable
 
 fun getWorldCities(): List<Weather> {
     return listOf(
-        Weather(City("Лондон", 51.5085300, -0.1257400), 1, 2),
-        Weather(City("Токио", 35.6895000, 139.6917100), 3, 4),
-        Weather(City("Париж", 48.8534100, 2.3488000), 5, 6),
-        Weather(City("Берлин", 52.52000659999999, 13.404953999999975), 7, 8),
-        Weather(City("Рим", 41.9027835, 12.496365500000024), 9, 10),
-        Weather(City("Минск", 53.90453979999999, 27.561524400000053), 11, 12),
-        Weather(City("Стамбул", 41.0082376, 28.97835889999999), 13, 14),
-        Weather(City("Вашингтон", 38.9071923, -77.03687070000001), 15, 16),
-        Weather(City("Киев", 50.4501, 30.523400000000038), 17, 18),
-        Weather(City("Пекин", 39.90419989999999, 116.40739630000007), 19, 20)
+        Weather(City("London", 51.507357, -0.127696), 0, 0),
+        Weather(City("Tokyo", 35.681729, 139.753927), 0, 0),
+        Weather(City("Paris", 48.856663, 2.351556), 0, 0),
+        Weather(City("Berlin", 52.518621, 13.375142), 0, 0),
+        Weather(City("Rome", 41.902695, 12.496176), 0, 0),
+        Weather(City("Minsk", 53.902284, 27.561831), 0, 0),
+        Weather(City("Istanbul", 41.011218, 28.987178), 0, 0),
+        Weather(City("Washington", 38.899513, -77.036536), 0, 0),
+        Weather(City("Kiev", 50.450441, 30.523550), 0, 0),
+        Weather(City("Beijing", 39.901850, 116.391441), 0, 0)
     )
 }
 
 fun getRussianCities(): List<Weather> {
     return listOf(
-        Weather(City("Москва", 55.755826, 37.617299900000035), 1, 2),
-        Weather(City("Санкт-Петербург", 59.9342802, 30.335098600000038), 3, 3),
-        Weather(City("Новосибирск", 55.00835259999999, 82.93573270000002), 5, 6),
-        Weather(City("Екатеринбург", 56.83892609999999, 60.60570250000001), 7, 8),
-        Weather(City("Нижний Новгород", 56.2965039, 43.936059), 9, 10),
-        Weather(City("Казань", 55.8304307, 49.06608060000008), 11, 12),
-        Weather(City("Челябинск", 55.1644419, 61.4368432), 13, 14),
-        Weather(City("Омск", 54.9884804, 73.32423610000001), 15, 16),
-        Weather(City("Ростов-на-Дону", 47.2357137, 39.701505), 17, 18),
-        Weather(City("Уфа", 54.7387621, 55.972055400000045), 19, 20)
+        Weather(City("Moscow", 55.755819, 37.617644), 0, 0),
+        Weather(City("Saint-Petersburg", 59.939099, 30.315877), 0, 0),
+        Weather(City("Novosibirsk", 55.030204, 82.920430), 0, 0),
+        Weather(City("Ekaterinburg", 56.838011, 60.597474), 0, 0),
+        Weather(City("Nizhniy Novgorod", 56.326797, 44.006516), 0, 0),
+        Weather(City("Kazan", 55.796127, 49.106414), 0, 0),
+        Weather(City("Chelyabinsk", 55.159902, 61.402554), 0, 0),
+        Weather(City("Omsk", 54.989347, 73.368221), 0, 0),
+        Weather(City("Rostov-on-Don", 47.222078, 39.720358), 0, 0),
+        Weather(City("Ufa", 54.735152, 55.958736), 0, 0)
     )
 }
