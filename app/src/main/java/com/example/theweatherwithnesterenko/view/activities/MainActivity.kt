@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
             //todo подготовить вопросы к преподавателю
             //todo сменить названия на понятные
             //todo подготовить к проверке
-            //todo сдать
+            //todo  сдать
             //todo спать
         }
     }
