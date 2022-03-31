@@ -2,16 +2,17 @@ package com.example.theweatherwithnesterenko.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.theweatherwithnesterenko.repository.DepositoryImpl
+import com.example.theweatherwithnesterenko.repository.FacadeImpl
+import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 
 class MainViewModel(
-    private val liveData: MutableLiveData<AppState> = MutableLiveData(),
-    private val repository: DepositoryImpl = DepositoryImpl()
+    private val lD: MutableLiveData<AppState> = MutableLiveData(),
+    private val repo: FacadeImpl = FacadeImpl()
 ) :
     ViewModel() {
 
     fun getData(): LiveData<AppState> {
-        return liveData
+        return lD
     }
 
     fun getWeatherRussia() = getWeather(true)
@@ -19,14 +20,14 @@ class MainViewModel(
 
     private fun getWeather(isRussian:Boolean) {
         Thread {
-            liveData.postValue(AppState.LoadingProcess)
+            lD.postValue(AppState.LoadingProcess)
             if (true){
-                val answer = if(!isRussian) repository.getWorldWeatherFromLocalStorage()
-                else repository.getRussianWeatherFromLocalStorage()
-                liveData.postValue(AppState.Success(answer))
+                val answer = if(!isRussian) repo.getWeatherDataFromLocalStorageWorld()
+                else repo.getWeatherDataFromLocalStorageRussia()
+                lD.postValue(AppState.Success(answer))
             }
             else
-                liveData.postValue(AppState.FatalError(IllegalAccessException()))
+                lD.postValue(AppState.FatalError(IllegalAccessException()))
         }.start()
     }
 

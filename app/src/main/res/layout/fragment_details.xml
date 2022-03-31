@@ -8,22 +8,21 @@
     android:background="@color/white">
 
     <FrameLayout
-        android:id="@+id/layoutZagruzki"
+        android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/black"
         android:visibility="gone"
         tools:visibility="visible">
 
         <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
+            style="@android:style/Widget.ProgressBar.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
     </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -33,22 +32,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/city_name_margin_top"
-            android:textSize="35sp"
+            android:textSize="@dimen/fragment_details_city_name_text"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Москва" />
+            tools:text="@string/tools_city_name" />
 
         <TextView
             android:id="@+id/cityCoordinates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/city_coordinates_margin_top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cityName"
-            tools:text="lt/ln: 55.755826, 37.617299900000035" />
+            tools:text="@string/tools_city_coordinates" />
 
         <TextView
             android:id="@+id/temperatureLabel"
@@ -70,7 +69,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/temperatureLabel"
-            tools:text="+15" />
+            tools:text="@string/tools_temperature_label" />
 
         <TextView
             android:id="@+id/feelsLikeLabel"
@@ -92,13 +91,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/feelsLikeLabel"
-            tools:text="-23" />
+            tools:text="@string/tools_feels_like_value" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_test"
+            android:id="@+id/btnRefreshInformation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="test"
+            android:text="@string/refresh_information"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
