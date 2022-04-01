@@ -13,12 +13,6 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, WeatherListFragment.newInstance()).commit()
-
-            //todo подготовить вопросы к преподавателю
-            //todo сменить названия на понятные
-            //todo подготовить к проверке
-            //todo  сдать
-            //todo спать
         }
     }
 }

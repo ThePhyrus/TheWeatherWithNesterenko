@@ -43,7 +43,7 @@ class DetailsFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n") //FIXME это не я, это студия почти сама. Так можно вообще?
-    private fun doRenderDataAtDetailsFragment(weatherDataForRenderingAtDetailsFragment: Weather)  =
+    private fun doRenderDataAtDetailsFragment(weatherDataForRenderingAtDetailsFragment: Weather) =
         with(binding) {
 
             loadingLayout.visibility = View.GONE

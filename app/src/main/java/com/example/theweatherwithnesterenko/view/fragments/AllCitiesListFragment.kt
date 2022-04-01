@@ -20,13 +20,11 @@ import com.google.android.material.snackbar.Snackbar
 
 class WeatherListFragment : Fragment(), OnItemListClickListener {
 
-
     private var _binding: FragmentWeatherListBinding? = null
     private val binding: FragmentWeatherListBinding
         get() {
             return _binding!!
         }
-
     private val myAdapter = WeatherListAdapter(this)
     private var isRussian: Boolean = true
 
@@ -109,7 +107,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         fun newInstance() = WeatherListFragment()
     }
 
-    override fun onItemClick(bundledWeather: Weather) { //FIXME что такое Bundle?
+    override fun onItemClick(bundledWeather: Weather) {
         val bundle = Bundle()
         bundle.putParcelable(KEY_BUNDLE_WEATHER, bundledWeather)
         requireActivity().supportFragmentManager.beginTransaction().replace(
