@@ -41,5 +41,14 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "Сообщение: $string") // 4.2 способ
             1.0
         }
+
+        lesson4.was()
+
+
     }
+
+    fun Lesson4.was(){
+        Log.d(TAG, "Был $pr")
+    }
+
 }

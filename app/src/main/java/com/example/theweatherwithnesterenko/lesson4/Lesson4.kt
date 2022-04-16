@@ -1,8 +1,12 @@
 package com.example.theweatherwithnesterenko.lesson4
 
+import android.util.Log
 import com.example.theweatherwithnesterenko.lesson3.Lesson3
+import com.example.theweatherwithnesterenko.view.activities.TAG
 
 class Lesson4 {
+
+   val pr = 777
 
 
     lateinit var lesson3: Lesson3  // 1 способ
@@ -48,7 +52,7 @@ class Lesson4 {
         return true
     }
 
-    fun funHigh(
+    private fun funHigh(
         _f: (float: Float) -> Unit,
         __f: (double: Double) -> Short,
         _c: (char: Char) -> Boolean
@@ -61,5 +65,12 @@ class Lesson4 {
     fun main(){
         funHigh(_f, __f, _c)
     }
+
+
+
+    fun was(){
+        Log.d(TAG, "Не был $pr")
+    }
+
 
 }
