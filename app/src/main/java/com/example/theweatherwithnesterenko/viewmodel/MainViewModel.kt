@@ -1,33 +1,39 @@
 package com.example.theweatherwithnesterenko.viewmodel
 
+
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.theweatherwithnesterenko.repository.FacadeImpl
-import com.example.theweatherwithnesterenko.viewmodel.states.AppState
+import com.example.theweatherwithnesterenko.repository.Repository
+import com.example.theweatherwithnesterenko.repository.RepositoryImpl
+import java.lang.Thread.sleep
 
 class MainViewModel(
-    private val lD: MutableLiveData<AppState> = MutableLiveData(),
-    private val repo: FacadeImpl = FacadeImpl()
+    private val liveData: MutableLiveData<AppState> = MutableLiveData(),
+    private val repository: RepositoryImpl = RepositoryImpl()
 ) :
     ViewModel() {
 
     fun getData(): LiveData<AppState> {
-        return lD
+        return liveData
     }
 
     fun getWeatherRussia() = getWeather(true)
     fun getWeatherWorld() = getWeather(false)
 
-    private fun getWeather(isRussian: Boolean) {
+
+    private fun getWeather(isRussian:Boolean) {
         Thread {
-            lD.postValue(AppState.LoadingProcess)
-            if (true) {
-                val answer = if (!isRussian) repo.getWeatherDataFromLocalStorageWorld()
-                else repo.getWeatherDataFromLocalStorageRussia()
-                lD.postValue(AppState.Success(answer))
-            } else
-                lD.postValue(AppState.FatalError(IllegalAccessException()))
+            liveData.postValue(AppState.Loading)
+            //if ((0..10).random() > 0){
+            if (true){
+                val answer = if(!isRussian) repository.getWorldWeatherFromLocalStorage() else repository.getRussianWeatherFromLocalStorage()
+                liveData.postValue(AppState.Success(answer))
+            }
+            else
+                liveData.postValue(AppState.Error(IllegalAccessException()))
         }.start()
     }
+
 }

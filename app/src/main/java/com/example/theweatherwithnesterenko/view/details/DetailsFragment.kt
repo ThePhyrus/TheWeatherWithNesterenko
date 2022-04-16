@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.view.fragments
+package com.example.theweatherwithnesterenko.view.details
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,7 +10,6 @@ import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
 import com.example.theweatherwithnesterenko.repository.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER
-import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 import com.google.android.material.snackbar.Snackbar
 
 

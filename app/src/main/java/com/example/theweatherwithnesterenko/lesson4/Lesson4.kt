@@ -1,6 +1,5 @@
 package com.example.theweatherwithnesterenko.lesson4
 
-import android.content.Context
 import android.util.Log
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -8,7 +7,6 @@ import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.lesson1.Person
 import com.example.theweatherwithnesterenko.lesson3.Lesson3
 import com.example.theweatherwithnesterenko.view.activities.MainActivity
-import com.example.theweatherwithnesterenko.view.activities.TAG
 
 class Lesson4 {
 
@@ -69,40 +67,40 @@ class Lesson4 {
     }
 
     fun main(mainActivity: MainActivity) {
-        Log.d(TAG, "до опытов: $person")
+        Log.d("@@@", "до опытов: $person")
 
         val newPersonLet = person?.let {
             it.age = 10
             it.name = "LetName"
             1
         }
-        Log.d(TAG, "после let: $person")
+        Log.d("@@@", "после let: $person")
 
         val newPersonRun = person?.run {
             age = 99
             name = "RunName"
             2
         }
-        Log.d(TAG, "после run: $person")
+        Log.d("@@@", "после run: $person")
 
         val newPersonAlso = person?.also {
             it.age = 55
             it.name = "AlsoName"
             3
         }
-        Log.d(TAG, "после also: $person")
+        Log.d("@@@", "после also: $person")
 
         val newPersonApply = person?.apply {
             age = 66
             name = "ApplyName"
             4
         }
-        Log.d(TAG, "после apply: $person")
+        Log.d("@@@", "после apply: $person")
 
-        Log.d(TAG, "результат $newPersonLet")
-        Log.d(TAG, "результат $newPersonRun")
-        Log.d(TAG, "результат $newPersonAlso")
-        Log.d(TAG, "результат $newPersonApply")
+        Log.d("@@@", "результат $newPersonLet")
+        Log.d("@@@", "результат $newPersonRun")
+        Log.d("@@@", "результат $newPersonAlso")
+        Log.d("@@@", "результат $newPersonApply")
 
 
         with(person!!) {
@@ -134,7 +132,7 @@ class Lesson4 {
 
     private val person: Person? = Person()
     fun was() {
-        Log.d(TAG, "Не был $pr")
+        Log.d("@@@", "Не был $pr")
 
 
     }

@@ -6,21 +6,22 @@
     android:layout_height="match_parent">
 
 
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcView"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/floating_action_button_margin"
-        android:src="@drawable/ic_russia"
         app:maxImageSize="56dp"
-        app:tint="@null" />
+        app:tint="@null"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_russia"/>
 
     <FrameLayout
         android:id="@+id/loadingLayout"
@@ -31,7 +32,7 @@
         tools:visibility="visible">
 
         <ProgressBar
-            style="@android:style/Widget.ProgressBar.Large"
+            style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />

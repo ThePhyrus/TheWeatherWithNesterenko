@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.view.listeners
+package com.example.theweatherwithnesterenko.view.weatherlist
 
 import com.example.theweatherwithnesterenko.repository.Weather
 
