@@ -2,7 +2,9 @@ package com.example.theweatherwithnesterenko.view.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.lesson3.Lesson3
 import com.example.theweatherwithnesterenko.lesson4.Lesson4
@@ -43,11 +45,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         lesson4.was()
+        lesson4.main(this)
+
+
 
 
     }
 
-    fun Lesson4.was(){
+    fun Lesson4.was() {
         Log.d(TAG, "Был $pr")
     }
 

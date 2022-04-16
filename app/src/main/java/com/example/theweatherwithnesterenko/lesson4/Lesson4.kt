@@ -1,12 +1,18 @@
 package com.example.theweatherwithnesterenko.lesson4
 
+import android.content.Context
 import android.util.Log
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.theweatherwithnesterenko.R
+import com.example.theweatherwithnesterenko.lesson1.Person
 import com.example.theweatherwithnesterenko.lesson3.Lesson3
+import com.example.theweatherwithnesterenko.view.activities.MainActivity
 import com.example.theweatherwithnesterenko.view.activities.TAG
 
 class Lesson4 {
 
-   val pr = 777
+    val pr = 777
 
 
     lateinit var lesson3: Lesson3  // 1 способ
@@ -53,23 +59,84 @@ class Lesson4 {
     }
 
     private fun funHigh(
-        _f: (float: Float) -> Unit,
-        __f: (double: Double) -> Short,
-        _c: (char: Char) -> Boolean
+        f1: (float: Float) -> Unit,
+        f2: (double: Double) -> Short,
+        f3: (char: Char) -> Boolean
     ) {
-        _f(1f)
-        val short = __f(1.0)
-        val boolean = _c('@')
+        f1(1f)
+        val short = f2(1.0)
+        val boolean = f3('@')
     }
 
-    fun main(){
-        funHigh(_f, __f, _c)
+    fun main(mainActivity: MainActivity) {
+        Log.d(TAG, "до опытов: $person")
+
+        val newPersonLet = person?.let {
+            it.age = 10
+            it.name = "LetName"
+            1
+        }
+        Log.d(TAG, "после let: $person")
+
+        val newPersonRun = person?.run {
+            age = 99
+            name = "RunName"
+            2
+        }
+        Log.d(TAG, "после run: $person")
+
+        val newPersonAlso = person?.also {
+            it.age = 55
+            it.name = "AlsoName"
+            3
+        }
+        Log.d(TAG, "после also: $person")
+
+        val newPersonApply = person?.apply {
+            age = 66
+            name = "ApplyName"
+            4
+        }
+        Log.d(TAG, "после apply: $person")
+
+        Log.d(TAG, "результат $newPersonLet")
+        Log.d(TAG, "результат $newPersonRun")
+        Log.d(TAG, "результат $newPersonAlso")
+        Log.d(TAG, "результат $newPersonApply")
+
+
+        with(person!!){
+            age = 66
+            name = "ApplyName"
+        }
+
+        /** Способ 1 (неправильный) **/
+        val textView = TextView(mainActivity)
+        textView.text = "oeirjg"
+        //code
+        //code
+        //code
+        //code
+        //code
+        textView.textSize = 30f
+        mainActivity.findViewById<ConstraintLayout>(R.id.layout).addView(textView)
+
+        /** Способ 2 (правильный) **/
+
+        mainActivity.findViewById<ConstraintLayout>(R.id.layout)
+            .addView(TextView(mainActivity).apply {
+                text = "oeirjg"
+                textSize = 30f
+            })
+
     }
 
 
-
-    fun was(){
+    private val person: Person? = Person()
+    fun was() {
         Log.d(TAG, "Не был $pr")
+
+
     }
 
 
