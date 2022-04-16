@@ -105,7 +105,7 @@ class Lesson4 {
         Log.d(TAG, "результат $newPersonApply")
 
 
-        with(person!!){
+        with(person!!) {
             age = 66
             name = "ApplyName"
         }
