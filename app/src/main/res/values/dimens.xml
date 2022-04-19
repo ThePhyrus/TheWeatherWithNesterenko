@@ -4,5 +4,17 @@
     <dimen name="margin_15_dp">15dp</dimen>
     <dimen name="temperature_value_text_size">40sp</dimen>
     <dimen name="feels_like_text_size">30sp</dimen>
+    <dimen name="floating_action_button_margin">24dp</dimen>
+    <dimen name="city_name_main_list_ts">25sp</dimen>
+    <dimen name="thin_line_height">1dp</dimen>
+    <dimen name="fragment_weather_list_recycler_item_margin">16dp</dimen>
+    <dimen name="city_coordinates_margin_top">5dp</dimen>
+    <dimen name="fragment_details_city_name_text">35sp</dimen>
+    <dimen name="max_im_size_float_btn">56dp</dimen>
+
+    <dimen name="margin_mini">2dp</dimen>
+    <dimen name="margin_half">4dp</dimen>
+    <dimen name="margin">8dp</dimen>
+    <dimen name="margin_double">16dp</dimen>
 
 </resources>
