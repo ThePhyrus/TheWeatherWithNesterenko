@@ -44,5 +44,7 @@
 
     <!--    Text for buttons-->
     <string name="refresh_information">Refresh information</string>
+    <string name="search">search</string>
+    <string name="default_url">https://geekbrains.ru/</string>
 
 </resources>
