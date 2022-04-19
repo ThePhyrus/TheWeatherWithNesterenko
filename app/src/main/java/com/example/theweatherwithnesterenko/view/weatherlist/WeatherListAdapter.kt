@@ -15,7 +15,7 @@ class WeatherListAdapter(
 
     fun setData(dataNew: List<Weather>) {
         this.data = dataNew
-        notifyDataSetChanged() //DiffUtil кому интересно
+        notifyDataSetChanged() // todo DiffUtil изучить!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityHolder {
@@ -43,5 +43,4 @@ class WeatherListAdapter(
             }
         }
     }
-
 }

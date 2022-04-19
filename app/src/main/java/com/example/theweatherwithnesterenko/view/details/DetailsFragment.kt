@@ -16,10 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
-    private val binding: FragmentDetailsBinding
-        get() {
-            return _binding!!
-        }
+    private val binding: FragmentDetailsBinding get() = _binding!!
 
     override fun onDestroy() {
         super.onDestroy()
@@ -36,23 +33,24 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather: Weather =
-            requireArguments().getParcelable<Weather>(KEY_BUNDLE_WEATHER)!!
-        doRenderDataAtDetailsFragment(weather)
+        arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
+            renderData(it)
+        }
+
     }
 
     @SuppressLint("SetTextI18n") //FIXME это не я, это студия почти сама. Так можно вообще?
-    private fun doRenderDataAtDetailsFragment(weatherDataForRenderingAtDetailsFragment: Weather) =
-        with(binding) {
-            loadingLayout.visibility = View.GONE
-            cityName.text = weatherDataForRenderingAtDetailsFragment.city.name.toString()
-            temperatureValue.text = weatherDataForRenderingAtDetailsFragment.temperature.toString()
-            feelsLikeValue.text = weatherDataForRenderingAtDetailsFragment.feelsLike.toString()
-            cityCoordinates.text =
-                "${weatherDataForRenderingAtDetailsFragment.city.lat} " +
-                        "${weatherDataForRenderingAtDetailsFragment.city.lon}"
-            Snackbar.make(mainView, R.string.data_rendering_success, Snackbar.LENGTH_LONG).show()
-        }
+    private fun renderData(weather: Weather) = with(binding) {
+        loadingLayout.visibility = View.GONE
+        cityName.text = weather.city.name.toString()
+        temperatureValue.text = weather.temperature.toString()
+        feelsLikeValue.text = weather.feelsLike.toString()
+        cityCoordinates.text =
+            "${weather.city.lat} " +
+                    "${weather.city.lon}"
+        Snackbar.make(mainView, R.string.data_rendering_success, Snackbar.LENGTH_SHORT)
+            .show()
+    }
 
     companion object {
         @JvmStatic

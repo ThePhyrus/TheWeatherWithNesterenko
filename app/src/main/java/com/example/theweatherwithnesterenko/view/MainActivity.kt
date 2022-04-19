@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.view.activities
+package com.example.theweatherwithnesterenko.view
 
 
 
@@ -18,6 +18,7 @@ import com.example.theweatherwithnesterenko.lesson4.BossDelegate
 import com.example.theweatherwithnesterenko.lesson4.Lesson4
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +27,19 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
+
+    }
+
+
+
+
+
+
+
+    //todo после прочтения сжечь!
+
+    // Ниже идёт всякая учебная штуковина, которая не должна влиять на работу приложения.
+    private fun doLesson4Demo() {
         /*val t = 1
         val any:Any = t
         val object1:Objects = t
@@ -70,9 +84,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun Lesson4.was() {
+    private fun Lesson4.was() { // функция-расширение из 4-го урока
         Log.d("@@@", "Был ${this.pr}")
     }
-
-
-}
+}// END of MainActivity

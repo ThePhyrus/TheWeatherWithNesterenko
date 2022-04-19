@@ -4,10 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    android:layout_height="match_parent">
-    <!--TODO HW   android:clickable="true"-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainView"
         android:layout_width="match_parent"
@@ -79,7 +78,6 @@
             app:layout_constraintTop_toBottomOf="@+id/feelsLikeLabel"
             tools:text="-23" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <FrameLayout
         android:id="@+id/loadingLayout"

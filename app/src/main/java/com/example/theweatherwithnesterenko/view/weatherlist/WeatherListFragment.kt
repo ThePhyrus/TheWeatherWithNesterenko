@@ -1,7 +1,6 @@
 package com.example.theweatherwithnesterenko.view.weatherlist
 
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,7 +18,7 @@ import com.example.theweatherwithnesterenko.viewmodel.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class WeatherListFragment : Fragment(),OnItemListClickListener {
+class WeatherListFragment : Fragment(), OnItemListClickListener {
 
 
     private var _binding: FragmentWeatherListBinding? = null
@@ -44,58 +43,73 @@ class WeatherListFragment : Fragment(),OnItemListClickListener {
     }
 
     var isRussian = true
-    private val viewModel:MainViewModel by lazy {
+    private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.also {// TODO HW вынесты в initRecycler()
-            it.adapter = adapter
-            it.layoutManager = LinearLayoutManager(requireContext())
-        }
-        val observer = {data: AppState -> renderData(data)}
+        initRecyclerView()
+        val observer = { data: AppState -> renderData(data) }
         viewModel.getData().observe(viewLifecycleOwner, observer)
-        setupFab()
+        doSetupFAB()
         viewModel.getWeatherRussia()
     }
 
-    private fun setupFab() {
-        binding.floatingActionButton.setOnClickListener {
-            isRussian = !isRussian
-            if (isRussian) {
-                viewModel.getWeatherRussia()
-                binding.floatingActionButton.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_russia
-                    )
-                )
-            } else {
-                binding.floatingActionButton.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_earth
-                    )
-                )
-                viewModel.getWeatherWorld()
-            }
+    private fun initRecyclerView() {
+        binding.recyclerView.also {
+            it.adapter = adapter
+            it.layoutManager = LinearLayoutManager(requireContext())
         }
     }
+
+    private fun doSetupFAB() =
+        with(binding) { //FIXME применение with тут не лишнее? Чую, что лишнее, а объяснить не могу толком.
+            floatingActionButton.setOnClickListener {
+                isRussian = !isRussian
+                if (isRussian) {
+                    viewModel.getWeatherRussia()
+                    floatingActionButton.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_russia
+                        )
+                    )
+                } else {
+                    floatingActionButton.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_earth
+                        )
+                    )
+                    viewModel.getWeatherWorld()
+                }
+            }
+        }
 
     private fun renderData(data: AppState) {
         when (data) {
             is AppState.Error -> {
-                binding.loadingLayout.visibility = View.GONE
-                Snackbar.make(binding.root, "Не получилось ${data.error}", Snackbar.LENGTH_LONG)
+                with(binding) {
+                    loadingLayout.visibility = View.GONE
+                }
+                Snackbar.make(
+                    binding.root,
+                    "${R.string.matrix_has_you}" + "${data.error}",
+                    Snackbar.LENGTH_LONG
+                )
                     .show()
             }
             is AppState.Loading -> {
-                binding.loadingLayout.visibility = View.VISIBLE
+                with(binding) {
+                    loadingLayout.visibility = View.VISIBLE
+                }
             }
             is AppState.Success -> {
-                binding.loadingLayout.visibility = View.GONE
+                with(binding) {
+                    loadingLayout.visibility = View.GONE
+                }
                 adapter.setData(data.weatherList)
             }
         }

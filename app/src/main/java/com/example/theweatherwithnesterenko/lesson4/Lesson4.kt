@@ -6,7 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.lesson1.Person
 import com.example.theweatherwithnesterenko.lesson3.Lesson3
-import com.example.theweatherwithnesterenko.view.activities.MainActivity
+import com.example.theweatherwithnesterenko.view.MainActivity
 
 class Lesson4 {
 
