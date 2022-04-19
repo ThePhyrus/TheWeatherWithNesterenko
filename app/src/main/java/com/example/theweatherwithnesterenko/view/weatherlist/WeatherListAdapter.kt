@@ -15,7 +15,8 @@ class WeatherListAdapter(
 
     fun setData(dataNew: List<Weather>) {
         this.data = dataNew
-        notifyDataSetChanged() // todo DiffUtil изучить!
+        notifyItemRangeChanged(0, 10, Weather()) // todo DiffUtil изучить!
+        //FIXME изменил метод согласно Вашего комментария по 3 ДЗ. DiffUtil ещё не изучал, просто сделал на авось. Когда догоню группу - будет время на доп. изучение.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityHolder {
