@@ -12,7 +12,6 @@
     <dimen name="fragment_details_city_name_text">35sp</dimen>
     <dimen name="max_im_size_float_btn">56dp</dimen>
 
-
     <dimen name="margin_mini">2dp</dimen>
     <dimen name="margin_half">4dp</dimen>
     <dimen name="margin">8dp</dimen>
