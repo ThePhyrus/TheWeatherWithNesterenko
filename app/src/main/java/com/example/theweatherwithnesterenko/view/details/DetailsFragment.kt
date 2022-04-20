@@ -8,14 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
-import com.example.theweatherwithnesterenko.repository.OnServerResponse
-import com.example.theweatherwithnesterenko.repository.Weather
-import com.example.theweatherwithnesterenko.repository.WeatherDTO
-import com.example.theweatherwithnesterenko.repository.WeatherLoader
+import com.example.theweatherwithnesterenko.repository.*
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER
+import com.example.theweatherwithnesterenko.viewmodel.ResponseState
 import com.google.android.material.snackbar.Snackbar
 
-class DetailsFragment : Fragment(), OnServerResponse {
+class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding: FragmentDetailsBinding get() = _binding!!
@@ -34,7 +32,7 @@ class DetailsFragment : Fragment(), OnServerResponse {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
             currentCityName = it.city.name
-            WeatherLoader(this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
+            WeatherLoader(this@DetailsFragment, this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
         }
     }
 
@@ -67,5 +65,9 @@ class DetailsFragment : Fragment(), OnServerResponse {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onError(error: ResponseState) {
+        //todo выводим ошибку
     }
 }
