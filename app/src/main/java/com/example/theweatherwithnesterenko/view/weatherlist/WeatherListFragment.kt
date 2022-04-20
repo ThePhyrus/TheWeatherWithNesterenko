@@ -20,12 +20,8 @@ import com.google.android.material.snackbar.Snackbar
 
 class WeatherListFragment : Fragment(), OnItemListClickListener {
 
-
     private var _binding: FragmentWeatherListBinding? = null
-    private val binding: FragmentWeatherListBinding
-        get() {
-            return _binding!!
-        }
+    private val binding: FragmentWeatherListBinding get() = _binding!!
 
     private val adapter = WeatherListAdapter(this)
 
@@ -46,7 +42,6 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

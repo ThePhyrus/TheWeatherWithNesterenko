@@ -1,45 +1,50 @@
 package com.example.theweatherwithnesterenko.lesson4
 
+import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.lesson1.Person
 import com.example.theweatherwithnesterenko.lesson3.Lesson3
+import com.example.theweatherwithnesterenko.lesson3.someViewGroup
 import com.example.theweatherwithnesterenko.view.MainActivity
 
 class Lesson4 {
 
-    val pr = 777
+    private val pr = 777
 
 
     lateinit var lesson3: Lesson3  // 1 способ
-    fun some1() { //первый способ
+    private fun some1() { //первый способ
         lesson3.usual1("что-то произошло 1 способ")
     }
 
     var f = fun(string: String) {}
-    fun some2() { // 2 способ
+    private fun some2() { // 2 способ
         f("что-то произошло 2 способ")
     }
 
 
     lateinit var speakable: Speakable
 
-    fun some3() {  // 3.1 способ
+    private fun some3() {  // 3.1 способ
         speakable.f("что-то произошло 3.1 способ", 1)
     }
 
-    fun some4() {  // 3.2 способ
+    private fun some4() {  // 3.2 способ
         speakable.f("что-то произошло 3.2 способ", 1)
     }
 
 
-    fun some5() {  // 4.1 способ
+    private fun some5() {  // 4.1 способ
         speakable.f("что-то произошло 4.1 способ", 1)
     }
 
-    fun some6(_speakable: Speakable) {  // 4.2 способ
+    private fun some6(_speakable: Speakable) {  // 4.2 способ
         _speakable.f("что-то произошло 4.2 способ", 1)
     }
 
@@ -137,5 +142,53 @@ class Lesson4 {
 
     }
 
+    private fun doLesson4Demo() {
+        /*val t = 1
+        val any:Any = t
+        val object1:Objects = t
+        val any1:Any = object1
+        val object2:Objects = any*/
+//
+//        val button = Button(this)
+//        val view1: View = LinearLayout(this)
+//        val view2: View = TextView(this)
+//        (view2 as TextView).text = ""
+//        someViewGroup((view1 as LinearLayout))
+
+
+//        val looperNotNullable: Looper = getMainLooper()
+//        val looperNullable: Looper? = getMainLooper()
+
+        val lesson3 = Lesson3()
+        val lesson4 = Lesson4()
+        with(lesson4) {
+            this.lesson3 = lesson3
+            some1()//1 способ
+            f = lesson3.f//2 способ
+            some2()
+            speakable = lesson3 //3.1 способ
+            some3()
+            speakable = lesson3.callback //3.2 способ
+            some4()
+            speakable = lesson3.callbackLambda1 //4.1 способ
+            some5()
+            //some6(lesson3.callbackLambda2)
+            some6 { string: String, i: Int ->
+                Log.d("@@@", " Сообщение $string")
+                1.0
+            }
+            was()
+            //main(this@MainActivity)
+        }
+
+        val worker = BaseImpl()
+        BossDelegate(worker, worker).run {
+            manipulate()
+        }
+    }
+
+    private fun Lesson4.was() { // функция-расширение из 4-го урока
+        Log.d("@@@", "Был ${this.pr}")
+    }
 
 }

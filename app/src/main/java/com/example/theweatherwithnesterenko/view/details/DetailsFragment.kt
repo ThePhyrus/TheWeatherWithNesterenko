@@ -32,7 +32,13 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
             currentCityName = it.city.name
-            WeatherLoader(this@DetailsFragment, this@DetailsFragment).loadWeather(it.city.lat, it.city.lon)
+            WeatherLoader(
+                this@DetailsFragment,
+                this@DetailsFragment
+            ).loadWeather(
+                it.city.lat,
+                it.city.lon
+            )
         }
     }
 
