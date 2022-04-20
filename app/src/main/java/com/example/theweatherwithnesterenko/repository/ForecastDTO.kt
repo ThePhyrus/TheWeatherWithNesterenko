@@ -1,6 +1,5 @@
 package com.example.theweatherwithnesterenko.repository
 
-
 import com.google.gson.annotations.SerializedName
 
 data class ForecastDTO(
@@ -13,7 +12,7 @@ data class ForecastDTO(
     @SerializedName("moon_text")
     val moonText: String,
     @SerializedName("parts")
-    val parts: List<PartDTO>,
+    val partDTOS: List<PartDTO>,
     @SerializedName("sunrise")
     val sunrise: String,
     @SerializedName("sunset")
