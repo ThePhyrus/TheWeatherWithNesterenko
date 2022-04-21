@@ -74,6 +74,6 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
     }
 
     override fun onError(error: ResponseState) {
-        //todo выводим ошибку
+        //FIXME не разобрался с этим способом вывода ошибки
     }
 }
