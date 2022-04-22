@@ -36,7 +36,8 @@ class ThreadFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val theThread = TheThread() // здесть создаётся "вечный поток"
-        theThread.start()
+        theThread.start() // если не стартовать поток, то будет
+        // UninitializedPropertyAccessException: lateinit property theHandler has not been initialized
 
 
         with(binding) {
@@ -80,7 +81,7 @@ class ThreadFragment : Fragment() {
     }
 
     class TheThread : Thread() { // "вечный поток"
-        lateinit var theHandler: Handler
+        lateinit var theHandler: Handler //FIXME оставить lateinit или theThread.theHandler?????.post (как на уроке было). Как лучше?
         override fun run() {
             Looper.prepare()
             theHandler = Handler(Looper.myLooper()!!)
