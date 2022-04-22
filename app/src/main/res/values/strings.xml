@@ -52,4 +52,8 @@
     <string name="it_was_working_for">It was working for</string>
     <string name="sec">sec.</string>
 
+    <!--    Text for activity & service communication-->
+    <string name="hallo_from_service">Hallo, Service! I am Main Activity. </string>
+    <string name="hallo_from_activity">Hallo, Activity! I am Main Service. </string>
+
 </resources>
