@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.repository
+package com.example.theweatherwithnesterenko.repository.dto
 
 
 import android.os.Parcelable

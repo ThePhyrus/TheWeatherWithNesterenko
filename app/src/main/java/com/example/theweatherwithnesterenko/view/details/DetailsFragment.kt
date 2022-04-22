@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +14,11 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
 import com.example.theweatherwithnesterenko.repository.*
+import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
 import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.viewmodel.ResponseState
 import com.google.android.material.snackbar.Snackbar
+
 
 class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
 

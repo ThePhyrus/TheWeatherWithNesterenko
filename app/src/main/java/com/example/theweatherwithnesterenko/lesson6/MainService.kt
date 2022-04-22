@@ -10,7 +10,7 @@ class MainService(val name: String = "") : IntentService(name) {
 
     override fun onHandleIntent(intent: Intent?) {
         Log.d(TAG, "MainService has been created")
-        sleep(TIME_THREE_SECONDS) // Сервис ждёт новых друзей
+        sleep(TIME_THREE_SECONDS)
         intent?.let {
             val extra =
                 it.getStringExtra(KEY_BUNDLE_ACTIVITY_MESSAGE) // сервис получает привет из активити

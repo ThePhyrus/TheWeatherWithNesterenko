@@ -2,12 +2,10 @@ package com.example.theweatherwithnesterenko.view.details
 
 import android.app.IntentService
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.theweatherwithnesterenko.BuildConfig
-import com.example.theweatherwithnesterenko.repository.WeatherDTO
+import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
 import com.example.theweatherwithnesterenko.utils.*
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
@@ -15,6 +13,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+
 
 class DetailsService(val name: String = "") : IntentService(name) {
     override fun onHandleIntent(intent: Intent?) {
@@ -31,7 +30,7 @@ class DetailsService(val name: String = "") : IntentService(name) {
                     addRequestProperty(X_YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
                 }
            try {
-               val headers = urlConnection.headerFields
+               val headers = urlConnection.headerFields //FIXME забыл, зачем это нужно((
                val responseCode = urlConnection.responseCode
                val responseMessage = urlConnection.responseMessage
                val serverside = 500..100000 //FIXME хде предел?
@@ -49,24 +48,29 @@ class DetailsService(val name: String = "") : IntentService(name) {
                        LocalBroadcastManager.getInstance(this).sendBroadcast(message)
                    }
                    in clientside -> {
+                       //FIXME не могу разобраться с callback
                        Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
                    }
                    in serverside -> {
+                       //FIXME не могу разобраться с callback
                        Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
                    }
                    in unknownSide -> {
+                       //FIXME не могу разобраться с callback
                        Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
                    }
                    else -> {
+                       //FIXME не могу разобраться с callback
+                       //FIXME почему блок when отказался работать без блока else? В WeatherLoader работает без него.
                        Log.d(TAG, "onHandleIntent: Что-то не так с when??")
                    }
                }
            } catch (e: JsonSyntaxException){
                // ловим ошибки любезно предоставленные автогенерацией Джейсонов
+               Log.d(TAG, "onHandleIntent: $e")
            } finally {
                urlConnection.disconnect()
            }
-
         }
         Log.d(TAG, "DetailsService finished")
     }

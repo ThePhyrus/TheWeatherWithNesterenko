@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.theweatherwithnesterenko.databinding.FragmentThreadsBinding
 import java.lang.Thread.sleep
 
+
 class ThreadFragment : Fragment() {
 
     private var _binding: FragmentThreadsBinding? = null
@@ -34,19 +35,16 @@ class ThreadFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val theThread = TheThread() // здесть создаётся "вечный поток"
         theThread.start() // если не стартовать поток, то будет
         // UninitializedPropertyAccessException: lateinit property theHandler has not been initialized
-
-
         with(binding) {
             val time = editText1.text.toString().toLong()
             var counter = 0
             button1.setOnClickListener {
                 Thread { // задачи в этом потоке буполняются параллельно (сразу все)
                     sleep(time * 1000L)
-                    /*requireActivity().runOnUiThread { // современный способ
+                    /*requireActivity().runOnUiThread { // современный способ без лишних вопросов
                          // textView1.text = "${R.string.it_was_working_for} $time ${R.string.sec}"
                          //FIXME что-то не так со строчкой выше (отображает цифры вместо текста)
                          textView1.text = "It was working for $time sec."
@@ -67,13 +65,12 @@ class ThreadFragment : Fragment() {
                         textView2.text = "It was working for $time sec."
                         createTextView("${Thread.currentThread().name} ${++counter}")
                     }
-
                 }
             }
         }
     }
 
-    private fun createTextView(name:String) {
+    private fun createTextView(name: String) {
         binding.mainContainer.addView(TextView(requireContext()).apply {
             text = name
             textSize = 18f

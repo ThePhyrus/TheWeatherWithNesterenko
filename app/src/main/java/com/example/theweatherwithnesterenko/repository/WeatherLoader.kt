@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.example.theweatherwithnesterenko.BuildConfig
+import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
 import com.example.theweatherwithnesterenko.utils.*
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
@@ -11,6 +12,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+
 
 class WeatherLoader(
     private val onServerResponseListener: OnServerResponse,
@@ -47,22 +49,24 @@ class WeatherLoader(
                         Log.d(TAG, "loadWeather: $responseMessage $responseCode")
                     }
                     in clientside -> {
-                        //todo обработать ошибку, которая случается на стороне клиента
+                        //FIXME не могу разобраться с callback
                         Log.d(TAG, "loadWeather: $responseMessage $responseCode")
                         // не могу пробросить callback  во фрагмент, чтобы показать SnackBar
                     }
                     in serverside -> {
-                        //todo обработать ошибку, которая случается на стороне сервера
+                        ///FIXME не могу разобраться с callback
                         Log.d(TAG, "loadWeather: $responseMessage $responseCode")
                         //не могу пробросить callback  во фрагмент, чтобы показать SnackBar
                     }
                     in unknownSide -> {
-                        //todo разобраться с кодами ответов с сервера
+                        //FIXME не могу разобраться с callback
                         Log.d(TAG, "loadWeather: $responseMessage $responseCode")
                     }
                 }
             } catch (e: JsonSyntaxException) {
                 // ловим ошибки любезно предоставленные автогенерацией Джейсонов
+                //FIXME не могу разобраться с callback
+                Log.d(TAG, "loadWeather: $e")
             } finally {
                 urlConnection.disconnect()
             }

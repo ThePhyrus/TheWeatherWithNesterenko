@@ -18,11 +18,11 @@ import com.example.theweatherwithnesterenko.viewmodel.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
+
 class WeatherListFragment : Fragment(), OnItemListClickListener {
 
     private var _binding: FragmentWeatherListBinding? = null
     private val binding: FragmentWeatherListBinding get() = _binding!!
-
     private val adapter = WeatherListAdapter(this)
 
     override fun onDestroy() {

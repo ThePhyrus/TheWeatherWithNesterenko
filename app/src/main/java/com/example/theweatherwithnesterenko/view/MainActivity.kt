@@ -15,7 +15,7 @@ import com.example.theweatherwithnesterenko.utils.KEY_WAVE_THE_ACTION
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() { //todo разобрать бардак в этом классе
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,12 +25,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         startService(Intent(this, MainService::class.java).apply {
-   //         putExtra(KEY_1, "${R.string.hallo_from_activity}") // передаём строку в сервис //FIXME передаётся int
+            //         putExtra(KEY_1, "${R.string.hallo_from_activity}") // передаём строку в сервис //FIXME передаётся int
             putExtra(KEY_BUNDLE_ACTIVITY_MESSAGE, "Привет, Сервис! Я Астивити.")
         })
 
         val theReceiver = TheBroadcastReceiver() // создаётся ресивер (приёмник)
-        registerReceiver(theReceiver, IntentFilter(KEY_WAVE_THE_ACTION)) // регистрация ресивера на голбальной волне
+        registerReceiver(
+            theReceiver,
+            IntentFilter(KEY_WAVE_THE_ACTION)
+        ) // регистрация ресивера на голбальной волне
 //        LocalBroadcastManager.getInstance(this).registerReceiver(theReceiver, IntentFilter(KEY_WAVE_THE_ACTION)) // регистрация локально
     }
 
@@ -40,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.action_thread -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, ThreadFragment.newInstance()).commit()

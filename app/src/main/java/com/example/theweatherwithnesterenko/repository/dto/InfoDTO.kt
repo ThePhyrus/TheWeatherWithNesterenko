@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.repository
+package com.example.theweatherwithnesterenko.repository.dto
 
 
 import android.os.Parcelable
@@ -13,4 +13,4 @@ data class InfoDTO(
     val lon: Double,
     @SerializedName("url")
     val url: String
-) :Parcelable
+) : Parcelable
