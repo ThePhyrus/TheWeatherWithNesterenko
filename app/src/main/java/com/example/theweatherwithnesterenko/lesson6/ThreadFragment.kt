@@ -5,22 +5,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.theweatherwithnesterenko.R
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.theweatherwithnesterenko.databinding.FragmentThreadsBinding
-import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListBinding
-import com.example.theweatherwithnesterenko.repository.Weather
-import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER
-import com.example.theweatherwithnesterenko.view.details.DetailsFragment
-import com.example.theweatherwithnesterenko.viewmodel.AppState
-import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
-import com.google.android.material.snackbar.Snackbar
 import java.lang.Thread.sleep
 
 class ThreadFragment : Fragment() {
@@ -44,25 +34,53 @@ class ThreadFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val theThread = TheThread() // здесть создаётся "вечный поток"
+        theThread.start()
+
+
         with(binding) {
-            button.setOnClickListener {
-                Thread {
-                    val time = editText.text.toString().toLong()
+            val time = editText1.text.toString().toLong()
+            var counter = 0
+            button1.setOnClickListener {
+                Thread { // задачи в этом потоке буполняются параллельно (сразу все)
                     sleep(time * 1000L)
-                    requireActivity().runOnUiThread {
-                        // textView.text = "${R.string.it_was_working_for} $time ${R.string.sec}"
+                    /*requireActivity().runOnUiThread { // современный способ
+                         // textView1.text = "${R.string.it_was_working_for} $time ${R.string.sec}"
+                         //FIXME что-то не так со строчкой выше (отображает цифры вместо текста)
+                         textView1.text = "It was working for $time sec."
+                    }*/
+                    Handler(Looper.getMainLooper()).post { // для понимания процессов
+                        textView1.text = "It was working for $time sec."
+                        createTextView("${Thread.currentThread().name} ${++counter}")
+                    }
+                }.start()
+            }
+            //"ВЕЧНЫЙ ПОТОК"
+            button2.setOnClickListener {
+                theThread.theHandler.post { // в этом потоке задачи выполняться будут по очереди
+                    sleep(time * 1000L)
+                    Handler(Looper.getMainLooper()).post {
+                        // textView2.text = "${R.string.it_was_working_for} $time ${R.string.sec}"
                         //FIXME что-то не так со строчкой выше (отображает цифры вместо текста)
-                        textView.text = "It was working for $time sec."
+                        textView2.text = "It was working for $time sec."
+                        createTextView("${Thread.currentThread().name} ${++counter}")
                     }
 
-                }.start()
+                }
             }
         }
     }
 
-    class TheThread:Thread(){ // "вечный поток"
-        lateinit var theHandler:Handler
+    private fun createTextView(name:String) {
+        binding.mainContainer.addView(TextView(requireContext()).apply {
+            text = name
+            textSize = 18f
+        })
+    }
+
+    class TheThread : Thread() { // "вечный поток"
+        lateinit var theHandler: Handler
         override fun run() {
             Looper.prepare()
             theHandler = Handler(Looper.myLooper()!!)
@@ -75,5 +93,9 @@ class ThreadFragment : Fragment() {
         fun newInstance() = ThreadFragment()
     }
 
-
 }
+
+
+
+
+
