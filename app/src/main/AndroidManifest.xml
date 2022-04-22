@@ -23,6 +23,8 @@
         </activity>
 
         <service android:name=".lesson6.MainService"/>
+        <service android:name=".view.details.DetailsService"/>
+
         <receiver android:name=".lesson6.TheBroadcastReceiver"
             android:exported="true">
             <intent-filter>

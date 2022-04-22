@@ -1,15 +1,21 @@
 package com.example.theweatherwithnesterenko.view.details
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
 import com.example.theweatherwithnesterenko.repository.*
-import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER
+import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.viewmodel.ResponseState
 import com.google.android.material.snackbar.Snackbar
 
@@ -26,19 +32,39 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
         return binding.root
     }
 
+    private val receiver = object : BroadcastReceiver() { // создаётся BR без создания класса (круто!)
+        override fun onReceive(context: Context?, intent: Intent?) {
+            intent?.let { intent
+                intent.getParcelableExtra<WeatherDTO>(KEY_BUNDLE_SERVICE_BROADCAST_WEATHER)?.let {
+                    onResponse(it)
+                }
+            }
+        }
+    }
+
     lateinit var currentCityName: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER)?.let {
+
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(receiver,
+            IntentFilter(KEY_WAVE_SERVICE_BROADCAST)
+        )
+        arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS)?.let {
             currentCityName = it.city.name
-            WeatherLoader(
+                /*WeatherLoader(
                 this@DetailsFragment,
                 this@DetailsFragment
             ).loadWeather(
                 it.city.lat,
                 it.city.lon
-            )
+            )*/ // на 6-ом занятии этот подход удалили. Чем он плох, я понять не успел, но выглядит он странновато.
+            //Теперь понял. Запрос на сервер будет выполнять DetailsService.
+
+            requireActivity().startService(Intent(requireContext(),DetailsService::class.java).apply {
+                putExtra(KEY_BUNDLE_LAT, it.city.lat)
+                putExtra(KEY_BUNDLE_LON, it.city.lon)
+            })
         }
     }
 
@@ -71,6 +97,7 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(receiver)
     }
 
     override fun onError(error: ResponseState) {

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListBinding
 import com.example.theweatherwithnesterenko.repository.Weather
-import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER
+import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
 import com.example.theweatherwithnesterenko.view.details.DetailsFragment
 import com.example.theweatherwithnesterenko.viewmodel.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
@@ -119,7 +119,7 @@ class WeatherListFragment : Fragment(), OnItemListClickListener {
         requireActivity().supportFragmentManager.beginTransaction().add(
             R.id.container,
             DetailsFragment.newInstance(Bundle().apply {
-                putParcelable(KEY_BUNDLE_WEATHER, weather)
+                putParcelable(KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS, weather)
             })
         ).addToBackStack("").commit()
     }

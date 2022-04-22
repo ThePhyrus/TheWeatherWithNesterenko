@@ -7,6 +7,7 @@ import com.example.theweatherwithnesterenko.utils.*
 import java.lang.Thread.sleep
 
 class MainService(val name: String = "") : IntentService(name) {
+
     override fun onHandleIntent(intent: Intent?) {
         Log.d(TAG, "MainService has been created")
         sleep(TIME_THREE_SECONDS) // Сервис ждёт новых друзей
@@ -23,8 +24,6 @@ class MainService(val name: String = "") : IntentService(name) {
             // отправлю этот конверт
             sendBroadcast(message) // на глобальной волне
 //            LocalBroadcastManager.getInstance(this).sendBroadcast(message) // локально
-
         }
-
     }
 }
