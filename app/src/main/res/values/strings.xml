@@ -46,5 +46,10 @@
     <string name="refresh_information">Refresh information</string>
     <string name="search">search</string>
     <string name="default_url">https://geekbrains.ru/</string>
+    <string name="threads">Threads</string>
+
+    <!--    Text for something-->
+    <string name="it_was_working_for">It was working for</string>
+    <string name="sec">sec.</string>
 
 </resources>

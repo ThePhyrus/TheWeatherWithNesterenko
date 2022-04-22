@@ -41,9 +41,11 @@ class WeatherLoader(
                 in responseOk -> {
                     val buffer = BufferedReader(InputStreamReader(urlConnection.inputStream))
                     val weatherDTO: WeatherDTO = Gson().fromJson(buffer, WeatherDTO::class.java)
+
                     Handler(Looper.getMainLooper()).post {
                         onServerResponseListener.onResponse(weatherDTO)
                     }
+
                     Log.d(TAG, "loadWeather: $responseMessage $responseCode")
                 }
                 in clientside -> {
