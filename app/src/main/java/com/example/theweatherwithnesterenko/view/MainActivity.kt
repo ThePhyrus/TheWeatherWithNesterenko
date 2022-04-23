@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         val theReceiver = TheBroadcastReceiver() // создаётся ресивер (приёмник)
         registerReceiver(theReceiver, IntentFilter(KEY_WAVE_THE_ACTION)) // регистрация ресивера на голбальной волне
         registerReceiver(theReceiver, IntentFilter("android.intent.action.AIRPLANE_MODE")) // регистрация ресивера на голбальной волне
-//        LocalBroadcastManager.getInstance(this).registerReceiver(theReceiver, IntentFilter(KEY_WAVE_THE_ACTION)) // регистрация локально
+//        LocalBroadcastManager.getInstance(this).registerReceiver(theReceiver, IntentFilter(KEY_WAVE_THE_ACTION)) // регистрация локальная
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
