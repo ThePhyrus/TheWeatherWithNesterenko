@@ -8,7 +8,7 @@ const val KEY_WAVE_SERVICE_BROADCAST: String = "theaction_way"
 const val X_YANDEX_API_KEY: String = "X-Yandex-API-Key"
 const val YANDEX_DOMAIN: String = "https://api.weather.yandex.ru"
 const val MASTER_DOMAIN: String = "http://212.86.114.27/"
-const val YANDEX_PATH: String = "v2/informers?"
+const val YANDEX_ENDPOINT: String = "v2/informers?"
 const val KEY_BUNDLE_LAT: String = "lat1"
 const val KEY_BUNDLE_LON: String = "lon1"
 

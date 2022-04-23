@@ -21,7 +21,7 @@ class WeatherLoader(
 
     fun loadWeather(lat: Double, lon: Double) {
 //        val urlText = "$YANDEX_DOMAIN${YANDEX_PATH}lat=$lat&lon=$lon" // original yandex domain
-        val urlText = "$MASTER_DOMAIN${YANDEX_PATH}lat=$lat&lon=$lon"
+        val urlText = "$MASTER_DOMAIN${YANDEX_ENDPOINT}lat=$lat&lon=$lon"
         val uri = URL(urlText)
         Thread { // if use original yandex domain, then connection need to be changed to https
             val urlConnection: HttpURLConnection =
