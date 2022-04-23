@@ -1,5 +1,10 @@
 package com.example.theweatherwithnesterenko.utils
 
+import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.repository.dto.FactDTO
+import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
+import com.example.theweatherwithnesterenko.repository.getDefaultCity
+
 
 const val TAG: String = "@@@"
 const val KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS: String = "weather"
@@ -9,6 +14,9 @@ const val X_YANDEX_API_KEY: String = "X-Yandex-API-Key"
 const val YANDEX_DOMAIN: String = "https://api.weather.yandex.ru"
 const val MASTER_DOMAIN: String = "http://212.86.114.27/"
 const val YANDEX_ENDPOINT: String = "v2/informers?"
+const val YANDEX_ENDPOINT2: String = "заготовочка на случай, если возьму тариф тестовый"
+const val LATITUDE = "lat"
+const val LONGITUDE = "lon"
 const val KEY_BUNDLE_LAT: String = "lat1"
 const val KEY_BUNDLE_LON: String = "lon1"
 
@@ -26,4 +34,9 @@ const val TIME_THREE_SECONDS: Long = 3000L
 
 class Utils {
 
+}
+
+fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
+    val fact: FactDTO = weatherDTO.factDTO
+    return (Weather(getDefaultCity(), fact.temperature, fact.feelsLike))
 }
