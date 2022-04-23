@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.example.theweatherwithnesterenko.BuildConfig
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
 import com.example.theweatherwithnesterenko.repository.*
@@ -18,6 +19,9 @@ import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
 import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.viewmodel.ResponseState
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import okhttp3.*
+import java.io.IOException
 
 
 class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
@@ -53,6 +57,8 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
         )
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS)?.let {
             currentCityName = it.city.name
+
+                // запрос на сервер прямо из фрагмента! УЖАС ПРОСТО!!!
                 /*WeatherLoader(
                 this@DetailsFragment,
                 this@DetailsFragment
@@ -62,15 +68,60 @@ class DetailsFragment : Fragment(), OnServerResponse, OnServerResponseListener {
             )*/ // на 6-ом занятии этот подход удалили. Чем он плох, я понять не успел, но выглядит он странновато.
             //Теперь понял. Запрос на сервер будет выполнять DetailsService.
 
-            requireActivity().startService(Intent(requireContext(),DetailsService::class.java).apply {
+
+            // закомментирован запрос погоды с сервера при помощи сервиса
+            /*requireActivity().startService(Intent(requireContext(),DetailsService::class.java).apply {
                 putExtra(KEY_BUNDLE_LAT, it.city.lat)
                 putExtra(KEY_BUNDLE_LON, it.city.lon)
-            })
+            })*/ // закомментирован запрос погоды с сервера при помощи сервиса
+
+            getWeather(it.city.lat,it.city.lon)
         }
+    }
+
+    private fun getWeather(lat:Double, lon:Double){
+        binding.loadingLayout.visibility = View.VISIBLE //renderData(LoadingState)
+
+        val client = OkHttpClient() // создал клиент
+        val requestBuilder = Request.Builder() // создал "строителя" запросов на сервер
+
+        requestBuilder.addHeader(X_YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY) // заголовок
+        requestBuilder.url("$MASTER_DOMAIN${YANDEX_ENDPOINT}lat=$lat&lon=$lon") // адрес
+
+        val request = requestBuilder.build() // создали запрос
+
+        val callback:Callback = object : Callback{ // сюда вернётся ответ
+            override fun onFailure(call: Call, e: IOException) {
+                //todo HW
+                //renderData() // сюда передавать какой-то ещё не созданный state
+                binding.loadingLayout.visibility = View.GONE // поток не тот
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    val weatherDTO: WeatherDTO = Gson().fromJson(response.body()?.string(), WeatherDTO::class.java)
+                    requireActivity().runOnUiThread {
+                        renderData(weatherDTO)
+                    }
+                }else {
+                    //todo HW
+                }
+            }
+        }
+        val call = client.newCall(request) // создали звоночек
+
+        /*Thread{
+            // work 1
+            val response = call.execute() // синхронный запрос
+            // work 2
+        }.start()*/
+
+        call.enqueue(callback) // вызвать звоночек, поместить его в очередь, ответ вернуть в callback
     }
 
     @SuppressLint("SetTextI18n")
     private fun renderData(weather: WeatherDTO) {
+
         with(binding) {
             loadingLayout.visibility = View.GONE
             cityName.text = currentCityName
