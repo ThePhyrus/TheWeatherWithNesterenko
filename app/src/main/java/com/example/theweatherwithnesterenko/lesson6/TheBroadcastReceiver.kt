@@ -10,6 +10,7 @@ import com.example.theweatherwithnesterenko.utils.TAG
 
 class TheBroadcastReceiver : BroadcastReceiver() { // TheBroadcastReceiver - это есть приёмник
     override fun onReceive(context: Context?, intent: Intent?) {
+        Log.d(TAG, "TheBroadcastReceiver onReceive: ${intent!!.action}")
         intent?.let {
             val extra = it.getStringExtra(KEY_BUNDLE_SERVICE_MESSAGE)
             Log.d(TAG, "TheBroadcastReceiver onReceive: $extra")

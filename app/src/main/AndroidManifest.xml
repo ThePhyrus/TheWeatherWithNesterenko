@@ -26,9 +26,10 @@
         <service android:name=".view.details.DetailsService"/>
 
         <receiver android:name=".lesson6.TheBroadcastReceiver"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.ACTION_AIRPLANE_MODE_CHANGED" />
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
 <!--                //FIXME как прописать константу KEY_THE_ACTION из utils в манифесте? -->
                 <action android:name="theaction" />
             </intent-filter>
