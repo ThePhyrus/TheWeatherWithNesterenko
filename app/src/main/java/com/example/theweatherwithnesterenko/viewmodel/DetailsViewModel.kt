@@ -16,7 +16,7 @@ class DetailsViewModel(
         liveData.postValue(DetailsState.Loading)
         repository.getWeatherDetails(city, object : Callback {
             override fun onResponse(weather: Weather) {
-
+                liveData.postValue(DetailsState.Success(weather))
             }
 
             override fun onFail() {

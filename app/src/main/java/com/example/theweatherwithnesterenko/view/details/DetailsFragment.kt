@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
 import com.example.theweatherwithnesterenko.repository.Weather
@@ -65,6 +66,9 @@ class DetailsFragment : Fragment() {
                     cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
                     Snackbar.make(mainView, R.string.data_rendering_success, Snackbar.LENGTH_LONG)
                         .show()
+                    Glide.with(requireContext())
+                        .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+                        .into(headerIcon)
                 }
             }
         }
