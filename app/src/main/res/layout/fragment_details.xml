@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/headerIcon"
+            android:id="@+id/headerCityIcon"
             android:layout_width="match_parent"
             android:layout_height="@dimen/header_icon_size"
             android:scaleType="fitXY"
@@ -21,6 +21,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_icon_size"
+            android:scaleType="centerInside"
+            android:layout_marginTop="@dimen/margin_double"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerCityIcon" />
 
         <TextView
             android:id="@+id/cityName"
@@ -31,7 +41,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/headerIcon"
+            app:layout_constraintTop_toBottomOf="@id/icon"
             tools:text="Москва" />
 
         <TextView

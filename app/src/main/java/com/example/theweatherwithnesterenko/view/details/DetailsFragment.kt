@@ -5,9 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.load
+import coil.request.ImageRequest
 import com.bumptech.glide.Glide
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
@@ -18,6 +23,7 @@ import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_T
 import com.example.theweatherwithnesterenko.viewmodel.DetailsState
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 
 
 class DetailsFragment : Fragment() {
@@ -68,12 +74,35 @@ class DetailsFragment : Fragment() {
                     cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
                     Snackbar.make(mainView, R.string.data_rendering_success, Snackbar.LENGTH_LONG)
                         .show()
-                    Glide.with(requireContext())
+                    /*Glide.with(requireContext())
                         .load("$FREEPNGIMG_DOMAIN$FREEPNGIMG_ENDPOINT")
-                        .into(headerIcon)
+                        .into(headerCityIcon)*/
+
+                    /*Picasso.get()?.load("$FREEPNGIMG_DOMAIN$FREEPNGIMG_ENDPOINT")
+                        ?.into(headerCityIcon)*/
+
+                    headerCityIcon.load("$FREEPNGIMG_DOMAIN$FREEPNGIMG_ENDPOINT")
+
+                    icon.loadSvg("https://yastatic.net/weather/i/icons/blueye/color/svg/${weather.icon}.svg")
+
                 }
             }
         }
+    }
+
+    fun ImageView.loadSvg(url: String) {
+        val imageLoader = ImageLoader.Builder(this.context)
+            .componentRegistry { add(SvgDecoder(this@loadSvg.context)) }
+            .build()
+
+        val request = ImageRequest.Builder(this.context)
+            .crossfade(true)
+            .crossfade(500)
+            .data(url)
+            .target(this)
+            .build()
+
+        imageLoader.enqueue(request)
     }
 
     companion object {
