@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentThreadsBinding
 import java.lang.Thread.sleep
 
@@ -45,12 +46,16 @@ class ThreadFragment : Fragment() {
                 Thread { // задачи в этом потоке буполняются параллельно (сразу все)
                     sleep(time * 1000L)
                     /*requireActivity().runOnUiThread { // современный способ без лишних вопросов
-                         // textView1.text = "${R.string.it_was_working_for} $time ${R.string.sec}"
-                         //FIXME что-то не так со строчкой выше (отображает цифры вместо текста)
-                         textView1.text = "It was working for $time sec."
+                          textView1.text =
+                            resources.getString(R.string.it_was_working_for) +
+                                    "$time " +
+                                    resources.getString(R.string.sec)
                     }*/
                     Handler(Looper.getMainLooper()).post { // для понимания процессов
-                        textView1.text = "It was working for $time sec."
+                        textView1.text =
+                            resources.getString(R.string.it_was_working_for) +
+                                    "$time " +
+                                    resources.getString(R.string.sec)
                         createTextView("${Thread.currentThread().name} ${++counter}")
                     }
                 }.start()
@@ -60,9 +65,10 @@ class ThreadFragment : Fragment() {
                 theThread.theHandler.post { // в этом потоке задачи выполняться будут по очереди
                     sleep(time * 1000L)
                     Handler(Looper.getMainLooper()).post {
-                        // textView2.text = "${R.string.it_was_working_for} $time ${R.string.sec}"
-                        //FIXME что-то не так со строчкой выше (отображает цифры вместо текста)
-                        textView2.text = "It was working for $time sec."
+                        textView2.text =
+                            resources.getString(R.string.it_was_working_for) +
+                                    "$time " +
+                                    resources.getString(R.string.sec)
                         createTextView("${Thread.currentThread().name} ${++counter}")
                     }
                 }
@@ -78,7 +84,7 @@ class ThreadFragment : Fragment() {
     }
 
     class TheThread : Thread() { // "вечный поток"
-        lateinit var theHandler: Handler //FIXME оставить lateinit или theThread.theHandler?????.post (как на уроке было). Как лучше?
+        lateinit var theHandler: Handler
         override fun run() {
             Looper.prepare()
             theHandler = Handler(Looper.myLooper()!!)

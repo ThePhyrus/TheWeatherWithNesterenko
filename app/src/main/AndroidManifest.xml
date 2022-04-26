@@ -30,7 +30,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
-<!--                //FIXME как прописать константу KEY_THE_ACTION из utils в манифесте? -->
+<!--                //FIXME запутался с константами. Пообщаться с Андреем. -->
                 <action android:name="theaction" />
             </intent-filter>
         </receiver>

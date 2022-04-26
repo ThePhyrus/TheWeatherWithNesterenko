@@ -10,6 +10,7 @@ import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.lesson6.MainService
 import com.example.theweatherwithnesterenko.lesson6.TheBroadcastReceiver
 import com.example.theweatherwithnesterenko.lesson6.ThreadFragment
+import com.example.theweatherwithnesterenko.utils.ACTION_AIRPLANE_MODE
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_ACTIVITY_MESSAGE
 import com.example.theweatherwithnesterenko.utils.KEY_WAVE_THE_ACTION
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
@@ -25,13 +26,12 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         }
 
         startService(Intent(this, MainService::class.java).apply {
-            //         putExtra(KEY_1, "${R.string.hallo_from_activity}") // передаём строку в сервис //FIXME передаётся int
-            putExtra(KEY_BUNDLE_ACTIVITY_MESSAGE, "Привет, Сервис! Я Активити.")
+            putExtra(KEY_BUNDLE_ACTIVITY_MESSAGE, resources.getString(R.string.hallo_from_activity))
         })
 
         val theReceiver = TheBroadcastReceiver() // создаётся ресивер (приёмник)
         registerReceiver(theReceiver, IntentFilter(KEY_WAVE_THE_ACTION)) // регистрация ресивера на голбальной волне
-        registerReceiver(theReceiver, IntentFilter("android.intent.action.AIRPLANE_MODE")) // регистрация ресивера на голбальной волне
+        registerReceiver(theReceiver, IntentFilter(ACTION_AIRPLANE_MODE)) // регистрация ресивера на голбальной волне
 //        LocalBroadcastManager.getInstance(this).registerReceiver(theReceiver, IntentFilter(KEY_WAVE_THE_ACTION)) // регистрация локальная
     }
 

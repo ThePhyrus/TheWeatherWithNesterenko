@@ -1,11 +1,9 @@
 package com.example.theweatherwithnesterenko.repository
 
+import android.util.Log
 import com.example.theweatherwithnesterenko.BuildConfig
 import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
-import com.example.theweatherwithnesterenko.utils.MASTER_DOMAIN
-import com.example.theweatherwithnesterenko.utils.X_YANDEX_API_KEY
-import com.example.theweatherwithnesterenko.utils.YANDEX_ENDPOINT
-import com.example.theweatherwithnesterenko.utils.convertDtoToModel
+import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
@@ -17,7 +15,7 @@ class DetailsRepositoryOkHttpImpl: DetailsRepository {
         val requestBuilder = Request.Builder() // создал "строителя" запросов на сервер
         //ZAPROS
         requestBuilder.addHeader(X_YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY) // заголовок
-        requestBuilder.url("$MASTER_DOMAIN${YANDEX_ENDPOINT}lat=${city.lat}&lon=${city.lat}") // адрес
+        requestBuilder.url("$MASTER_DOMAIN${YANDEX_ENDPOINT}$LATITUDE=${city.lat}&$LONGITUDE=${city.lat}") // адрес
         val request = requestBuilder.build() // создали запрос
         val call = client.newCall(request) // создали звоночек
         //ZAPROS
@@ -30,7 +28,7 @@ class DetailsRepositoryOkHttpImpl: DetailsRepository {
                 weather.city = city
                 callback.onResponse(weather)
             }else{
-                //todo HW
+                Log.d(TAG, "getWeatherDetails: some error")
             }
         }.start()
     }

@@ -3,12 +3,13 @@ package com.example.theweatherwithnesterenko.repository
 import com.example.theweatherwithnesterenko.BuildConfig
 import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
 import com.example.theweatherwithnesterenko.utils.MASTER_DOMAIN
-import com.example.theweatherwithnesterenko.utils.YANDEX_DOMAIN
 import com.example.theweatherwithnesterenko.utils.convertDtoToModel
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import retrofit2.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class DetailsRepositoryRetrofit2Impl : DetailsRepository {

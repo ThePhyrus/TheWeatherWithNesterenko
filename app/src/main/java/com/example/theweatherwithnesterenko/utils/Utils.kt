@@ -1,9 +1,11 @@
 package com.example.theweatherwithnesterenko.utils
 
+import android.view.View
 import com.example.theweatherwithnesterenko.repository.Weather
 import com.example.theweatherwithnesterenko.repository.dto.FactDTO
 import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
 import com.example.theweatherwithnesterenko.repository.getDefaultCity
+import com.google.android.material.snackbar.Snackbar
 
 
 const val TAG: String = "@@@"
@@ -15,12 +17,18 @@ const val YANDEX_DOMAIN: String = "https://api.weather.yandex.ru"
 const val MASTER_DOMAIN: String = "http://212.86.114.27/"
 const val YANDEX_ENDPOINT: String = "v2/informers?"
 const val YANDEX_ENDPOINT2: String = "заготовочка на случай, если возьму тариф тестовый"
+const val YASTATIC_DOMAIN: String = "https://yastatic.net/"
+const val YANDEX_WEATHER_ICON_ENDPOINT: String = "weather/i/icons/blueye/color/svg/"
 const val FREEPNGIMG_DOMAIN:String = "https://freepngimg.com/"
 const val FREEPNGIMG_ENDPOINT:String = "thumb/city/36275-3-city-hd.png"
 const val LATITUDE = "lat"
 const val LONGITUDE = "lon"
 const val KEY_BUNDLE_LAT: String = "lat1"
 const val KEY_BUNDLE_LON: String = "lon1"
+
+const val DOT_SVG:String = ".svg"
+
+const val ACTION_AIRPLANE_MODE:String = "android.intent.action.AIRPLANE_MODE"
 
 // keys for service training
 const val KEY_BUNDLE_ACTIVITY_MESSAGE: String = "activity_message"
@@ -42,3 +50,15 @@ fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
     val fact: FactDTO = weatherDTO.factDTO
     return (Weather(getDefaultCity(), fact.temperature, fact.feelsLike, fact.icon))
 }
+
+
+    fun View.showSnackBarWithAction(
+    text:String,
+    actionText:String,
+    action: (View) -> Unit,
+    length:Int = Snackbar.LENGTH_INDEFINITE
+){
+    Snackbar.make(this, text,length).setAction(actionText,action)
+}
+
+

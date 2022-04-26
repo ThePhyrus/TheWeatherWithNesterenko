@@ -31,7 +31,10 @@
 
     <!--    Text for a snackbar-->
     <string name="data_rendering_success">Data rendering is complete</string>
+    <string name="data_rendering_error">Data rendering error</string>
+    <string name="some_action_text">Some action text</string>
     <string name="matrix_has_you">The matrix has you!</string>
+    <string name="try_again">Try again!</string>
 
     <!--    Default text-->
     <string name="empty_stroke">Empty stroke</string>
@@ -53,7 +56,7 @@
     <string name="sec">sec.</string>
 
     <!--    Text for activity & service communication-->
-    <string name="hallo_from_service">Hallo, Service! I am Main Activity. </string>
-    <string name="hallo_from_activity">Hallo, Activity! I am Main Service. </string>
+    <string name="hallo_from_activity">Hallo, Service! I am Main Activity. </string>
+    <string name="hallo_from_service">Hallo, Activity! I am Main Service. </string>
 
 </resources>

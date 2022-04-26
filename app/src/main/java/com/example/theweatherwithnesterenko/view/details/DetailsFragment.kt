@@ -2,6 +2,7 @@ package com.example.theweatherwithnesterenko.view.details
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,17 +14,13 @@ import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.load
 import coil.request.ImageRequest
-import com.bumptech.glide.Glide
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
 import com.example.theweatherwithnesterenko.repository.Weather
-import com.example.theweatherwithnesterenko.utils.FREEPNGIMG_DOMAIN
-import com.example.theweatherwithnesterenko.utils.FREEPNGIMG_ENDPOINT
-import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
+import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.viewmodel.DetailsState
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
 
 
 class DetailsFragment : Fragment() {
@@ -59,10 +56,20 @@ class DetailsFragment : Fragment() {
     private fun renderData(detailsState: DetailsState) {
         when (detailsState) {
             is DetailsState.Error -> {
-                //todo do something
+                binding.loadingLayout.visibility = View.VISIBLE
+                binding.root.showSnackBarWithAction(
+                    getString(R.string.data_rendering_error),
+                    getString(R.string.try_again), {
+                        // FIXME someFun()?
+                    }, Snackbar.LENGTH_LONG
+                )
+                Log.d(TAG, "renderData: DetailsState in error")
             }
             DetailsState.Loading -> {
-                //todo do something
+                with(binding) {
+                    loadingLayout.visibility = View.VISIBLE
+                    Log.d(TAG, "renderData: DetailsState in loading")
+                }
             }
             is DetailsState.Success -> {
                 val weather = detailsState.weather
@@ -72,8 +79,7 @@ class DetailsFragment : Fragment() {
                     temperatureValue.text = weather.temperature.toString()
                     feelsLikeValue.text = weather.feelsLike.toString()
                     cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
-                    Snackbar.make(mainView, R.string.data_rendering_success, Snackbar.LENGTH_LONG)
-                        .show()
+
                     /*Glide.with(requireContext())
                         .load("$FREEPNGIMG_DOMAIN$FREEPNGIMG_ENDPOINT")
                         .into(headerCityIcon)*/
@@ -83,25 +89,47 @@ class DetailsFragment : Fragment() {
 
                     headerCityIcon.load("$FREEPNGIMG_DOMAIN$FREEPNGIMG_ENDPOINT")
 
-                    icon.loadSvg("https://yastatic.net/weather/i/icons/blueye/color/svg/${weather.icon}.svg")
+                    icon.loadSvg(
+                        "${YASTATIC_DOMAIN}${YANDEX_WEATHER_ICON_ENDPOINT}${weather.icon}${DOT_SVG}"
+                    )
 
+                    binding.root.showSnackBarWithoutAction(
+                        getString(R.string.data_rendering_success),
+                        Snackbar.LENGTH_LONG
+                    )
+                    Log.d(TAG, "renderData: DetailsState in success")
                 }
             }
         }
     }
 
-    fun ImageView.loadSvg(url: String) {
+
+    private fun View.showSnackBarWithoutAction( // работает))
+        text: String,
+        length: Int = Snackbar.LENGTH_INDEFINITE
+    ) {
+        Snackbar.make(binding.root, text, length).show()
+    }
+
+    private fun View.showSnackBarWithAction( //FIXME вроде бы правильно, но с вызовом трудности.
+        text: String,
+        actionText: String,
+        action: (View) -> Unit,
+        length: Int = Snackbar.LENGTH_INDEFINITE
+    ) {
+        Snackbar.make(this, text, length).setAction(actionText, action).show()
+    }
+
+    private fun ImageView.loadSvg(url: String) {
         val imageLoader = ImageLoader.Builder(this.context)
             .componentRegistry { add(SvgDecoder(this@loadSvg.context)) }
             .build()
-
         val request = ImageRequest.Builder(this.context)
             .crossfade(true)
             .crossfade(500)
             .data(url)
             .target(this)
             .build()
-
         imageLoader.enqueue(request)
     }
 

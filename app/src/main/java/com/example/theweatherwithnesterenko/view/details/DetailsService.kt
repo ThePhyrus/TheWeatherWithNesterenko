@@ -21,7 +21,7 @@ class DetailsService(val name: String = "") : IntentService(name) {
         intent?.let {
             val lat = it.getDoubleExtra(KEY_BUNDLE_LAT, 0.0)
             val lon = it.getDoubleExtra(KEY_BUNDLE_LON, 0.0)
-            val urlText = "$MASTER_DOMAIN${YANDEX_ENDPOINT}lat=$lat&lon=$lon"
+            val urlText = "$MASTER_DOMAIN${YANDEX_ENDPOINT}$LATITUDE=$lat&$LONGITUDE=$lon"
             val uri = URL(urlText)
             val urlConnection: HttpURLConnection =
                 (uri.openConnection() as HttpURLConnection).apply {
@@ -30,10 +30,9 @@ class DetailsService(val name: String = "") : IntentService(name) {
                     addRequestProperty(X_YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
                 }
            try {
-               val headers = urlConnection.headerFields //FIXME забыл, зачем это нужно((
                val responseCode = urlConnection.responseCode
                val responseMessage = urlConnection.responseMessage
-               val serverside = 500..100000 //FIXME хде предел?
+               val serverside = 500..599
                val clientside = 400..499
                val responseOk = 200..299
                val unknownSide = 0..199
@@ -48,7 +47,7 @@ class DetailsService(val name: String = "") : IntentService(name) {
                        LocalBroadcastManager.getInstance(this).sendBroadcast(message)
                    }
                    in clientside -> {
-                       //FIXME не могу разобраться с callback
+                       //todo разобраться с callback в другом классе
                        Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
                    }
                    in serverside -> {
@@ -61,7 +60,6 @@ class DetailsService(val name: String = "") : IntentService(name) {
                    }
                    else -> {
                        //FIXME не могу разобраться с callback
-                       //FIXME почему блок when отказался работать без блока else? В WeatherLoader работает без него.
                        Log.d(TAG, "onHandleIntent: Что-то не так с when??")
                    }
                }

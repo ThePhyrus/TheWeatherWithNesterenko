@@ -31,10 +31,9 @@ class WeatherLoader(
                     addRequestProperty(X_YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
                 }
             try {
-                val headers = urlConnection.headerFields
                 val responseCode = urlConnection.responseCode
                 val responseMessage = urlConnection.responseMessage
-                val serverside = 500..100000 //FIXME хде предел?
+                val serverside = 500..599
                 val clientside = 400..499
                 val responseOk = 200..299
                 val unknownSide = 0..199
