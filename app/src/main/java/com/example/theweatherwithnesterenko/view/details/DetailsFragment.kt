@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
 import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.utils.FREEPNGIMG_DOMAIN
+import com.example.theweatherwithnesterenko.utils.FREEPNGIMG_ENDPOINT
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
 import com.example.theweatherwithnesterenko.viewmodel.DetailsState
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
@@ -67,7 +69,7 @@ class DetailsFragment : Fragment() {
                     Snackbar.make(mainView, R.string.data_rendering_success, Snackbar.LENGTH_LONG)
                         .show()
                     Glide.with(requireContext())
-                        .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+                        .load("$FREEPNGIMG_DOMAIN$FREEPNGIMG_ENDPOINT")
                         .into(headerIcon)
                 }
             }

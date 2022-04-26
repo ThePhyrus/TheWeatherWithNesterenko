@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/header_icon_size"
             android:scaleType="fitXY"
+            android:layout_marginTop="@dimen/margin_double"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
