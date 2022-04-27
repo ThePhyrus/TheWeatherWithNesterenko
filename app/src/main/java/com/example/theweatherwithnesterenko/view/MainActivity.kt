@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.example.theweatherwithnesterenko.MyApp
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.lesson6.MainService
 import com.example.theweatherwithnesterenko.lesson6.TheBroadcastReceiver
@@ -51,6 +52,22 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
 
         val defaultValueIsRussian = true
         sp.getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN,defaultValueIsRussian)
+
+        val spFloat = getSharedPreferences(KEY_SP_MY_FILE_3, Context.MODE_PRIVATE)
+        val spEditorFloat = spFloat.edit()
+        spEditorFloat.putFloat(KEY_SP_MY_FILE_4_KEY_FLOAT, 0.0f)
+        spEditor.apply()
+
+
+        val spFloatDefValue = 0.0f
+        spFloat.getFloat(KEY_SP_MY_FILE_4_KEY_FLOAT, spFloatDefValue)
+
+
+//        Thread{ //todo try 1 variant
+//            MyApp.getHistoryDao().getAll()
+//        }.start() //todo try 1 variant
+        MyApp.getHistoryDao().getAll() // cheaters variant in MyApp.kk selected
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

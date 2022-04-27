@@ -32,6 +32,8 @@ const val KEY_SP_MY_FILE_1:String = "my_1"
 const val KEY_SP_MY_FILE_1_KEY_INT:String = "int"
 const val KEY_SP_MY_FILE_2:String = "my_2"
 const val KEY_SP_MY_FILE_2_KEY_STRING:String = "string"
+const val KEY_SP_MY_FILE_3:String = "my_3"
+const val KEY_SP_MY_FILE_4_KEY_FLOAT:String = "float"
 //
 const val DOT_SVG:String = ".svg"
 //
