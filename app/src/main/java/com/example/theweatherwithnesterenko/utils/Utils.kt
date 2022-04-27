@@ -25,11 +25,17 @@ const val LATITUDE = "lat"
 const val LONGITUDE = "lon"
 const val KEY_BUNDLE_LAT: String = "lat1"
 const val KEY_BUNDLE_LON: String = "lon1"
-
+//
+const val KEY_SP_FILE_NAME_1: String = "fileName1"
+const val KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN: String = "is_russian"
+const val KEY_SP_MY_FILE_1:String = "my_1"
+const val KEY_SP_MY_FILE_1_KEY_INT:String = "int"
+const val KEY_SP_MY_FILE_2:String = "my_2"
+const val KEY_SP_MY_FILE_2_KEY_STRING:String = "string"
+//
 const val DOT_SVG:String = ".svg"
-
+//
 const val ACTION_AIRPLANE_MODE:String = "android.intent.action.AIRPLANE_MODE"
-
 // keys for service training
 const val KEY_BUNDLE_ACTIVITY_MESSAGE: String = "activity_message"
 const val KEY_BUNDLE_SERVICE_MESSAGE: String = "service_message"

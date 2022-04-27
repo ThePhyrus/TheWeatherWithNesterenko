@@ -1,5 +1,6 @@
 package com.example.theweatherwithnesterenko.view
 
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
@@ -10,9 +11,7 @@ import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.lesson6.MainService
 import com.example.theweatherwithnesterenko.lesson6.TheBroadcastReceiver
 import com.example.theweatherwithnesterenko.lesson6.ThreadFragment
-import com.example.theweatherwithnesterenko.utils.ACTION_AIRPLANE_MODE
-import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_ACTIVITY_MESSAGE
-import com.example.theweatherwithnesterenko.utils.KEY_WAVE_THE_ACTION
+import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 
 
@@ -33,6 +32,25 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         registerReceiver(theReceiver, IntentFilter(KEY_WAVE_THE_ACTION)) // регистрация ресивера на голбальной волне
         registerReceiver(theReceiver, IntentFilter(ACTION_AIRPLANE_MODE)) // регистрация ресивера на голбальной волне
 //        LocalBroadcastManager.getInstance(this).registerReceiver(theReceiver, IntentFilter(KEY_WAVE_THE_ACTION)) // регистрация локальная
+
+        val sp = getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
+        val editor = sp.edit()
+        editor.putBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, true)
+        editor.apply()
+
+        val spMy = getSharedPreferences(KEY_SP_MY_FILE_1, Context.MODE_PRIVATE)
+        val editorMy = spMy.edit()
+        editorMy.putInt(KEY_SP_MY_FILE_1_KEY_INT, 5)
+        editorMy.apply()
+
+        val spString = getSharedPreferences(KEY_SP_MY_FILE_2,Context.MODE_PRIVATE)
+        val spEditor = spString.edit()
+        spEditor.putString(KEY_SP_MY_FILE_2_KEY_STRING, "string")
+        spEditor.apply()
+
+
+        val defaultValueIsRussian = true
+        sp.getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN,defaultValueIsRussian)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
