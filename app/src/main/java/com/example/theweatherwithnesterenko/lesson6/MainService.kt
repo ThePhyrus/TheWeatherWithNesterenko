@@ -11,12 +11,12 @@ class MainService(val name: String = "") : IntentService(name) {
 
     override fun onHandleIntent(intent: Intent?) {
         Log.d(TAG, "MainService has been created")
-        sleep(TIME_THREE_SECONDS)
+        sleep(TIME_ONE_SECOND)
         intent?.let {
             val extra =
                 it.getStringExtra(KEY_BUNDLE_ACTIVITY_MESSAGE) // сервис получает привет из активити
             Log.d(TAG, "onHandleIntent: $extra")
-            sleep(TIME_THREE_SECONDS) // пару секунд Сервис "пишет" ответ
+            sleep(TIME_ONE_SECOND) // пару секунд Сервис "пишет" ответ
             // создам "конверт" (val message)
             val message =
                 Intent(KEY_WAVE_THE_ACTION) //FIXME эта константа должна быть в strings.xml и её же прописать в манифесте. Так?

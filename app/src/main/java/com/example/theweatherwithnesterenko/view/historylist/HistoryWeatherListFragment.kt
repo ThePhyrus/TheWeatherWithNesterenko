@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.view.weatherlist
+package com.example.theweatherwithnesterenko.view.historylist
 
 
 import android.os.Bundle
@@ -6,18 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListBinding
-import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListBinding
-import com.example.theweatherwithnesterenko.repository.Weather
-import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
-import com.example.theweatherwithnesterenko.view.details.DetailsFragment
+import com.example.theweatherwithnesterenko.view.weatherlist.HistoryWeatherListAdapter
 import com.example.theweatherwithnesterenko.viewmodel.AppState
 import com.example.theweatherwithnesterenko.viewmodel.HistoryViewModel
-import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
 

@@ -20,7 +20,7 @@ class MyApp:Application() {
                 if (appContext != null){
 //                    Thread{ //todo try 2 variant
                         db = Room.databaseBuilder(appContext!!,MyDB::class.java,"test")
-                            .allowMainThreadQueries() // todo FOR CHEATERS ONLY
+                            .allowMainThreadQueries() // todo HW FOR CHEATERS ONLY
                             .build()
 //                    }.start() //todo try 2 variant
                 }else {

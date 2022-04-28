@@ -92,11 +92,6 @@ class DetailsFragment : Fragment() {
                     icon.loadSvg(
                         "${YASTATIC_DOMAIN}${YANDEX_WEATHER_ICON_ENDPOINT}${weather.icon}${DOT_SVG}"
                     )
-
-                    binding.root.showSnackBarWithoutAction(
-                        getString(R.string.data_rendering_success),
-                        Snackbar.LENGTH_LONG
-                    )
                     Log.d(TAG, "renderData: DetailsState in success")
                 }
             }

@@ -3,11 +3,18 @@ package com.example.theweatherwithnesterenko.view.weatherlist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListBinding
 import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListRecyclerItemBinding
 import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListRecyclerItemBinding
 import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.utils.DOT_SVG
+import com.example.theweatherwithnesterenko.utils.YANDEX_WEATHER_ICON_ENDPOINT
+import com.example.theweatherwithnesterenko.utils.YASTATIC_DOMAIN
 
 
 class HistoryWeatherListAdapter(

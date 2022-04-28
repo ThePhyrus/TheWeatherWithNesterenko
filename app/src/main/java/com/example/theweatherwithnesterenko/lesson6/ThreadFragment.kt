@@ -37,35 +37,36 @@ class ThreadFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val theThread = TheThread() // здесть создаётся "вечный поток"
-        theThread.start() // если не стартовать поток, то будет
-        // UninitializedPropertyAccessException: lateinit property theHandler has not been initialized
+        theThread.start() // если не стартовать поток, то будет UninitializedPropertyAccessException: lateinit property theHandler has not been initialized
         with(binding) {
-            val time = editText1.text.toString().toLong()
+            val time = editText1.text.toString().toLong() //todo fix it 1
             var counter = 0
             button1.setOnClickListener {
-                Thread { // задачи в этом потоке буполняются параллельно (сразу все)
-                    sleep(time * 1000L)
-                    /*requireActivity().runOnUiThread { // современный способ без лишних вопросов
+                Thread { //todo задачи в этом потоке буполняются параллельно (сразу все) или создасться несколько потоков?
+                    sleep(time * 1000L) //todo fix it 1
+                    requireActivity().runOnUiThread { // современный способ без лишних вопросов
                           textView1.text =
                             resources.getString(R.string.it_was_working_for) +
-                                    "$time " +
+                                    " $time " +
                                     resources.getString(R.string.sec)
-                    }*/
-                    Handler(Looper.getMainLooper()).post { // для понимания процессов
+                        createTextView("${Thread.currentThread().name} ${++counter}")
+                    }
+                        //более подробная запись
+                    /*Handler(Looper.getMainLooper()).post { // для понимания процессов
                         textView1.text =
                             resources.getString(R.string.it_was_working_for) +
                                     "$time " +
                                     resources.getString(R.string.sec)
                         createTextView("${Thread.currentThread().name} ${++counter}")
-                    }
+                    }*/
                 }.start()
             }
             //"ВЕЧНЫЙ ПОТОК"
             button2.setOnClickListener {
-                theThread.theHandler.post { // в этом потоке задачи выполняться будут по очереди
-                    sleep(time * 1000L)
-                    Handler(Looper.getMainLooper()).post {
-                        textView2.text =
+                theThread.theHandler.post { //todo закрыть поток?
+                    sleep(time * 1000L) //todo fix it 1
+                    requireActivity().runOnUiThread { // современный способ без лишних вопросов
+                        textView1.text =
                             resources.getString(R.string.it_was_working_for) +
                                     "$time " +
                                     resources.getString(R.string.sec)

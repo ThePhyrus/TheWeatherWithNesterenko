@@ -1,6 +1,8 @@
 package com.example.theweatherwithnesterenko.repository
 
+import android.util.Log
 import com.example.theweatherwithnesterenko.MyApp
+import com.example.theweatherwithnesterenko.utils.TAG
 import com.example.theweatherwithnesterenko.utils.convertHistoryEntityToWeather
 import com.example.theweatherwithnesterenko.utils.convertWeatherToEntity
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
@@ -13,7 +15,13 @@ class DetailsRepositoryRoomImpl : DetailsRepositoryOne, DetailsRepositoryAll, De
 
     override fun getWeatherDetails(city: City, callback: DetailsViewModel.Callback) {
         val list = convertHistoryEntityToWeather(MyApp.getHistoryDao().getHistoryCity(city.name))
-        callback.onResponse(list.last()) // hack
+        if (list.isEmpty()){ // если лист пустой, то и отображать нечего
+            callback.onFail() //todo сделать что-нибудь, кроме логов
+            Log.d(TAG, "getWeatherDetails() called with: city = $city, callback = $callback")
+        }else {
+            callback.onResponse(list.last()) // hack
+            Log.d(TAG, "getWeatherDetails() called with: city = $city, callback = $callback")
+        }
     }
 
     override fun addWeather(weather: Weather) {

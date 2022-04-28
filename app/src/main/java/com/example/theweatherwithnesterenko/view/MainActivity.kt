@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +14,10 @@ import com.example.theweatherwithnesterenko.lesson6.MainService
 import com.example.theweatherwithnesterenko.lesson6.TheBroadcastReceiver
 import com.example.theweatherwithnesterenko.lesson6.ThreadFragment
 import com.example.theweatherwithnesterenko.utils.*
-import com.example.theweatherwithnesterenko.view.weatherlist.HistoryWeatherListFragment
+import com.example.theweatherwithnesterenko.view.historylist.HistoryWeatherListFragment
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 
+//TODO выводить проверки, вызвать картинку, shared preferences (сохранить настройки приложения
 
 class MainActivity : AppCompatActivity() { //todo разобрать бардак в этом классе
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,11 +82,13 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         when (item.itemId) {
             R.id.action_thread -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, ThreadFragment.newInstance()).addToBackStack("").commit()
+                    .add(R.id.container, ThreadFragment.newInstance()).addToBackStack("").commit()
+                Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
             }
             R.id.action_history -> {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.container, HistoryWeatherListFragment.newInstance()).addToBackStack("").commit()
+                    .replace(R.id.container, HistoryWeatherListFragment.newInstance()).addToBackStack("").commit()
+                Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
             }
         }
         return super.onOptionsItemSelected(item)
