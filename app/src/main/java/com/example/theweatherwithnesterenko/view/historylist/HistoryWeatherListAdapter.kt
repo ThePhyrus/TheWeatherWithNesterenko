@@ -4,24 +4,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListBinding
+import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListRecyclerItemBinding
 import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListRecyclerItemBinding
 import com.example.theweatherwithnesterenko.repository.Weather
 
 
-class WeatherListAdapter(
-    private val onItemListClickListener: OnItemListClickListener,
+class HistoryWeatherListAdapter(
+
     private var data: List<Weather> = listOf()
 ) :
-    RecyclerView.Adapter<WeatherListAdapter.CityHolder>() {
+    RecyclerView.Adapter<HistoryWeatherListAdapter.CityHolder>() {
 
     fun setData(dataNew: List<Weather>) {
         this.data = dataNew
-        notifyItemRangeChanged(0, data.size) // todo DiffUtil изучить!
+        notifyItemRangeChanged(0, data.size) // todo DiffUtil блин, хотя бы почитать!
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityHolder {
-        val binding = FragmentWeatherListRecyclerItemBinding.inflate(
+        val binding = FragmentHistoryWeatherListRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -37,11 +38,11 @@ class WeatherListAdapter(
 
     inner class CityHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(weather: Weather) {
-            FragmentWeatherListRecyclerItemBinding.bind(itemView).apply {
+            FragmentHistoryWeatherListRecyclerItemBinding.bind(itemView).apply {
                 tvCityName.text = weather.city.name
-                root.setOnClickListener {
-                    onItemListClickListener.onItemClick(weather)
-                }
+                tvTemperature.text = weather.temperature.toString()
+                tvFeelsLike.text = weather.feelsLike.toString()
+                //todo HW вызвать отображение weather.icon
             }
         }
     }

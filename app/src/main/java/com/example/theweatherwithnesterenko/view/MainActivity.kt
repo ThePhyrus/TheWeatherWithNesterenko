@@ -13,6 +13,7 @@ import com.example.theweatherwithnesterenko.lesson6.MainService
 import com.example.theweatherwithnesterenko.lesson6.TheBroadcastReceiver
 import com.example.theweatherwithnesterenko.lesson6.ThreadFragment
 import com.example.theweatherwithnesterenko.utils.*
+import com.example.theweatherwithnesterenko.view.weatherlist.HistoryWeatherListFragment
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 
 
@@ -79,7 +80,11 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         when (item.itemId) {
             R.id.action_thread -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, ThreadFragment.newInstance()).commit()
+                    .replace(R.id.container, ThreadFragment.newInstance()).addToBackStack("").commit()
+            }
+            R.id.action_history -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, HistoryWeatherListFragment.newInstance()).addToBackStack("").commit()
             }
         }
         return super.onOptionsItemSelected(item)

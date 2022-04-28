@@ -8,4 +8,11 @@
         android:icon="@drawable/ic_threads"
         app:showAsAction="always"
         />
+
+    <item
+        android:id="@+id/action_history"
+        android:title="@string/threads"
+        android:icon="@drawable/ic_history"
+        app:showAsAction="always"
+        />
 </menu>

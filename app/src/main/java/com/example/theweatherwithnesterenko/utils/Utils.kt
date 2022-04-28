@@ -1,6 +1,8 @@
 package com.example.theweatherwithnesterenko.utils
 
 import android.view.View
+import com.example.theweatherwithnesterenko.domain.room.HistoryEntity
+import com.example.theweatherwithnesterenko.repository.City
 import com.example.theweatherwithnesterenko.repository.Weather
 import com.example.theweatherwithnesterenko.repository.dto.FactDTO
 import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
@@ -60,13 +62,25 @@ fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
 }
 
 
-    fun View.showSnackBarWithAction(
+   /* fun View.showSnackBarWithAction(
     text:String,
     actionText:String,
     action: (View) -> Unit,
     length:Int = Snackbar.LENGTH_INDEFINITE
 ){
     Snackbar.make(this, text,length).setAction(actionText,action)
+}*/
+
+fun convertHistoryEntityToWeather(entityList: List<HistoryEntity>): List<Weather> {
+    return entityList.map {
+        Weather(City(it.city,0.0,0.0), it.temperature, it.feelsLike, it.icon) // todo HW научиться хранить в базе данных широту и долготу
+    }
 }
+
+fun convertWeatherToEntity(weather: Weather): HistoryEntity {
+    return HistoryEntity(0, weather.city.name, weather.temperature,weather.feelsLike,weather.icon)
+}
+
+
 
 

@@ -7,16 +7,18 @@ import com.example.theweatherwithnesterenko.repository.*
 
 class DetailsViewModel(
     private val liveData: MutableLiveData<DetailsState> = MutableLiveData(),
-    private val repository: DetailsRepository = DetailsRepositoryRetrofit2Impl()
+    private val repositoryOne: DetailsRepositoryOne = DetailsRepositoryOneRetrofit2Impl(),
+    private val repositoryAdd: DetailsRepositoryAdd = DetailsRepositoryRoomImpl(),
 ) : ViewModel() {
 
     fun getLiveData() = liveData
 
     fun getWeather(city: City) {
         liveData.postValue(DetailsState.Loading)
-        repository.getWeatherDetails(city, object : Callback {
+        repositoryOne.getWeatherDetails(city, object : Callback {
             override fun onResponse(weather: Weather) {
                 liveData.postValue(DetailsState.Success(weather))
+                repositoryAdd.addWeather(weather)
             }
 
             override fun onFail() {
@@ -29,4 +31,5 @@ class DetailsViewModel(
         fun onResponse(weather: Weather)
         fun onFail()
     }
+
 }
