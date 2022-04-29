@@ -43,14 +43,14 @@ const val ACTION_AIRPLANE_MODE:String = "android.intent.action.AIRPLANE_MODE"
 // keys for service training
 const val KEY_BUNDLE_ACTIVITY_MESSAGE: String = "activity_message"
 const val KEY_BUNDLE_SERVICE_MESSAGE: String = "service_message"
-
 // actions
 const val KEY_WAVE_THE_ACTION: String = "theaction" // как-то так?
-
 // sleep time
 const val TIME_ONE_SECOND: Long = 1000L
 const val TIME_TWO_SECONDS: Long = 2000L
 const val TIME_THREE_SECONDS: Long = 3000L
+//Room
+const val KEY_HISTORY_TABLE :String= "history_table" //todo в строковые xml?
 
 class Utils {
 

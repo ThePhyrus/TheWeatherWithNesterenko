@@ -42,7 +42,7 @@ class DetailsViewModel(
 
     private fun isInternet(): Boolean { //todo как-то переписать эту функцию
         // заглушка
-        return true
+        return false
     }
 
     interface Callback {

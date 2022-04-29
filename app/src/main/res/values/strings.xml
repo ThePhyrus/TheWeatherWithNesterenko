@@ -59,4 +59,7 @@
     <string name="hallo_from_activity">Hallo, Service! I am Main Activity. </string>
     <string name="hallo_from_service">Hallo, Activity! I am Main Service. </string>
 
+<!--    CONSTANCE-->
+    <string name="history_table">history_table</string>
+
 </resources>
