@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.load

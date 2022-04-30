@@ -49,7 +49,10 @@
     <string name="refresh_information">Refresh information</string>
     <string name="search">search</string>
     <string name="default_url">https://geekbrains.ru/</string>
-    <string name="threads">Threads</string>
+<!--    Menu titles-->
+    <string name="threads_menu_title">Threads</string>
+    <string name="history_menu_title">History</string>
+    <string name="work_with_content_provider_menu_title">WWCP</string>
 
     <!--    Text for something-->
     <string name="it_was_working_for">It was working for</string>
@@ -61,5 +64,10 @@
 
 <!--    CONSTANCE-->
     <string name="history_table">history_table</string>
+<!--    Alert dialogs-->
+    <string name="access_to_contacts_ad_title">Access to contacts</string>
+    <string name="description">We need to have access to your contacts!!!</string>
+    <string name="allow_access">Allow access</string>
+    <string name="close_access">Close access</string>
 
 </resources>

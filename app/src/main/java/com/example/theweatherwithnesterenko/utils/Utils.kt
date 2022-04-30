@@ -51,6 +51,8 @@ const val TIME_TWO_SECONDS: Long = 2000L
 const val TIME_THREE_SECONDS: Long = 3000L
 //Room
 const val KEY_HISTORY_TABLE :String= "history_table" //todo в строковые xml?
+//Request codes
+const val REQUEST_CODE_FOR_PERMISSION_TO_READ_USER_CONTACTS:Int = 101
 
 class Utils {
 

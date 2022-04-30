@@ -10,9 +10,11 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.theweatherwithnesterenko.MyApp
 import com.example.theweatherwithnesterenko.R
+import com.example.theweatherwithnesterenko.databinding.FragmentWorkWithContentProviderBinding
 import com.example.theweatherwithnesterenko.lesson6.MainService
 import com.example.theweatherwithnesterenko.lesson6.TheBroadcastReceiver
 import com.example.theweatherwithnesterenko.lesson6.ThreadFragment
+import com.example.theweatherwithnesterenko.lesson9.WorkWithContentProviderFragment
 import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.view.historylist.HistoryWeatherListFragment
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
@@ -87,7 +89,12 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
             }
             R.id.action_history -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, HistoryWeatherListFragment.newInstance()).addToBackStack("").commit()
+                    .add(R.id.container, HistoryWeatherListFragment.newInstance()).addToBackStack("").commit()
+                Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
+            }
+            R.id.action_work_with_content_provider -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, WorkWithContentProviderFragment.newInstance()).addToBackStack("").commit()
                 Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
             }
         }
