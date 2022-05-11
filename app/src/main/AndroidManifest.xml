@@ -31,10 +31,16 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
-<!--                //FIXME запутался с константами. Пообщаться с Андреем. -->
-                <action android:name="theaction" />
+<!--                //todo проверить работоспобность theaction и исправить нужные константы -->
+                <action android:name="@string/theaction" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:enabled="true"
+            android:exported="true"
+            android:authorities="@string/authorities"
+            android:name=".lesson9.HistoryContentProvider"/>
     </application>
 
 </manifest>

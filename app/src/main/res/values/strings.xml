@@ -70,4 +70,10 @@
     <string name="allow_access">Allow access</string>
     <string name="close_access">Close access</string>
 
+
+    <string name="authorities">history_authority</string>
+    <string name="theaction">theaction</string>
+
+
+
 </resources>
