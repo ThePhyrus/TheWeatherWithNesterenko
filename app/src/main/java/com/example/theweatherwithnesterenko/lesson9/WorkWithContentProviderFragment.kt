@@ -98,7 +98,7 @@ class WorkWithContentProviderFragment : Fragment() {
     private fun getContacts() {
         val contentResolver: ContentResolver = requireContext().contentResolver
 
-       val cursor =  contentResolver.query(
+        val cursor = contentResolver.query(
             ContactsContract.Contacts.CONTENT_URI,
             null,
             null,
@@ -106,10 +106,11 @@ class WorkWithContentProviderFragment : Fragment() {
             ContactsContract.Contacts.DISPLAY_NAME + " ASC"
         )
         cursor?.let {
-            for (i in 0 until it.count){
-                if (cursor.moveToPosition(i)){
-                    val columnNameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
-                    val name:String = cursor.getString(columnNameIndex)
+            for (i in 0 until it.count) {
+                if (cursor.moveToPosition(i)) {
+                    val columnNameIndex =
+                        cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                    val name: String = cursor.getString(columnNameIndex)
                     binding.ContainerForContacts.addView(TextView(requireContext()).apply {
                         textSize = 30f
                         text = name
