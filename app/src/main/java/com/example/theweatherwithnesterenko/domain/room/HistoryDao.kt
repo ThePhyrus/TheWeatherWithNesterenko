@@ -4,8 +4,6 @@ import android.database.Cursor
 import androidx.room.*
 
 
-
-
 @Dao
 interface HistoryDao {
 
