@@ -23,4 +23,11 @@
     <dimen name="padding_20dp">20dp</dimen>
 
 
+
+
+
+        <dimen name="max_size_fab">56dp</dimen>
+
+        <dimen name="margin_fab">20dp</dimen>
+
 </resources>

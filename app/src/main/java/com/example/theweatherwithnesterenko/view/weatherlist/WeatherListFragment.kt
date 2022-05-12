@@ -1,11 +1,14 @@
 package com.example.theweatherwithnesterenko.view.weatherlist
 
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +16,8 @@ import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListBinding
 import com.example.theweatherwithnesterenko.repository.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
+import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION
+import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_FOR_PERMISSION_TO_READ_USER_CONTACTS
 import com.example.theweatherwithnesterenko.view.details.DetailsFragment
 import com.example.theweatherwithnesterenko.viewmodel.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
@@ -49,7 +54,8 @@ class WeatherListFragment : Fragment(),
         initRecyclerView()
         val observer = { data: AppState -> renderData(data) }
         viewModel.getData().observe(viewLifecycleOwner, observer)
-        doSetupFAB()
+        doSetupFABCities()
+        doSetupFABLocation()
         viewModel.getWeatherRussia()
     }
 
@@ -60,20 +66,82 @@ class WeatherListFragment : Fragment(),
         }
     }
 
-    private fun doSetupFAB() =
-        with(binding) { //FIXME применение with тут не лишнее? Чую, что лишнее, а объяснить не могу толком.
-            floatingActionButton.setOnClickListener {
+    private fun doSetupFABLocation(){
+        binding.mainFragmentFABLocation.setOnClickListener {
+            checkPermission()
+        }
+    }
+
+    private fun checkPermission() { //todo play with debugger to understand order of execution
+        //а есть ли разрешение? Проверим
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            getLocation()
+        } else if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            explain()
+        } else {
+            mRequestPermission()
+        }
+    }
+
+    private fun explain() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(resources.getString(R.string.dialog_address_title))
+            .setMessage(resources.getString(R.string.dialog_rationale_message))
+            .setPositiveButton(resources.getString(R.string.dialog_rationale_give_access)) { _, _ ->
+                mRequestPermission()
+            }
+            .setNegativeButton(R.string.close_access) { dialog, _ -> dialog.dismiss() }
+            .create()
+            .show()
+    }
+
+    private fun mRequestPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION) {
+
+            for (i in permissions.indices) {
+                if (permissions[i] == Manifest.permission.ACCESS_FINE_LOCATION && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    getLocation()
+                } else {
+                    explain()
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+
+    private fun getLocation() {
+
+    }
+
+    private fun doSetupFABCities() { //todo убрать with
+            binding.floatingActionButton.setOnClickListener {
                 isRussian = !isRussian
                 if (isRussian) {
                     viewModel.getWeatherRussia()
-                    floatingActionButton.setImageDrawable(
+                    binding.floatingActionButton.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.ic_russia
                         )
                     )
                 } else {
-                    floatingActionButton.setImageDrawable(
+                    binding.floatingActionButton.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.ic_earth
