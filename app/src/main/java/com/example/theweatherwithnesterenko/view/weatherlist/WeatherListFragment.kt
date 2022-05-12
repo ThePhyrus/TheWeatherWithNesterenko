@@ -2,8 +2,15 @@ package com.example.theweatherwithnesterenko.view.weatherlist
 
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +21,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListBinding
+import com.example.theweatherwithnesterenko.repository.City
 import com.example.theweatherwithnesterenko.repository.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
 import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION
 import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_FOR_PERMISSION_TO_READ_USER_CONTACTS
+import com.example.theweatherwithnesterenko.utils.TAG
 import com.example.theweatherwithnesterenko.view.details.DetailsFragment
 import com.example.theweatherwithnesterenko.viewmodel.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
@@ -66,7 +75,7 @@ class WeatherListFragment : Fragment(),
         }
     }
 
-    private fun doSetupFABLocation(){
+    private fun doSetupFABLocation() {
         binding.mainFragmentFABLocation.setOnClickListener {
             checkPermission()
         }
@@ -125,32 +134,103 @@ class WeatherListFragment : Fragment(),
         }
     }
 
-    private fun getLocation() {
-
+    private fun getAddressByLocation(location: Location) {
+        val geocoder = Geocoder(requireContext())
+        //todo add location.altitude?
+        val timeStump = System.currentTimeMillis()
+        Thread {
+            val addressText =
+                geocoder.getFromLocation(
+                    location.latitude,
+                    location.longitude,
+                    1000000
+                )[0].getAddressLine(0)
+            requireActivity().runOnUiThread {
+                showAddressDialog(addressText, location)
+            }
+        }.start()
+        Log.d(TAG, "getAddressByLocation: ${System.currentTimeMillis() - timeStump}")
     }
 
-    private fun doSetupFABCities() { //todo убрать with
-            binding.floatingActionButton.setOnClickListener {
-                isRussian = !isRussian
-                if (isRussian) {
-                    viewModel.getWeatherRussia()
-                    binding.floatingActionButton.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_russia
-                        )
+    private val locationListenerTime = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            Log.d(TAG, "onLocationChangedByTime: $location")
+            getAddressByLocation(location)
+        }
+
+        override fun onProviderEnabled(provider: String) {
+            super.onProviderEnabled(provider)
+        }
+
+        override fun onProviderDisabled(provider: String) {
+            super.onProviderDisabled(provider)
+        }
+    }
+
+    private val locationListenerDistance = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            Log.d(TAG, "onLocationChangedByDistance: $location")
+            getAddressByLocation(location)
+        }
+
+        override fun onProviderEnabled(provider: String) {
+            super.onProviderEnabled(provider)
+        }
+
+        override fun onProviderDisabled(provider: String) {
+            super.onProviderDisabled(provider)
+        }
+    }
+
+    @SuppressLint("MissingPermission") // разрешения проверенны в  fun checkPermission()
+    private fun getLocation() {
+        context?.let {
+            val locationManager = it.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                val providerGPS =
+                    locationManager.getProvider(LocationManager.GPS_PROVIDER) // Why getBestProvider() does not work with LocationManager.GPS_PROVIDER
+                /*providerGPS?.let {
+                    locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        10000L, //time between location request
+                        0f, //distance between location request
+                        locationListenerTime
                     )
-                } else {
-                    binding.floatingActionButton.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_earth
-                        )
+                }*/
+                providerGPS?.let {
+                    locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        0L, //time between location request
+                        10f, //distance between location request
+                        locationListenerDistance
                     )
-                    viewModel.getWeatherWorld()
                 }
             }
         }
+    }
+
+    private fun doSetupFABCities() { //todo убрать with
+        binding.floatingActionButton.setOnClickListener {
+            isRussian = !isRussian
+            if (isRussian) {
+                viewModel.getWeatherRussia()
+                binding.floatingActionButton.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_russia
+                    )
+                )
+            } else {
+                binding.floatingActionButton.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_earth
+                    )
+                )
+                viewModel.getWeatherWorld()
+            }
+        }
+    }
 
     private fun renderData(data: AppState) {
         when (data) {
@@ -191,5 +271,27 @@ class WeatherListFragment : Fragment(),
                 putParcelable(KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS, weather)
             })
         ).addToBackStack("").commit()
+    }
+
+    private fun showAddressDialog(address: String, location: Location) {
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle(getString(R.string.dialog_address_title))
+                .setMessage(address)
+                .setPositiveButton(getString(R.string.dialog_address_get_weather)) { _, _ ->
+                    onItemClick(
+                        Weather(
+                            City(
+                                address,
+                                location.latitude,
+                                location.longitude
+                            )
+                        )
+                    )
+                }
+                .setNegativeButton(getString(R.string.dialog_button_close)) { dialog, _ -> dialog.dismiss() }
+                .create()
+                .show()
+        }
     }
 }
