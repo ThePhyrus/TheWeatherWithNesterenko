@@ -56,8 +56,8 @@ class MapsFragment : Fragment() {
         )
         map.moveCamera(CameraUpdateFactory.newLatLng(saintPetersburg))
         map.setOnMapLongClickListener {
-            //addMarkerToArray(it)
-            //drawLine()
+            addMarkerToArray(it)
+            drawLine()
             //todo HW bonus **
             //todo HW read about Solid
         }
