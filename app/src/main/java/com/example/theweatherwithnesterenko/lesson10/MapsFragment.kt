@@ -3,6 +3,8 @@ package com.example.theweatherwithnesterenko.lesson10
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Geocoder
+import android.location.Location
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -21,6 +23,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MapsFragment : Fragment() {
     private var _binding: FragmentMapsMainBinding? = null
@@ -48,6 +52,8 @@ class MapsFragment : Fragment() {
         map.setOnMapLongClickListener {
             addMarkerToArray(it)
             drawLine()
+            //todo HW bonus **
+            //todo HW read about Solid
         }
         map.uiSettings.isZoomControlsEnabled = true // появятся "+" и "-" для ZOOM
         map.uiSettings.isMyLocationButtonEnabled = true
@@ -104,6 +110,28 @@ class MapsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+        initView()
+    }
+
+    private fun initView() {
+        binding.buttonSearch.setOnClickListener {
+            val searchText = binding.searchAddress.text.toString()
+            //todo HW провести проверку searchText на Null
+            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+            //todo HW провести проверку results на Null & java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+            val results = geocoder.getFromLocationName(searchText, 1)
+            val location = LatLng(
+                results[0].latitude, results[0].longitude
+            )
+            map.addMarker(
+                MarkerOptions().position(location)
+                    .title(searchText)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker))
+            )
+            map.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(location, 15f)
+            )
+        }
     }
 
     private fun addMarkerToArray(location: LatLng) {
@@ -111,14 +139,15 @@ class MapsFragment : Fragment() {
         markers.add(marker)
     }
 
-    private fun drawLine(){
+    private fun drawLine() {
         var previousMarker: Marker? = null
-        markers.forEach { currentPosition->
-            previousMarker?.let{ previousPosition->
+        markers.forEach { currentPosition ->
+            previousMarker?.let { previousPosition ->
                 map.addPolyline(
-                    PolylineOptions().add(previousPosition.position,currentPosition.position)
+                    PolylineOptions().add(previousPosition.position, currentPosition.position)
                         .color(Color.RED)
-                        .width(5f))
+                        .width(5f)
+                )
             }
             previousMarker = currentPosition
         }
