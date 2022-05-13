@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.theweatherwithnesterenko.MyApp
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentWorkWithContentProviderBinding
+import com.example.theweatherwithnesterenko.lesson10.MapsFragment
 import com.example.theweatherwithnesterenko.lesson6.MainService
 import com.example.theweatherwithnesterenko.lesson6.TheBroadcastReceiver
 import com.example.theweatherwithnesterenko.lesson6.ThreadFragment
@@ -95,6 +96,11 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
             R.id.action_work_with_content_provider -> {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.container, WorkWithContentProviderFragment.newInstance()).addToBackStack("").commit()
+                Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
+            }
+            R.id.action_menu_google_maps -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, MapsFragment()).addToBackStack("").commit()
                 Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
             }
         }

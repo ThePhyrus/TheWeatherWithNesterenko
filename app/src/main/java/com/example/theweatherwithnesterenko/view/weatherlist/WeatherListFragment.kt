@@ -31,6 +31,7 @@ import com.example.theweatherwithnesterenko.view.details.DetailsFragment
 import com.example.theweatherwithnesterenko.viewmodel.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 
 class WeatherListFragment : Fragment(),
@@ -135,7 +136,7 @@ class WeatherListFragment : Fragment(),
     }
 
     private fun getAddressByLocation(location: Location) {
-        val geocoder = Geocoder(requireContext())
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
         //todo add location.altitude?
         val timeStump = System.currentTimeMillis()
         Thread {
@@ -144,7 +145,7 @@ class WeatherListFragment : Fragment(),
                     location.latitude,
                     location.longitude,
                     1000000
-                )[0].getAddressLine(0)
+                )[0].getAddressLine(0) //todo настроить отображения адреса
             requireActivity().runOnUiThread {
                 showAddressDialog(addressText, location)
             }
