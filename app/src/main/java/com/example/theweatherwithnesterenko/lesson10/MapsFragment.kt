@@ -8,6 +8,7 @@ import android.location.Location
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentMapsMainBinding
+import com.example.theweatherwithnesterenko.repository.City
+import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
 import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION
+import com.example.theweatherwithnesterenko.utils.TAG
+import com.example.theweatherwithnesterenko.view.details.DetailsFragment
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -50,19 +56,39 @@ class MapsFragment : Fragment() {
         )
         map.moveCamera(CameraUpdateFactory.newLatLng(saintPetersburg))
         map.setOnMapLongClickListener {
-            addMarkerToArray(it)
-            drawLine()
+            //addMarkerToArray(it)
+            //drawLine()
             //todo HW bonus **
             //todo HW read about Solid
+        }
+        map.setOnMapClickListener {
+            val weather = Weather(city = City(getAddressByLocation(it), it.latitude, it.longitude))
+            requireActivity().supportFragmentManager.beginTransaction().add(
+                R.id.container,
+                DetailsFragment.newInstance(Bundle().apply {
+                    putParcelable(KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS, weather)
+                })
+            ).addToBackStack("").commit()
         }
         map.uiSettings.isZoomControlsEnabled = true // появятся "+" и "-" для ZOOM
         map.uiSettings.isMyLocationButtonEnabled = true
         map.isMyLocationEnabled = true // todo add permission check
+    }
 
+    private fun getAddressByLocation(location: LatLng):String {
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        //todo add location.altitude?
+            val addressText =
+                geocoder.getFromLocation(
+                    location.latitude,
+                    location.longitude,
+                    1000000 //FIXME хватит 1?
+                )[0].getAddressLine(0) //todo настроить отображения адреса
+        return addressText
     }
 
 /*
-    private fun checkPermission() { //todo play with debugger to understand order of execution
+    private fun checkPermission() {
         //а есть ли разрешение? Проверим
         if (ContextCompat.checkSelfPermission(
                 requireContext(),

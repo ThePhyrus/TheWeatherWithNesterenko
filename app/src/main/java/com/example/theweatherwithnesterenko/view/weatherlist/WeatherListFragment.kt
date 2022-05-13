@@ -144,7 +144,7 @@ class WeatherListFragment : Fragment(),
                 geocoder.getFromLocation(
                     location.latitude,
                     location.longitude,
-                    1000000
+                    1000000 //FIXME хватит 1?
                 )[0].getAddressLine(0) //todo настроить отображения адреса
             requireActivity().runOnUiThread {
                 showAddressDialog(addressText, location)
