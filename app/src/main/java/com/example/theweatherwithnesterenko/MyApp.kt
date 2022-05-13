@@ -21,12 +21,9 @@ class MyApp : Application() {
         fun getHistoryDao(): HistoryDao {
             if (db == null) {
                 if (appContext != null) {
-//                    Thread{ //todo try 2 variant
                     db = Room.databaseBuilder(appContext!!, MyDB::class.java, "test")
-                        .allowMainThreadQueries() // todo HW FOR CHEATERS ONLY
                         .addMigrations(migration_1_2)
                         .build()
-//                    }.start() //todo try 2 variant
                 } else {
                     throw IllegalStateException("что-то пошло не так и у нас пустой appContext")
                 }

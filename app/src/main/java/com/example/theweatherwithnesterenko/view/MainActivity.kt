@@ -79,10 +79,10 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         spFloat.getFloat(KEY_SP_MY_FILE_4_KEY_FLOAT, spFloatDefValue)
 
 
-//        Thread{ //todo try 1 variant
-//            MyApp.getHistoryDao().getAll()
-//        }.start() //todo try 1 variant
-        MyApp.getHistoryDao().getAll() // cheaters variant in MyApp.kk selected
+        Thread{ //todo try 1 variant
+            MyApp.getHistoryDao().getAll()
+        }.start() //todo try 1 variant
+
 
         push()
 

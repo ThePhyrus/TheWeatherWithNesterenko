@@ -10,7 +10,10 @@ import com.example.theweatherwithnesterenko.viewmodel.HistoryViewModel
 
 class DetailsRepositoryRoomImpl : DetailsRepositoryOne, DetailsRepositoryAll, DetailsRepositoryAdd {
     override fun getAllWeatherDetails(callback: HistoryViewModel.CallbackForAll) {
-        callback.onResponse(convertHistoryEntityToWeather(MyApp.getHistoryDao().getAll()))
+        Thread{
+            callback.onResponse(convertHistoryEntityToWeather(MyApp.getHistoryDao().getAll()))
+        }.start()
+
     }
 
     override fun getWeatherDetails(city: City, callback: DetailsViewModel.Callback) {

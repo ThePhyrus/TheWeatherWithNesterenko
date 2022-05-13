@@ -85,9 +85,11 @@ class HistoryContentProvider : ContentProvider() {
         }
         val historyDao = MyApp.getHistoryDao()
         return mapper(values)?.let {
-        historyDao.insert(it)
-            val loggerUri = ContentUris.withAppendedId(contentUri,it.id)
-                context?.contentResolver?.notifyChange(loggerUri, null)
+//            Thread {
+                historyDao.insert(it)
+//            }.start()
+            val loggerUri = ContentUris.withAppendedId(contentUri, it.id)
+            context?.contentResolver?.notifyChange(loggerUri, null)
             loggerUri
         }
     }
@@ -98,10 +100,13 @@ class HistoryContentProvider : ContentProvider() {
         }
         val id = ContentUris.parseId(uri)
         val historyDao = MyApp.getHistoryDao()
+//        Thread {
             historyDao.deleteByID(id)
-            context?.contentResolver?.notifyChange(uri, null)
+//        }.start()
+
+        context?.contentResolver?.notifyChange(uri, null)
         return 1 // ???
-        }
+    }
 
     override fun update(
         uri: Uri,
@@ -115,7 +120,9 @@ class HistoryContentProvider : ContentProvider() {
 
         val historyDao = MyApp.getHistoryDao()
         mapper(values)?.let {
-        historyDao.update(it)
+//            Thread {
+                historyDao.update(it)
+//            }.start()
         }
         context?.contentResolver?.notifyChange(uri, null)
         return 1 // ???

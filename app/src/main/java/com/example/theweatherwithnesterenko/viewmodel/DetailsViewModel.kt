@@ -22,12 +22,16 @@ class DetailsViewModel(
         } else {
             DetailsRepositoryRoomImpl()
         }
+
+        Log.d(TAG, "${Thread.currentThread().name}")
             repositoryOne.getWeatherDetails(city, object : Callback {
                 override fun onResponse(weather: Weather) {
-                    liveData.postValue(DetailsState.Success(weather))
+                    Log.d(TAG, "${Thread.currentThread().name}")
+                    liveData.value = (DetailsState.Success(weather)) //FIXME postValue??
                     if (isInternet()){
+                        Thread{
                             repositoryAdd.addWeather(weather)
-                        Log.d(TAG, "onResponse() called with internet: weather = $weather")
+                        }.start()
                     } else{
                         Log.d(TAG, "onResponse() called without internet: weather = $weather")
                     }
@@ -42,7 +46,7 @@ class DetailsViewModel(
 
     private fun isInternet(): Boolean { //todo как-то переписать эту функцию
         // заглушка
-        return false
+        return true //todo если будет false, то в историю запросов ничего добавляться не будет. Почему? Исправить.
     }
 
     interface Callback {
