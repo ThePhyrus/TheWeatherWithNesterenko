@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import com.example.theweatherwithnesterenko.MyApp
 import com.example.theweatherwithnesterenko.R
-import com.example.theweatherwithnesterenko.databinding.FragmentWorkWithContentProviderBinding
 import com.example.theweatherwithnesterenko.lesson10.MapsFragment
 import com.example.theweatherwithnesterenko.lesson6.MainService
 import com.example.theweatherwithnesterenko.lesson6.TheBroadcastReceiver
@@ -23,6 +22,8 @@ import com.example.theweatherwithnesterenko.lesson9.WorkWithContentProviderFragm
 import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.view.historylist.HistoryWeatherListFragment
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 //TODO выводить проверки, вызвать картинку, shared preferences (сохранить настройки приложения
 
@@ -86,6 +87,16 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
 
         push()
 
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("mylogs_push", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            val token = task.result
+            Log.d("mylogs_push", "$token")
+        })
+
     }
 
     companion object {
@@ -135,6 +146,8 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
             notificationManager.createNotificationChannel(channelHigh)
         }
         notificationManager.notify(NOTIFICATION_ID_HIGH, notificationBuilderHigh.build())
+
+
 
     }
 
