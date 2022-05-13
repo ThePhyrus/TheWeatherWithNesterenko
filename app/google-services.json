@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "475224870178",
+    "project_id": "theweatherwithnesterenko",
+    "storage_bucket": "theweatherwithnesterenko.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475224870178:android:e424d3883f22cf3561e97b",
+        "android_client_info": {
+          "package_name": "com.example.theweatherwithnesterenko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475224870178-cqjpc0eb3kd0ekjuvu64fb9ucpa21p12.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.theweatherwithnesterenko",
+            "certificate_hash": "22184e8d4598529f20d7ba89348d2f2dd99c5a55"
+          }
+        },
+        {
+          "client_id": "475224870178-svmnli0v9c8b06f9snuoh2po3js3fp4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzkfVHHT2GyMZgdObCteIGW8sZ3uXGaIU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475224870178-svmnli0v9c8b06f9snuoh2po3js3fp4p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
