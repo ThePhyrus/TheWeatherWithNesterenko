@@ -85,8 +85,6 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         }.start() //todo try 1 variant
 
 
-        push()
-
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
@@ -99,57 +97,7 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
 
     }
 
-    companion object {
-        private const val NOTIFICATION_ID_LOW = 1
-        private const val NOTIFICATION_ID_HIGH = 2
-        private const val CHANNEL_ID_LOW = "channel_low"
-        private const val CHANNEL_ID_HIGH = "channel_high"
-    }
 
-    private fun push() {
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        val notificationBuilderLow = NotificationCompat.Builder(this, CHANNEL_ID_LOW).apply {
-            setSmallIcon(R.drawable.ic_map_pin)//todo change icon
-            setContentTitle("getString(R.string.law_notification_title)") //todo вынести в ресурсы
-            setContentText("getString(R.string.law_notification_text)") //todo вынести в ресурсы
-            priority = NotificationManager.IMPORTANCE_LOW // todo полазить по константам, почитать
-
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelNameLow = "Name $CHANNEL_ID_LOW"
-            val channelDescriptionLow = "Description $CHANNEL_ID_LOW"
-            val channelPriorityLow = NotificationManager.IMPORTANCE_LOW
-            val channelLow =
-                NotificationChannel(CHANNEL_ID_LOW, channelNameLow, channelPriorityLow).apply {
-                    description = channelDescriptionLow
-                }
-            notificationManager.createNotificationChannel(channelLow)
-        }
-        notificationManager.notify(NOTIFICATION_ID_LOW, notificationBuilderLow.build())
-
-        val notificationBuilderHigh = NotificationCompat.Builder(this, CHANNEL_ID_HIGH).apply {
-            setSmallIcon(R.drawable.ic_map_marker)//todo change icon
-            setContentTitle("getString(R.string.high_notification_title)") //todo вынести в ресурсы
-            setContentText("getString(R.string.high_notification_text)") //todo вынести в ресурсы
-            priority = NotificationManager.IMPORTANCE_HIGH
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelNameHigh = "Name $CHANNEL_ID_HIGH"
-            val channelDescriptionHigh = "Description $CHANNEL_ID_HIGH"
-            val channelPriorityHigh = NotificationManager.IMPORTANCE_HIGH
-            val channelHigh =
-                NotificationChannel(CHANNEL_ID_HIGH, channelNameHigh, channelPriorityHigh).apply {
-                    description = channelDescriptionHigh
-                }
-            notificationManager.createNotificationChannel(channelHigh)
-        }
-        notificationManager.notify(NOTIFICATION_ID_HIGH, notificationBuilderHigh.build())
-
-
-
-    }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
