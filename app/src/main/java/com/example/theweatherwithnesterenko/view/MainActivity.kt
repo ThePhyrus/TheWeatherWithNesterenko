@@ -84,8 +84,6 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
             MyApp.getHistoryDao().getAll()
         }.start() //todo try 1 variant
 
-
-
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w("mylogs_push", "Fetching FCM registration token failed", task.exception)
