@@ -86,11 +86,11 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.w("mylogs_push", "Fetching FCM registration token failed", task.exception)
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
             val token = task.result
-            Log.d("mylogs_push", "$token")
+            Log.d(TAG, "$token")
         })
 
     }

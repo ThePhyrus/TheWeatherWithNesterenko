@@ -31,6 +31,7 @@ class MyService : FirebaseMessagingService() {
         private const val CHANNEL_ID_HIGH = "channel_high"
         private const val KEY_TITLE = "myTitle"
         private const val KEY_MESSAGE = "myMessage"
+        //todo прикрепить server-key при сдаче ДЗ
         private const val KEY_SERVER =
             "AAAAbqWcDSI:APA91bFNc8h4Niu0qohjLMtTmsNQWxgCvZDWdrK3byzK2GnpOiV3GtuzXis-erRv-ZT7D0rIiN6kjWrubT0ZlfpSoaMUIegJ4iBK3MebetxdLXJHx3xjMCVcohA_UfaM7fACVvgXROG6"
     }
