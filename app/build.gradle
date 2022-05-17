@@ -29,18 +29,17 @@ android {
 
 
     buildTypes { // про настройку загрузки приложения (режим загрузки)
-        tasted{
-
-        }
-        notest{
-
+        tasting{
+            initWith debug //FIXME дебаг есть дебаг. Удалить testing из buildTypes?
         }
         debug{
 
         }
         release {
-            minifyEnabled false
+            minifyEnabled true //FIXME зачем это? todo погуглить про настройки buildTypes
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            multiDexEnabled true // если имён функций болше 65000 (по возможности ставить false)
+            multiDexEnabled false
         }
 
     }
