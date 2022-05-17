@@ -2,18 +2,21 @@ package com.example.theweatherwithnesterenko.lesson11
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.utils.TAG
+import com.example.theweatherwithnesterenko.view.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 class MyService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(message: RemoteMessage) {
+    override fun onMessageReceived(message: RemoteMessage) { //todo попробовать сделать что-нибудь другое вместо
         Log.d(TAG, "onMessageReceived: $message")
         if (!message.data.isNullOrEmpty()) {
             val title = message.data[KEY_TITLE]
@@ -31,6 +34,7 @@ class MyService : FirebaseMessagingService() {
         private const val CHANNEL_ID_HIGH = "channel_high"
         private const val KEY_TITLE = "myTitle"
         private const val KEY_MESSAGE = "myMessage"
+
         //todo прикрепить server-key при сдаче ДЗ
         private const val KEY_SERVER =
             "AAAAbqWcDSI:APA91bFNc8h4Niu0qohjLMtTmsNQWxgCvZDWdrK3byzK2GnpOiV3GtuzXis-erRv-ZT7D0rIiN6kjWrubT0ZlfpSoaMUIegJ4iBK3MebetxdLXJHx3xjMCVcohA_UfaM7fACVvgXROG6"
@@ -59,9 +63,21 @@ class MyService : FirebaseMessagingService() {
         }
         notificationManager.notify(NOTIFICATION_ID_LOW, notificationBuilderLow.build())*/
 
+        val notificationIntent = Intent(applicationContext, MainActivity::class.java)
+        //можно указать любую точку входа в приложение,
+        // context может быть другой (у сервиса, например, есть свой контекст.
+        // У кого ещё он есть а у кого нет? //todo вспомнить уроки про контекст
+        val contentIntent = PendingIntent.getActivity( // todo и про интент вспомнить. Сделать другой.
+            this,
+            0, //todo const
+            notificationIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
         val notificationBuilderHigh = NotificationCompat.Builder(this, CHANNEL_ID_HIGH).apply {
             setSmallIcon(R.drawable.ic_map_marker)//todo change icon
             setContentTitle(title)
+            setContentIntent(contentIntent)
             setContentText(message)
             priority = NotificationManager.IMPORTANCE_HIGH
         }
