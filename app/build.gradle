@@ -23,16 +23,26 @@ android {
     buildTypes.each {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
-        def apiKey = properties.getProperty("yandex_weather_api_key", "")
+        def apiKey = properties.getProperty("yandex_weather_api_key", "")//FIXME why ""?
         it.buildConfigField "String", "WEATHER_API_KEY", apiKey
     }
 
 
-    buildTypes {
+    buildTypes { // про настройку загрузки приложения (режим загрузки)
+        tasted{
+
+        }
+        notest{
+
+        }
+        debug{
+
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -41,10 +51,29 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
     namespace 'com.example.theweatherwithnesterenko'
+    //FIXME что это и зачем? Откуда взялось не помню.
+
+
+    flavorDimensions 'version_free', 'version_paid'
+    productFlavors { //про версии приложения (картинки, функционал, внешний вид и прочее)
+        freeBroken {
+            dimension 'version_free'
+        }
+        freeNormal {
+            dimension 'version_free'
+        }
+
+        paidNormal {
+            dimension 'version_paid'
+        }
+        paidPro {
+            dimension 'version_paid'
+        }
+    }
 
 }
 

@@ -58,10 +58,10 @@ class MapsFragment : Fragment() {
         map.setOnMapLongClickListener {
             addMarkerToArray(it)
             drawLine()
-            //todo HW bonus **
+
             //todo HW read about Solid
         }
-        map.setOnMapClickListener {
+        map.setOnMapClickListener { //todo HW bonus ** is done here
             val weather = Weather(city = City(getAddressByLocation(it), it.latitude, it.longitude))
             requireActivity().supportFragmentManager.beginTransaction().add(
                 R.id.container,
@@ -70,6 +70,8 @@ class MapsFragment : Fragment() {
                 })
             ).addToBackStack("").commit()
         }
+
+
         map.uiSettings.isZoomControlsEnabled = true // появятся "+" и "-" для ZOOM
         map.uiSettings.isMyLocationButtonEnabled = true
         map.isMyLocationEnabled = true // todo add permission check
