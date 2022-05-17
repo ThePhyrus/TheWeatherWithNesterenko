@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.view.weatherlist
+package com.example.theweatherwithnesterenko.view.weatherlist //FIXME как так получилось? Я пакеты пока не менял
 
 import android.view.LayoutInflater
 import android.view.View
