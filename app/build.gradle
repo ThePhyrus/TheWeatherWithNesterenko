@@ -28,15 +28,33 @@ android {
     }
 
 
+    signingConfigs {
+        myRelease {
+            Properties properties = new Properties()
+            properties.load(rootProject.file("password.properties").newDataInputStream())
+            def password = properties.getProperty("password") // FIXME
+            // def password = "123456"
+
+            storeFile file("FileOfKeys.jks")
+            storePassword = password
+            keyAlias 'KeyAliasForFreeAdultRelease'
+            keyPassword = password
+        }
+    }
+
     buildTypes { // про настройку загрузки приложения (режим загрузки)
         debug { // можно не писать (debug есть всегда)
 
         }
         release {
-            minifyEnabled true //FIXME зачем это? todo погуглить про настройки buildTypes
+
+            signingConfig signingConfigs.myRelease
+            minifyEnabled true //true включит прогвард
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            multiDexEnabled true // если имён функций болше 65000 (по возможности ставить false)
-            multiDexEnabled false
+            multiDexEnabled true
+
+
         }
 
     }
@@ -66,7 +84,7 @@ android {
             dimension 'age'
         }
         adult {
-            dimension  'age'
+            dimension 'age'
         }
 
 
