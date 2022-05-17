@@ -29,10 +29,7 @@ android {
 
 
     buildTypes { // про настройку загрузки приложения (режим загрузки)
-        tasting{
-            initWith debug //FIXME дебаг есть дебаг. Удалить testing из buildTypes?
-        }
-        debug{
+        debug { // можно не писать (debug есть всегда)
 
         }
         release {
@@ -57,21 +54,22 @@ android {
     //FIXME что это и зачем? Откуда взялось не помню.
 
 
-    flavorDimensions 'version_free', 'version_paid'
+    flavorDimensions 'distribution', 'age'
     productFlavors { //про версии приложения (картинки, функционал, внешний вид и прочее)
-        freeBroken {
-            dimension 'version_free'
+        free {
+            dimension 'distribution'
         }
-        freeNormal {
-            dimension 'version_free'
+        paid {
+            dimension 'distribution'
+        }
+        kids {
+            dimension 'age'
+        }
+        adult {
+            dimension  'age'
         }
 
-        paidNormal {
-            dimension 'version_paid'
-        }
-        paidPro {
-            dimension 'version_paid'
-        }
+
     }
 
 }
