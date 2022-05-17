@@ -27,8 +27,7 @@ android {
         it.buildConfigField "String", "WEATHER_API_KEY", apiKey
     }
 
-
-    signingConfigs {
+    /*signingConfigs { //вроде бы копия кода Андрея, но не работает(( Что-то начудил с файлом ключей?
         myRelease {
             Properties properties = new Properties()
             properties.load(rootProject.file("password.properties").newDataInputStream())
@@ -40,7 +39,7 @@ android {
             keyAlias 'KeyAliasForFreeAdultRelease'
             keyPassword = password
         }
-    }
+    }*/
 
     buildTypes { // про настройку загрузки приложения (режим загрузки)
         debug { // можно не писать (debug есть всегда)
@@ -48,11 +47,11 @@ android {
         }
         release {
 
-            signingConfig signingConfigs.myRelease
+//            signingConfig signingConfigs.myRelease
             minifyEnabled true //true включит прогвард
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            multiDexEnabled true // если имён функций болше 65000 (по возможности ставить false)
-            multiDexEnabled true
+            multiDexEnabled false
 
 
         }
@@ -72,7 +71,7 @@ android {
     //FIXME что это и зачем? Откуда взялось не помню.
 
 
-    flavorDimensions 'distribution', 'age'
+    /*flavorDimensions 'distribution', 'age'
     productFlavors { //про версии приложения (картинки, функционал, внешний вид и прочее)
         free {
             dimension 'distribution'
@@ -86,9 +85,7 @@ android {
         adult {
             dimension 'age'
         }
-
-
-    }
+    }*/
 
 }
 
