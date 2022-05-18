@@ -82,7 +82,6 @@ class WeatherListFragment : Fragment(),
     }
 
     private fun checkPermission() { //todo play with debugger to understand order of execution
-        //а есть ли разрешение? Проверим
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -90,13 +89,13 @@ class WeatherListFragment : Fragment(),
         ) {
             getLocation()
         } else if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            explain()
+            explainRequestPermission()
         } else {
             mRequestPermission()
         }
     }
 
-    private fun explain() {
+    private fun explainRequestPermission() {
         AlertDialog.Builder(requireContext())
             .setTitle(resources.getString(R.string.dialog_address_title))
             .setMessage(resources.getString(R.string.dialog_rationale_message))
@@ -126,7 +125,7 @@ class WeatherListFragment : Fragment(),
                 if (permissions[i] == Manifest.permission.ACCESS_FINE_LOCATION && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     getLocation()
                 } else {
-                    explain()
+                    explainRequestPermission()
                 }
             }
         } else {

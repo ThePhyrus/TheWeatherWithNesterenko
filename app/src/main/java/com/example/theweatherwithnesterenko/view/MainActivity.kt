@@ -1,7 +1,5 @@
 package com.example.theweatherwithnesterenko.view
 
-import android.content.Context
-import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
@@ -19,11 +17,12 @@ import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
+// todo HW научиться хранить в базе данных широту и долготу
 //TODO выводить проверки, вызвать картинку, shared preferences (сохранить настройки приложения
 //FIXME:
 // - кнопки fab, ui, выводимая информация, возможность звонить, дополнительные версии, ресурсы,
 // обработка ошибок, обработка ответов сервера, snackbar, class MainViewModel,
-// class DetailsViewModel,
+// class DetailsViewModel, android:id="@+id/ivIcon",
 
 class MainActivity : AppCompatActivity() { //todo разобрать бардак в этом классе
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +33,39 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
 
+        createReceiver()
 
+        setupSP()
+
+        Thread{
+            MyApp.getHistoryDao().getAll()
+        }.start()
+
+        catchToken()
+
+    }
+
+    private fun setupSP() {//FIXME
+        val sp = getSharedPreferences(KEY_SP_FILE_NAME_1, MODE_PRIVATE)
+        val editor = sp.edit()
+        editor.putBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, true)
+        editor.apply()
+        val defaultValueIsRussian = true
+        sp.getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, defaultValueIsRussian)
+    }
+
+    private fun catchToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            val token = task.result
+            Log.d(TAG, "$token")
+        })
+    }
+
+    private fun createReceiver() {
         val theReceiver = TheBroadcastReceiver() // создаётся ресивер (приёмник)
         registerReceiver(
             theReceiver,
@@ -44,52 +75,7 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
             theReceiver,
             IntentFilter(ACTION_AIRPLANE_MODE)
         )
-
-        val sp = getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
-        val editor = sp.edit()
-        editor.putBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, true)
-        editor.apply()
-
-        val spMy = getSharedPreferences(KEY_SP_MY_FILE_1, Context.MODE_PRIVATE)
-        val editorMy = spMy.edit()
-        editorMy.putInt(KEY_SP_MY_FILE_1_KEY_INT, 5)
-        editorMy.apply()
-
-        val spString = getSharedPreferences(KEY_SP_MY_FILE_2, Context.MODE_PRIVATE)
-        val spEditor = spString.edit()
-        spEditor.putString(KEY_SP_MY_FILE_2_KEY_STRING, "string")
-        spEditor.apply()
-
-
-        val defaultValueIsRussian = true
-        sp.getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, defaultValueIsRussian)
-
-        val spFloat = getSharedPreferences(KEY_SP_MY_FILE_3, Context.MODE_PRIVATE)
-        val spEditorFloat = spFloat.edit()
-        spEditorFloat.putFloat(KEY_SP_MY_FILE_4_KEY_FLOAT, 0.0f)
-        spEditor.apply()
-
-
-        val spFloatDefValue = 0.0f
-        spFloat.getFloat(KEY_SP_MY_FILE_4_KEY_FLOAT, spFloatDefValue)
-
-
-        Thread{
-            MyApp.getHistoryDao().getAll()
-        }.start()
-
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-            val token = task.result
-            Log.d(TAG, "$token")
-        })
-
     }
-
-
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

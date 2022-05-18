@@ -28,12 +28,7 @@ const val KEY_BUNDLE_LON: String = "lon1"
 //
 const val KEY_SP_FILE_NAME_1: String = "fileName1"
 const val KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN: String = "is_russian"
-const val KEY_SP_MY_FILE_1:String = "my_1"
-const val KEY_SP_MY_FILE_1_KEY_INT:String = "int"
-const val KEY_SP_MY_FILE_2:String = "my_2"
-const val KEY_SP_MY_FILE_2_KEY_STRING:String = "string"
-const val KEY_SP_MY_FILE_3:String = "my_3"
-const val KEY_SP_MY_FILE_4_KEY_FLOAT:String = "float"
+
 //
 const val DOT_SVG:String = ".svg"
 //
@@ -43,13 +38,9 @@ const val KEY_BUNDLE_ACTIVITY_MESSAGE: String = "activity_message"
 const val KEY_BUNDLE_SERVICE_MESSAGE: String = "service_message"
 // actions
 const val KEY_WAVE_THE_ACTION: String = "theaction" // как-то так?
-// sleep time
-const val TIME_ONE_SECOND: Long = 1000L
-const val TIME_TWO_SECONDS: Long = 2000L
-const val TIME_THREE_SECONDS: Long = 3000L
 //Room
 const val KEY_HISTORY_TABLE :String= "history_table" //todo в строковые xml?
-//Request codes
+//Permission request codes
 const val REQUEST_CODE_FOR_PERMISSION_TO_READ_USER_CONTACTS:Int = 101
 const val REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION:Int = 100
 
@@ -63,18 +54,9 @@ fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
 }
 
 
-   /* fun View.showSnackBarWithAction(
-    text:String,
-    actionText:String,
-    action: (View) -> Unit,
-    length:Int = Snackbar.LENGTH_INDEFINITE
-){
-    Snackbar.make(this, text,length).setAction(actionText,action)
-}*/
-
 fun convertHistoryEntityToWeather(entityList: List<HistoryEntity>): List<Weather> {
     return entityList.map {
-        Weather(City(it.city,0.0,0.0), it.temperature, it.feelsLike, it.icon) // todo HW научиться хранить в базе данных широту и долготу
+        Weather(City(it.city,0.0,0.0), it.temperature, it.feelsLike, it.icon)
     }
 }
 

@@ -50,7 +50,6 @@
     <string name="search">search</string>
     <string name="default_url">https://geekbrains.ru/</string>
 <!--    Menu titles-->
-    <string name="threads_menu_title">Threads</string>
     <string name="history_menu_title">History</string>
     <string name="work_with_content_provider_menu_title">WWCP</string>
     <string name="google_maps">google_maps</string>

@@ -63,15 +63,11 @@ class DetailsFragment : Fragment() {
                 binding.root.showSnackBarWithAction(
                     getString(R.string.data_rendering_error),
                     getString(R.string.try_again), {
-                        // FIXME someFun()?
-                    }, Snackbar.LENGTH_LONG
-                )
-                Log.d(TAG, "renderData: DetailsState in error")
+                    }, Snackbar.LENGTH_LONG)
             }
             DetailsState.Loading -> {
                 with(binding) {
                     loadingLayout.visibility = View.VISIBLE
-                    Log.d(TAG, "renderData: DetailsState in loading")
                 }
             }
             is DetailsState.Success -> {
@@ -82,20 +78,10 @@ class DetailsFragment : Fragment() {
                     temperatureValue.text = weather.temperature.toString()
                     feelsLikeValue.text = weather.feelsLike.toString()
                     cityCoordinates.text = "${weather.city.lat} ${weather.city.lon}"
-
-                    /*Glide.with(requireContext())
-                        .load("$FREEPNGIMG_DOMAIN$FREEPNGIMG_ENDPOINT")
-                        .into(headerCityIcon)*/
-
-                    /*Picasso.get()?.load("$FREEPNGIMG_DOMAIN$FREEPNGIMG_ENDPOINT")
-                        ?.into(headerCityIcon)*/
-
                     headerCityIcon.load("$FREEPNGIMG_DOMAIN$FREEPNGIMG_ENDPOINT")
-
                     icon.loadSvg(
                         "${YASTATIC_DOMAIN}${YANDEX_WEATHER_ICON_ENDPOINT}${weather.icon}${DOT_SVG}"
                     )
-                    Log.d(TAG, "renderData: DetailsState in success")
                 }
             }
         }

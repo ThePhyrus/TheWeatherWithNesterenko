@@ -17,7 +17,6 @@ import java.net.URL
 
 class DetailsService(val name: String = "") : IntentService(name) {
     override fun onHandleIntent(intent: Intent?) {
-        Log.d(TAG, "DetailsService started")
         intent?.let {
             val lat = it.getDoubleExtra(KEY_BUNDLE_LAT, 0.0)
             val lon = it.getDoubleExtra(KEY_BUNDLE_LON, 0.0)

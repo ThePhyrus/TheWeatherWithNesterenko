@@ -7,10 +7,6 @@ import com.example.theweatherwithnesterenko.repository.weather.getWorldCities
 
 
 class RepositoryImpl : Repository {
-    override fun getWeatherFromServer(): Weather {
-        Thread.sleep(2000L) // эмуляция сетевого запроса
-        return Weather()// эмуляция ответа
-    }
 
     override fun getWorldWeatherFromLocalStorage() = getWorldCities()// эмуляция ответа
 
