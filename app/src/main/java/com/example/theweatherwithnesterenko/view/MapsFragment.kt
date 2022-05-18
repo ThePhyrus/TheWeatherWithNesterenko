@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.course.lessons.lesson10
+package com.example.theweatherwithnesterenko.view
 
 import android.graphics.Color
 import android.location.Geocoder

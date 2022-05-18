@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.course.lessons.lesson9
+package com.example.theweatherwithnesterenko
 
 import android.content.ContentProvider
 import android.content.ContentUris
@@ -6,8 +6,6 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
-import com.example.theweatherwithnesterenko.MyApp
-import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.domain.room.HistoryEntity
 import com.example.theweatherwithnesterenko.domain.room.ID
 import com.example.theweatherwithnesterenko.domain.room.NAME
@@ -74,7 +72,7 @@ class HistoryContentProvider : ContentProvider() {
                 entityContentItemType
             }
             else -> {
-                throw IllformedLocaleException("bad uri")
+                throw IllformedLocaleException("bad uri") //todo как ловить ошибки правильно?
             }
         }
     }
@@ -85,9 +83,7 @@ class HistoryContentProvider : ContentProvider() {
         }
         val historyDao = MyApp.getHistoryDao()
         return mapper(values)?.let {
-//            Thread {
-                historyDao.insert(it)
-//            }.start()
+            historyDao.insert(it)
             val loggerUri = ContentUris.withAppendedId(contentUri, it.id)
             context?.contentResolver?.notifyChange(loggerUri, null)
             loggerUri
@@ -100,12 +96,11 @@ class HistoryContentProvider : ContentProvider() {
         }
         val id = ContentUris.parseId(uri)
         val historyDao = MyApp.getHistoryDao()
-//        Thread {
-            historyDao.deleteByID(id)
-//        }.start()
+        historyDao.deleteByID(id)
+
 
         context?.contentResolver?.notifyChange(uri, null)
-        return 1 // ???
+        return 1 // FIXME???
     }
 
     override fun update(
@@ -120,18 +115,16 @@ class HistoryContentProvider : ContentProvider() {
 
         val historyDao = MyApp.getHistoryDao()
         mapper(values)?.let {
-//            Thread {
-                historyDao.update(it)
-//            }.start()
+            historyDao.update(it)
         }
         context?.contentResolver?.notifyChange(uri, null)
-        return 1 // ???
+        return 1 // FIXME???
     }
 
     // Переводим ContentValues в HistoryEntity
     private fun mapper(values: ContentValues?): HistoryEntity? {
         return if (values == null) {
-            null// HistoryEntity()
+            null
         } else {
             val id = if (values.containsKey(ID)) values[ID] as Long else 0
             val city = values[NAME] as String

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryAdd
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryOne
-import com.example.theweatherwithnesterenko.repository.impl.DetailsRepositoryOneRetrofit2Impl
+import com.example.theweatherwithnesterenko.repository.impl.DetailsRepositoryRetrofit2Impl
 import com.example.theweatherwithnesterenko.repository.impl.DetailsRepositoryRoomImpl
 import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.Weather
@@ -17,45 +17,40 @@ class DetailsViewModel(
     private val liveData: MutableLiveData<DetailsState> = MutableLiveData(),
     private val repositoryAdd: DetailsRepositoryAdd = DetailsRepositoryRoomImpl(),
 ) : ViewModel() {
-    private var repositoryOne: DetailsRepositoryOne = DetailsRepositoryOneRetrofit2Impl()
+    private var repositoryOne: DetailsRepositoryOne = DetailsRepositoryRetrofit2Impl()
 
     fun getLiveData() = liveData
 
     fun getWeather(city: City) {
         liveData.postValue(DetailsState.Loading)
         if (isInternet()) {
-            repositoryOne = DetailsRepositoryOneRetrofit2Impl()
+            repositoryOne = DetailsRepositoryRetrofit2Impl()
         } else {
             DetailsRepositoryRoomImpl()
         }
 
-
-
-        Log.d(TAG, "${Thread.currentThread().name}")
-            repositoryOne.getWeatherDetails(city, object : Callback {
-                override fun onResponse(weather: Weather) {
-                    Log.d(TAG, "${Thread.currentThread().name}")
-                    liveData.value = (DetailsState.Success(weather)) //FIXME postValue??
-                    if (isInternet()){
-                        Thread{
-                            repositoryAdd.addWeather(weather)
-                        }.start()
-                    } else{
-                        Log.d(TAG, "onResponse() called without internet: weather = $weather")
-                    }
+        repositoryOne.getWeatherDetails(city, object : Callback {
+            override fun onResponse(weather: Weather) {
+                liveData.value = (DetailsState.Success(weather)) //FIXME postValue??
+                if (isInternet()) {
+                    Thread {
+                        repositoryAdd.addWeather(weather)
+                    }.start()
+                } else {
+                    Log.d(TAG, "onResponse() called") //todo что-ещё
                 }
+            }
 
-
-                override fun onFail() {
-                    Log.d(TAG, "onFail() called  inside getWeather()") //todo что-ещё
-                }
-            })
+            override fun onFail() {
+                Log.d(TAG, "onFail() called") //todo что-ещё
+            }
+        })
 
     }
 
     private fun isInternet(): Boolean { //todo как-то переписать эту функцию
         // заглушка
-        return true //todo если будет false, то в историю запросов ничего добавляться не будет. Почему? Исправить.
+        return true //todo если будет false, то в историю запросов ничего добавляться не будет. Почему? Зачем?
     }
 
     interface Callback {

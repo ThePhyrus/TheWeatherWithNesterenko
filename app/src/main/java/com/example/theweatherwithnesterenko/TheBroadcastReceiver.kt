@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.course.lessons.lesson6
+package com.example.theweatherwithnesterenko
 
 import android.content.BroadcastReceiver
 import android.content.Context

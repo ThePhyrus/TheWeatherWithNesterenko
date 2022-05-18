@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.course.lessons.lesson11
+package com.example.theweatherwithnesterenko
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -8,7 +8,6 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.utils.TAG
 import com.example.theweatherwithnesterenko.view.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService

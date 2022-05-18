@@ -10,11 +10,9 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.theweatherwithnesterenko.MyApp
 import com.example.theweatherwithnesterenko.R
-import com.example.theweatherwithnesterenko.course.lessons.lesson10.MapsFragment
-import com.example.theweatherwithnesterenko.course.lessons.lesson6.MainService
-import com.example.theweatherwithnesterenko.course.lessons.lesson6.TheBroadcastReceiver
-import com.example.theweatherwithnesterenko.course.lessons.lesson6.ThreadFragment
-import com.example.theweatherwithnesterenko.course.lessons.lesson9.WorkWithContentProviderFragment
+
+import com.example.theweatherwithnesterenko.TheBroadcastReceiver
+import com.example.theweatherwithnesterenko.WorkWithContentProviderFragment
 import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.view.historylist.HistoryWeatherListFragment
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
@@ -22,6 +20,10 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
 //TODO выводить проверки, вызвать картинку, shared preferences (сохранить настройки приложения
+//FIXME:
+// - кнопки fab, ui, выводимая информация, возможность звонить, дополнительные версии, ресурсы,
+// обработка ошибок, обработка ответов сервера, snackbar, class MainViewModel,
+// class DetailsViewModel,
 
 class MainActivity : AppCompatActivity() { //todo разобрать бардак в этом классе
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,20 +34,16 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
 
-        startService(Intent(this, MainService::class.java).apply {
-            putExtra(KEY_BUNDLE_ACTIVITY_MESSAGE, resources.getString(R.string.hallo_from_activity))
-        })
 
         val theReceiver = TheBroadcastReceiver() // создаётся ресивер (приёмник)
         registerReceiver(
             theReceiver,
             IntentFilter(KEY_WAVE_THE_ACTION)
-        ) // регистрация ресивера на голбальной волне
+        )
         registerReceiver(
             theReceiver,
             IntentFilter(ACTION_AIRPLANE_MODE)
-        ) // регистрация ресивера на голбальной волне
-//        LocalBroadcastManager.getInstance(this).registerReceiver(theReceiver, IntentFilter(KEY_WAVE_THE_ACTION)) // регистрация локальная
+        )
 
         val sp = getSharedPreferences(KEY_SP_FILE_NAME_1, Context.MODE_PRIVATE)
         val editor = sp.edit()
@@ -76,9 +74,9 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         spFloat.getFloat(KEY_SP_MY_FILE_4_KEY_FLOAT, spFloatDefValue)
 
 
-        Thread{ //todo try 1 variant
+        Thread{
             MyApp.getHistoryDao().getAll()
-        }.start() //todo try 1 variant
+        }.start()
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
@@ -95,17 +93,13 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu1, menu)
+        menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_thread -> {
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.container, ThreadFragment.newInstance()).addToBackStack("").commit()
-                Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
-            }
+
             R.id.action_history -> {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.container, HistoryWeatherListFragment.newInstance())

@@ -41,11 +41,11 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.example.theweatherwithnesterenko.course.lessons.lesson6.MainService" />
+        <service android:name="com.example.theweatherwithnesterenko.MainService" />
         <service android:name=".view.details.DetailsService" />
 
         <service
-            android:name="com.example.theweatherwithnesterenko.course.lessons.lesson11.MyService"
+            android:name="com.example.theweatherwithnesterenko.MyService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -54,7 +54,7 @@
         </service>
 
         <receiver
-            android:name="com.example.theweatherwithnesterenko.course.lessons.lesson6.TheBroadcastReceiver"
+            android:name="com.example.theweatherwithnesterenko.TheBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -65,7 +65,7 @@
         </receiver>
 
         <provider
-            android:name="com.example.theweatherwithnesterenko.course.lessons.lesson9.HistoryContentProvider"
+            android:name="com.example.theweatherwithnesterenko.HistoryContentProvider"
             android:authorities="@string/authorities"
             android:enabled="true"
             android:exported="true" />

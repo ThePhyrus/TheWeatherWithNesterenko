@@ -23,7 +23,7 @@ class MainViewModel(
     private fun getWeather(isRussian: Boolean) {
         Thread {
             liveData.postValue(AppState.Loading)
-            if (true) {
+            if (true) { //FIXME
                 val answer =
                     if (!isRussian) repository.getWorldWeatherFromLocalStorage()
                     else repository.getRussianWeatherFromLocalStorage()

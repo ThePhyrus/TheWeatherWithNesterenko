@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.course.lessons.lesson9
+package com.example.theweatherwithnesterenko
 
 
 import android.Manifest
@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentWorkWithContentProviderBinding
 import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_FOR_PERMISSION_TO_READ_USER_CONTACTS
 
