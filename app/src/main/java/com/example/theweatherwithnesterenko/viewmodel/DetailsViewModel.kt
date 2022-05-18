@@ -29,6 +29,8 @@ class DetailsViewModel(
             DetailsRepositoryRoomImpl()
         }
 
+
+
         Log.d(TAG, "${Thread.currentThread().name}")
             repositoryOne.getWeatherDetails(city, object : Callback {
                 override fun onResponse(weather: Weather) {
@@ -42,6 +44,7 @@ class DetailsViewModel(
                         Log.d(TAG, "onResponse() called without internet: weather = $weather")
                     }
                 }
+
 
                 override fun onFail() {
                     Log.d(TAG, "onFail() called  inside getWeather()") //todo что-ещё
