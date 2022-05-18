@@ -8,8 +8,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.theweatherwithnesterenko.MyApp
 import com.example.theweatherwithnesterenko.R
-
 import com.example.theweatherwithnesterenko.TheBroadcastReceiver
+
 import com.example.theweatherwithnesterenko.WorkWithContentProviderFragment
 import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.view.historylist.HistoryWeatherListFragment
@@ -32,17 +32,11 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
-
         createReceiver()
-
         setupSP()
-
         Thread{
             MyApp.getHistoryDao().getAll()
         }.start()
-
-        catchToken()
-
     }
 
     private fun setupSP() {//FIXME
@@ -77,7 +71,6 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         )
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -85,23 +78,19 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
             R.id.action_history -> {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.container, HistoryWeatherListFragment.newInstance())
                     .addToBackStack("").commit()
-                Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
             }
             R.id.action_work_with_content_provider -> {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.container, WorkWithContentProviderFragment.newInstance())
                     .addToBackStack("").commit()
-                Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
             }
             R.id.action_menu_google_maps -> {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.container, MapsFragment()).addToBackStack("").commit()
-                Log.d(TAG, "onOptionsItemSelected() called with: item = $item")
             }
         }
         return super.onOptionsItemSelected(item)

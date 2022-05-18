@@ -7,7 +7,7 @@ import com.example.theweatherwithnesterenko.repository.dto.FactDTO
 import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
 import com.example.theweatherwithnesterenko.repository.weather.getDefaultCity
 
-
+private const val KEY_SERVER = "AAAAbqWcDSI:APA91bFNc8h4Niu0qohjLMtTmsNQWxgCvZDWdrK3byzK2GnpOiV3GtuzXis-erRv-ZT7D0rIiN6kjWrubT0ZlfpSoaMUIegJ4iBK3MebetxdLXJHx3xjMCVcohA_UfaM7fACVvgXROG6"
 const val TAG: String = "@@@"
 const val KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS: String = "weather"
 const val KEY_BUNDLE_SERVICE_BROADCAST_WEATHER: String = "weather_service_broadcast"
@@ -16,7 +16,6 @@ const val X_YANDEX_API_KEY: String = "X-Yandex-API-Key"
 const val YANDEX_DOMAIN: String = "https://api.weather.yandex.ru"
 const val MASTER_DOMAIN: String = "http://212.86.114.27/"
 const val YANDEX_ENDPOINT: String = "v2/informers?"
-const val YANDEX_ENDPOINT2: String = "заготовочка на случай, если возьму тариф тестовый"
 const val YASTATIC_DOMAIN: String = "https://yastatic.net/"
 const val YANDEX_WEATHER_ICON_ENDPOINT: String = "weather/i/icons/blueye/color/svg/"
 const val FREEPNGIMG_DOMAIN:String = "https://freepngimg.com/"

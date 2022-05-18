@@ -1,7 +1,8 @@
-package com.example.theweatherwithnesterenko.domain.room
+package com.example.theweatherwithnesterenko.domain
 
 import android.database.Cursor
 import androidx.room.*
+import com.example.theweatherwithnesterenko.domain.room.HistoryEntity
 
 
 @Dao

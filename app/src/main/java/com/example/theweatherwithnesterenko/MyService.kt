@@ -27,48 +27,22 @@ class MyService : FirebaseMessagingService() {
     }
 
     companion object { //todo попробовать без companion object
-        private const val NOTIFICATION_ID_LOW = 1
         private const val NOTIFICATION_ID_HIGH = 2
-        private const val CHANNEL_ID_LOW = "channel_low"
         private const val CHANNEL_ID_HIGH = "channel_high"
         private const val KEY_TITLE = "myTitle"
         private const val KEY_MESSAGE = "myMessage"
 
         //todo прикрепить server-key при сдаче ДЗ
-        private const val KEY_SERVER =
-            "AAAAbqWcDSI:APA91bFNc8h4Niu0qohjLMtTmsNQWxgCvZDWdrK3byzK2GnpOiV3GtuzXis-erRv-ZT7D0rIiN6kjWrubT0ZlfpSoaMUIegJ4iBK3MebetxdLXJHx3xjMCVcohA_UfaM7fACVvgXROG6"
+
     }
 
     private fun push(title: String, message: String) {
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        /*val notificationBuilderLow = NotificationCompat.Builder(this, CHANNEL_ID_LOW).apply {
-            setSmallIcon(R.drawable.ic_map_pin)//todo change icon
-            setContentTitle("getString(R.string.law_notification_title)") //todo вынести в ресурсы
-            setContentText("getString(R.string.law_notification_text)") //todo вынести в ресурсы
-            priority = NotificationManager.IMPORTANCE_LOW // todo полазить по константам, почитать
-
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelNameLow = "Name $CHANNEL_ID_LOW"
-            val channelDescriptionLow = "Description $CHANNEL_ID_LOW"
-            val channelPriorityLow = NotificationManager.IMPORTANCE_LOW
-            val channelLow =
-                NotificationChannel(CHANNEL_ID_LOW, channelNameLow, channelPriorityLow).apply {
-                    description = channelDescriptionLow
-                }
-            notificationManager.createNotificationChannel(channelLow)
-        }
-        notificationManager.notify(NOTIFICATION_ID_LOW, notificationBuilderLow.build())*/
-
         val notificationIntent = Intent(applicationContext, MainActivity::class.java)
-        //можно указать любую точку входа в приложение,
-        // context может быть другой (у сервиса, например, есть свой контекст.
-        // У кого ещё он есть а у кого нет? //todo вспомнить уроки про контекст
         val contentIntent = PendingIntent.getActivity( // todo и про интент вспомнить. Сделать другой.
             this,
-            0, //todo const
+            0, //todo const?
             notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -91,8 +65,6 @@ class MyService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channelHigh)
         }
         notificationManager.notify(NOTIFICATION_ID_HIGH, notificationBuilderHigh.build())
-
-
     }
 
     override fun onNewToken(token: String) {

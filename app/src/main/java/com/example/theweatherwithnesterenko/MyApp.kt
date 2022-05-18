@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.theweatherwithnesterenko.domain.room.HistoryDao
-import com.example.theweatherwithnesterenko.room.MyDB
+import com.example.theweatherwithnesterenko.domain.HistoryDao
+import com.example.theweatherwithnesterenko.domain.MyDB
 import java.lang.IllegalStateException
 
 class MyApp : Application() {
