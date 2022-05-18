@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.repository
+package com.example.theweatherwithnesterenko.repository.repo
 
 
 import com.example.theweatherwithnesterenko.viewmodel.HistoryViewModel

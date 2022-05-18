@@ -3,9 +3,9 @@ package com.example.theweatherwithnesterenko.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.theweatherwithnesterenko.repository.DetailsRepositoryRoomImpl
-import com.example.theweatherwithnesterenko.repository.RepositoryImpl
-import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.repository.impl.DetailsRepositoryRoomImpl
+import com.example.theweatherwithnesterenko.repository.weather.Weather
+import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 
 
 class HistoryViewModel(

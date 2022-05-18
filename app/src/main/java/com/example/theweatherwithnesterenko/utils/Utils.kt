@@ -1,13 +1,11 @@
 package com.example.theweatherwithnesterenko.utils
 
-import android.view.View
 import com.example.theweatherwithnesterenko.domain.room.HistoryEntity
-import com.example.theweatherwithnesterenko.repository.City
-import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.repository.weather.City
+import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.repository.dto.FactDTO
 import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
-import com.example.theweatherwithnesterenko.repository.getDefaultCity
-import com.google.android.material.snackbar.Snackbar
+import com.example.theweatherwithnesterenko.repository.weather.getDefaultCity
 
 
 const val TAG: String = "@@@"

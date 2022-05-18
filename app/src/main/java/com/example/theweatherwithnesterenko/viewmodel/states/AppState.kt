@@ -1,6 +1,6 @@
-package com.example.theweatherwithnesterenko.viewmodel
+package com.example.theweatherwithnesterenko.viewmodel.states
 
-import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.repository.weather.Weather
 
 
 sealed class AppState {

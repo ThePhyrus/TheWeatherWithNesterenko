@@ -1,6 +1,4 @@
-package com.example.theweatherwithnesterenko.viewmodel
-
-import com.example.theweatherwithnesterenko.repository.Weather
+package com.example.theweatherwithnesterenko.viewmodel.states
 
 
 sealed class ResponseState { //FIXME с этим делом разобраться не смог

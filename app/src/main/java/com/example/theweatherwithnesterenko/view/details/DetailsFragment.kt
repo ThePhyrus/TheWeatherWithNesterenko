@@ -10,16 +10,15 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.load
 import coil.request.ImageRequest
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
-import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.*
-import com.example.theweatherwithnesterenko.viewmodel.DetailsState
+import com.example.theweatherwithnesterenko.viewmodel.states.DetailsState
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
 import com.google.android.material.snackbar.Snackbar
 

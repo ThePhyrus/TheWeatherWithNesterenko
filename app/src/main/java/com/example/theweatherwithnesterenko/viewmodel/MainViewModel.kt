@@ -3,7 +3,8 @@ package com.example.theweatherwithnesterenko.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.theweatherwithnesterenko.repository.RepositoryImpl
+import com.example.theweatherwithnesterenko.repository.impl.RepositoryImpl
+import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 
 
 class MainViewModel(

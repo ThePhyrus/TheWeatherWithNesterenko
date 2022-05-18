@@ -3,8 +3,14 @@ package com.example.theweatherwithnesterenko.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.theweatherwithnesterenko.repository.*
+import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryAdd
+import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryOne
+import com.example.theweatherwithnesterenko.repository.impl.DetailsRepositoryOneRetrofit2Impl
+import com.example.theweatherwithnesterenko.repository.impl.DetailsRepositoryRoomImpl
+import com.example.theweatherwithnesterenko.repository.weather.City
+import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.TAG
+import com.example.theweatherwithnesterenko.viewmodel.states.DetailsState
 
 
 class DetailsViewModel(

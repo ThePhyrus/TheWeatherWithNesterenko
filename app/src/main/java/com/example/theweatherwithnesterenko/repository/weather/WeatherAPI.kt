@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.repository
+package com.example.theweatherwithnesterenko.repository.weather
 
 import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
 import com.example.theweatherwithnesterenko.utils.*
@@ -15,6 +15,15 @@ interface WeatherAPI {
         @Query(LONGITUDE) lon: Double
     ): Call<WeatherDTO>
 
+
+
+
+
+
+
+
+
+    //todo try getWeather2
     @GET(YANDEX_ENDPOINT2) // заготовочка на случай, если возьму тариф тестовый
     fun getWeather2(
         @Header(X_YANDEX_API_KEY) apikey: String,

@@ -5,6 +5,6 @@ import androidx.room.RoomDatabase
 
 @Database(entities = arrayOf(HistoryEntity::class), version = 2)
 abstract class MyDB:RoomDatabase() {
-    abstract fun historyDao():HistoryDao
+    abstract fun historyDao(): HistoryDao
 //    abstract fun historyDao1():HistoryDao
 }

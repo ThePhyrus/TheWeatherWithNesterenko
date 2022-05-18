@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListRecyclerItemBinding
-import com.example.theweatherwithnesterenko.repository.Weather
+import com.example.theweatherwithnesterenko.repository.weather.Weather
 
 
 class WeatherListAdapter(

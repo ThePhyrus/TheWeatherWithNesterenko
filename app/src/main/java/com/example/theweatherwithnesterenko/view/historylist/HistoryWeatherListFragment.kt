@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListBinding
 import com.example.theweatherwithnesterenko.view.weatherlist.HistoryWeatherListAdapter
-import com.example.theweatherwithnesterenko.viewmodel.AppState
+import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 import com.example.theweatherwithnesterenko.viewmodel.HistoryViewModel
 import com.google.android.material.snackbar.Snackbar
 

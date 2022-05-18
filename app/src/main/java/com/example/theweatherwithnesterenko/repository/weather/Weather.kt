@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.repository
+package com.example.theweatherwithnesterenko.repository.weather
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

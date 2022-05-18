@@ -1,9 +1,11 @@
-package com.example.theweatherwithnesterenko.repository
+package com.example.theweatherwithnesterenko.repository.weather
 
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.example.theweatherwithnesterenko.BuildConfig
+import com.example.theweatherwithnesterenko.repository.OnServerResponse
+import com.example.theweatherwithnesterenko.repository.OnServerResponseListener
 import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
 import com.example.theweatherwithnesterenko.utils.*
 import com.google.gson.Gson

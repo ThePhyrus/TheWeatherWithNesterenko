@@ -1,5 +1,6 @@
-package com.example.theweatherwithnesterenko.repository
+package com.example.theweatherwithnesterenko.repository.repo
 
+import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
 
 
