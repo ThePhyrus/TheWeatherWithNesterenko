@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.domain
+package com.example.theweatherwithnesterenko.domain.room
 
 import android.database.Cursor
 import androidx.room.*

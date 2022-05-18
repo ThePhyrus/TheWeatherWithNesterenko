@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.view.historylist
+package com.example.theweatherwithnesterenko.view.fragments
 
 
 import android.os.Bundle

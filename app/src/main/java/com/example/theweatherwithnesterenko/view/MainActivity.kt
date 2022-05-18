@@ -6,13 +6,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.theweatherwithnesterenko.MyApp
+import com.example.theweatherwithnesterenko.TheWeatherApplication
 import com.example.theweatherwithnesterenko.R
-import com.example.theweatherwithnesterenko.TheBroadcastReceiver
+import com.example.theweatherwithnesterenko.BroadcastReceiver
 
 import com.example.theweatherwithnesterenko.WorkWithContentProviderFragment
 import com.example.theweatherwithnesterenko.utils.*
-import com.example.theweatherwithnesterenko.view.historylist.HistoryWeatherListFragment
+import com.example.theweatherwithnesterenko.view.fragments.HistoryWeatherListFragment
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -32,10 +32,12 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
+        catchToken()
         createReceiver()
         setupSP()
+
         Thread{
-            MyApp.getHistoryDao().getAll()
+            TheWeatherApplication.getHistoryDao().getAll()
         }.start()
     }
 
@@ -59,14 +61,14 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         })
     }
 
-    private fun createReceiver() {
-        val theReceiver = TheBroadcastReceiver() // создаётся ресивер (приёмник)
+    private fun createReceiver() {//FIXME сколько угодно можно регистрировать ресиверов одной этой функцией?
+        val receiver = BroadcastReceiver() // создаётся ресивер (приёмник)
         registerReceiver(
-            theReceiver,
+            receiver,
             IntentFilter(KEY_WAVE_THE_ACTION)
         )
         registerReceiver(
-            theReceiver,
+            receiver,
             IntentFilter(ACTION_AIRPLANE_MODE)
         )
     }

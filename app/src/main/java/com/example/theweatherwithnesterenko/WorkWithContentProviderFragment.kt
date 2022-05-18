@@ -42,7 +42,6 @@ class WorkWithContentProviderFragment : Fragment() {
 
 
     private fun checkPermission() {
-        //а есть ли разрешение? Проверим
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.READ_CONTACTS
@@ -50,13 +49,13 @@ class WorkWithContentProviderFragment : Fragment() {
         ) {
             getContacts()
         } else if (shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
-            explain()
+            explainNecessityReadContacts()
         } else {
             mRequestPermission()
         }
     }
 
-    private fun explain() {
+    private fun explainNecessityReadContacts() {
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.access_to_contacts_ad_title)
             .setMessage(R.string.description)
@@ -86,7 +85,7 @@ class WorkWithContentProviderFragment : Fragment() {
                 if (permissions[i] == Manifest.permission.READ_CONTACTS && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     getContacts()
                 } else {
-                    explain()
+                    explainNecessityReadContacts()
                 }
             }
         } else {

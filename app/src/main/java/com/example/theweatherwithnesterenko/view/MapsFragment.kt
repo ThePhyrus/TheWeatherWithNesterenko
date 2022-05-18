@@ -13,7 +13,7 @@ import com.example.theweatherwithnesterenko.databinding.FragmentMapsMainBinding
 import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
-import com.example.theweatherwithnesterenko.view.details.DetailsFragment
+import com.example.theweatherwithnesterenko.view.fragments.DetailsFragment
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

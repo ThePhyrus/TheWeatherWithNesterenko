@@ -1,6 +1,6 @@
 package com.example.theweatherwithnesterenko.repository.impl
 
-import com.example.theweatherwithnesterenko.MyApp
+import com.example.theweatherwithnesterenko.TheWeatherApplication
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryAdd
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryAll
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryOne
@@ -14,12 +14,12 @@ import com.example.theweatherwithnesterenko.viewmodel.HistoryViewModel
 class DetailsRepositoryRoomImpl : DetailsRepositoryOne, DetailsRepositoryAll, DetailsRepositoryAdd {
     override fun getAllWeatherDetails(callback: HistoryViewModel.CallbackForAll) {
         Thread {
-            callback.onResponse(convertHistoryEntityToWeather(MyApp.getHistoryDao().getAll()))
+            callback.onResponse(convertHistoryEntityToWeather(TheWeatherApplication.getHistoryDao().getAll()))
         }.start()
     }
 
     override fun getWeatherDetails(city: City, callback: DetailsViewModel.Callback) {
-        val list = convertHistoryEntityToWeather(MyApp.getHistoryDao().getHistoryCity(city.name))
+        val list = convertHistoryEntityToWeather(TheWeatherApplication.getHistoryDao().getHistoryCity(city.name))
         if (list.isEmpty()) {
             callback.onFail()
         } else {
@@ -28,7 +28,7 @@ class DetailsRepositoryRoomImpl : DetailsRepositoryOne, DetailsRepositoryAll, De
     }
 
     override fun addWeather(weather: Weather) {
-        MyApp.getHistoryDao().insert(convertWeatherToEntity(weather))
+        TheWeatherApplication.getHistoryDao().insert(convertWeatherToEntity(weather))
     }
 
 }

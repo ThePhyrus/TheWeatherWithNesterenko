@@ -44,7 +44,7 @@ class HistoryContentProvider : ContentProvider() {
         selectionArgs: Array<out String>?,
         sortOrder: String?
     ): Cursor {
-        val historyDao = MyApp.getHistoryDao()
+        val historyDao = TheWeatherApplication.getHistoryDao()
         val cursor = when (uriMatcher.match(uri)) {
             URI_ALL -> {
                 historyDao.getHistoryCursor()
@@ -81,7 +81,7 @@ class HistoryContentProvider : ContentProvider() {
         require(uriMatcher.match(uri) == URI_ALL) {
             throw IllformedLocaleException("bad uri")
         }
-        val historyDao = MyApp.getHistoryDao()
+        val historyDao = TheWeatherApplication.getHistoryDao()
         return mapper(values)?.let {
             historyDao.insert(it)
             val loggerUri = ContentUris.withAppendedId(contentUri, it.id)
@@ -95,7 +95,7 @@ class HistoryContentProvider : ContentProvider() {
             throw IllformedLocaleException("bad uri")
         }
         val id = ContentUris.parseId(uri)
-        val historyDao = MyApp.getHistoryDao()
+        val historyDao = TheWeatherApplication.getHistoryDao()
         historyDao.deleteByID(id)
 
 
@@ -113,7 +113,7 @@ class HistoryContentProvider : ContentProvider() {
             throw IllformedLocaleException("bad uri")
         }
 
-        val historyDao = MyApp.getHistoryDao()
+        val historyDao = TheWeatherApplication.getHistoryDao()
         mapper(values)?.let {
             historyDao.update(it)
         }

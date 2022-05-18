@@ -26,7 +26,7 @@ import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
 import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION
 import com.example.theweatherwithnesterenko.utils.TAG
-import com.example.theweatherwithnesterenko.view.details.DetailsFragment
+import com.example.theweatherwithnesterenko.view.fragments.DetailsFragment
 import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar

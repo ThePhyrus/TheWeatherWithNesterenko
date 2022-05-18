@@ -38,7 +38,6 @@ class DetailsService(val name: String = "") : IntentService(name) {
 
                when(responseCode){
                    in responseOk -> {
-                       Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
                        val buffer = BufferedReader(InputStreamReader(urlConnection.inputStream))
                        val weatherDTO: WeatherDTO = Gson().fromJson(buffer, WeatherDTO::class.java)
                        val message = Intent(KEY_WAVE_SERVICE_BROADCAST)
