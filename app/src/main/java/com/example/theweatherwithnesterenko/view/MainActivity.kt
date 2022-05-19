@@ -6,13 +6,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.theweatherwithnesterenko.TheWeatherApplication
+import com.example.theweatherwithnesterenko.MainApp
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.BroadcastReceiver
 
 import com.example.theweatherwithnesterenko.WorkWithContentProviderFragment
 import com.example.theweatherwithnesterenko.utils.*
-import com.example.theweatherwithnesterenko.view.fragments.HistoryWeatherListFragment
+import com.example.theweatherwithnesterenko.view.historylist.HistoryWeatherListFragment
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -20,9 +20,13 @@ import com.google.firebase.messaging.FirebaseMessaging
 // todo HW научиться хранить в базе данных широту и долготу
 //TODO выводить проверки, вызвать картинку, shared preferences (сохранить настройки приложения
 //FIXME:
-// - кнопки fab, ui, выводимая информация, возможность звонить, дополнительные версии, ресурсы,
-// обработка ошибок, обработка ответов сервера, snackbar, class MainViewModel,
-// class DetailsViewModel, android:id="@+id/ivIcon",
+// - кнопки меню добавляются в backstack,
+// - ui, выводимая информация,
+// - возможность звонить,
+// - дополнительные версии, ресурсы,
+// - обработка ошибок, обработка ответов сервера,
+// - порядок в snackbar,
+// - выводить иконку в истории запросов!!!???,
 
 class MainActivity : AppCompatActivity() { //todo разобрать бардак в этом классе
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +41,7 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         setupSP()
 
         Thread{
-            TheWeatherApplication.getHistoryDao().getAll()
+            MainApp.getHistoryDao().getAll()
         }.start()
     }
 

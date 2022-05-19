@@ -24,9 +24,11 @@ import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListBindi
 import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
-import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION
+import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_CONTACTS
+import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_LOCATION
+
 import com.example.theweatherwithnesterenko.utils.TAG
-import com.example.theweatherwithnesterenko.view.fragments.DetailsFragment
+import com.example.theweatherwithnesterenko.view.details.DetailsFragment
 import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -89,17 +91,17 @@ class WeatherListFragment : Fragment(),
         ) {
             getLocation()
         } else if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            explainRequestPermission()
+            explain()
         } else {
             mRequestPermission()
         }
     }
 
-    private fun explainRequestPermission() {
+    private fun explain() {
         AlertDialog.Builder(requireContext())
-            .setTitle(resources.getString(R.string.dialog_address_title))
-            .setMessage(resources.getString(R.string.dialog_rationale_message))
-            .setPositiveButton(resources.getString(R.string.dialog_rationale_give_access)) { _, _ ->
+            .setTitle(resources.getString(R.string.dialog_title_no_gps))
+            .setMessage(resources.getString(R.string.explanation_message))
+            .setPositiveButton(resources.getString(R.string.give_access)) { _, _ ->
                 mRequestPermission()
             }
             .setNegativeButton(R.string.close_access) { dialog, _ -> dialog.dismiss() }
@@ -110,7 +112,7 @@ class WeatherListFragment : Fragment(),
     private fun mRequestPermission() {
         requestPermissions(
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION
+            REQUEST_CODE_LOCATION
         )
     }
 
@@ -119,13 +121,13 @@ class WeatherListFragment : Fragment(),
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION) {
+        if (requestCode == REQUEST_CODE_LOCATION) {
 
             for (i in permissions.indices) {
                 if (permissions[i] == Manifest.permission.ACCESS_FINE_LOCATION && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     getLocation()
                 } else {
-                    explainRequestPermission()
+                    explain()
                 }
             }
         } else {

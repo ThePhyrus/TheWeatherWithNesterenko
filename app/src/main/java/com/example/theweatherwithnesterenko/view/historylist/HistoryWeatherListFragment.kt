@@ -1,7 +1,8 @@
-package com.example.theweatherwithnesterenko.view.fragments
+package com.example.theweatherwithnesterenko.view.historylist
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListBinding
+import com.example.theweatherwithnesterenko.utils.TAG
 import com.example.theweatherwithnesterenko.view.weatherlist.HistoryWeatherListAdapter
 import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 import com.example.theweatherwithnesterenko.viewmodel.HistoryViewModel
@@ -57,19 +59,14 @@ class HistoryWeatherListFragment : Fragment(){
     private fun renderData(data: AppState) {
         when (data) {
             is AppState.Error -> {
-            //  binding.loadingLayout.visibility = View.GONE
-                Snackbar.make(binding.root, "@@@@@@@ ${data.error}", Snackbar.LENGTH_SHORT).show()
+                Log.d(TAG, "renderData: AppState.Error ")
             }
             is AppState.Loading -> {
-//                with(binding) {
-//                    loadingLayout.visibility = View.VISIBLE
-//                }
+                Log.d(TAG, "renderData: is AppState.Loading")
             }
             is AppState.Success -> {
-//                with(binding) {
-//                    loadingLayout.visibility = View.GONE
-//                }
                 adapter.setData(data.weatherList)
+                Log.d(TAG, "renderData: is AppState.Success")
             }
         }
     }

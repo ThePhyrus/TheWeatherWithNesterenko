@@ -40,8 +40,12 @@ const val KEY_WAVE_THE_ACTION: String = "theaction" // как-то так?
 //Room
 const val KEY_HISTORY_TABLE :String= "history_table" //todo в строковые xml?
 //Permission request codes
-const val REQUEST_CODE_FOR_PERMISSION_TO_READ_USER_CONTACTS:Int = 101
-const val REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION:Int = 100
+//const val REQUEST_CODE_FOR_PERMISSION_TO_READ_USER_CONTACTS:Int = 101
+//const val REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION:Int = 100
+
+const val REQUEST_CODE_CONTACTS:Int = 101
+const val REQUEST_CODE_LOCATION:Int = 102
+const val REQUEST_CODE_CALL:Int = 103
 
 class Utils {
 

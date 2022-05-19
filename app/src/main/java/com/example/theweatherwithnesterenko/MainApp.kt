@@ -8,7 +8,7 @@ import com.example.theweatherwithnesterenko.domain.room.HistoryDao
 import com.example.theweatherwithnesterenko.domain.HistoryDataBase
 import java.lang.IllegalStateException
 
-class TheWeatherApplication : Application() {
+class MainApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -17,7 +17,7 @@ class TheWeatherApplication : Application() {
 
     companion object {
         private var db: HistoryDataBase? = null
-        private var appContext: TheWeatherApplication? = null
+        private var appContext: MainApp? = null
         fun getHistoryDao(): HistoryDao {
             if (db == null) {
                 if (appContext != null) {

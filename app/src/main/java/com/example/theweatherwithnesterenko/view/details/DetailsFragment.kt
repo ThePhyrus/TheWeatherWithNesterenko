@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.view.fragments
+package com.example.theweatherwithnesterenko.view.details
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -50,11 +50,10 @@ class DetailsFragment : Fragment() {
             Thread{
                 viewModel.getWeather(it.city)
             }.start()
-
         }
     }
 
-    @SuppressLint("SetTextI18n")
+
     private fun renderData(detailsState: DetailsState) {
         when (detailsState) {
             is DetailsState.Error -> {

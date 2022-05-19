@@ -1,5 +1,7 @@
 package com.example.theweatherwithnesterenko.view
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Geocoder
 import androidx.fragment.app.Fragment
@@ -8,12 +10,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentMapsMainBinding
 import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
-import com.example.theweatherwithnesterenko.view.fragments.DetailsFragment
+import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_CONTACTS
+import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_LOCATION
+import com.example.theweatherwithnesterenko.view.details.DetailsFragment
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -49,10 +56,8 @@ class MapsFragment : Fragment() {
         map.setOnMapLongClickListener {
             addMarkerToArray(it)
             drawLine()
-
-            //todo HW read about Solid
         }
-        map.setOnMapClickListener { //todo HW bonus ** is done here
+        map.setOnMapClickListener { //FIXME
             val weather = Weather(city = City(getAddressByLocation(it), it.latitude, it.longitude))
             requireActivity().supportFragmentManager.beginTransaction().add(
                 R.id.container,
@@ -61,61 +66,59 @@ class MapsFragment : Fragment() {
                 })
             ).addToBackStack("").commit()
         }
-
-
         map.uiSettings.isZoomControlsEnabled = true // появятся "+" и "-" для ZOOM
-        map.uiSettings.isMyLocationButtonEnabled = true
-        map.isMyLocationEnabled = true // todo add permission check
+        map.uiSettings.isMyLocationButtonEnabled = true // а тут что?
+        checkPermission()
+//        map.isMyLocationEnabled = true // todo add permission check
     }
 
-    private fun getAddressByLocation(location: LatLng):String {
+    private fun checkPermission() {
+        context?.let {
+            when {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    map.isMyLocationEnabled = true
+                }
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                    explain()
+                }
+                else -> {
+                    myRequestPermission()
+                }
+            }
+        }
+    }
+    private fun myRequestPermission() {
+        requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE_LOCATION )
+    }
+    private fun explain() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Нужен доступ к местополжению")
+            .setMessage("Объяснение: вот зачем нам нужен доступ")
+            .setPositiveButton("Предоставить доступ") { _, _ ->
+                myRequestPermission()
+            }
+            .setNegativeButton("Не предоставлять") { dialog, _ -> dialog.dismiss() }
+            .create()
+            .show()
+
+    }
+
+
+    private fun getAddressByLocation(location: LatLng): String {
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         //todo add location.altitude?
-            val addressText =
-                geocoder.getFromLocation(
-                    location.latitude,
-                    location.longitude,
-                    1000000 //FIXME хватит 1?
-                )[0].getAddressLine(0) //todo настроить отображения адреса
+        val addressText =
+            geocoder.getFromLocation(
+                location.latitude,
+                location.longitude,
+                1 //FIXME хватит 1?
+            )[0].getAddressLine(0) //todo настроить отображения адреса
         return addressText
     }
 
-/*
-    private fun checkPermission() {
-        //а есть ли разрешение? Проверим
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            map.uiSettings.isMyLocationButtonEnabled = true
-            map.isMyLocationEnabled = true
-        } else if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            explain()
-        } else {
-            mRequestPermission()
-        }
-    }
-
-    private fun explain() {//FIXME
-        AlertDialog.Builder(requireContext())
-            .setTitle(resources.getString(R.string.dialog_address_title))
-            .setMessage(resources.getString(R.string.dialog_rationale_message))
-            .setPositiveButton(resources.getString(R.string.dialog_rationale_give_access)) { _, _ ->
-                mRequestPermission()
-            }
-            .setNegativeButton(R.string.close_access) { dialog, _ -> dialog.dismiss() }
-            .create()
-            .show()
-    }
-
-    private fun mRequestPermission() {
-        requestPermissions(
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION
-        )
-    }
-*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
