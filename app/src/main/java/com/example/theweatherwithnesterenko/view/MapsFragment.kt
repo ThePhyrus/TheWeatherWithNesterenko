@@ -4,31 +4,26 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Geocoder
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentMapsMainBinding
 import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
-import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_CONTACTS
 import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_LOCATION
 import com.example.theweatherwithnesterenko.view.details.DetailsFragment
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MapsFragment : Fragment() {
     private var _binding: FragmentMapsMainBinding? = null
