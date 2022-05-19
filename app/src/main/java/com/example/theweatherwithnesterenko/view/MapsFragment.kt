@@ -90,9 +90,11 @@ class MapsFragment : Fragment() {
             }
         }
     }
+
     private fun myRequestPermission() {
-        requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE_LOCATION )
+        requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE_LOCATION)
     }
+
     private fun explain() {
         AlertDialog.Builder(requireContext())
             .setTitle("Нужен доступ к местополжению")
@@ -105,7 +107,6 @@ class MapsFragment : Fragment() {
             .show()
 
     }
-
 
     private fun getAddressByLocation(location: LatLng): String {
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
