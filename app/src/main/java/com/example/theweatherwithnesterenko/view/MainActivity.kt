@@ -75,9 +75,15 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_history -> {
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.container, HistoryWeatherListFragment.newInstance())
-                    .addToBackStack("").commit()
+                val fragmentA = supportFragmentManager.findFragmentByTag("tag")
+                if (fragmentA==null) {
+                    supportFragmentManager.apply {
+                        beginTransaction()
+                            .replace(R.id.container, HistoryWeatherListFragment.newInstance(), "tag")
+                            .addToBackStack("")
+                            .commit()
+                    }
+                }
             }
             R.id.action_work_with_content_provider -> {
                 supportFragmentManager.beginTransaction()
