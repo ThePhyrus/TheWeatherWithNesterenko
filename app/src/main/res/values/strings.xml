@@ -1,12 +1,95 @@
 <resources>
     <string name="app_name">TheWeatherWithNesterenko</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="temperature_label">Температура</string>
-    <string name="feels_like_label">Ощущается как</string>
+    <string name="temperature_label">Temperature</string>
+    <string name="feels_like_label">Feels like</string>
     <string name="city_coordinates">lt/ln: %s, %s"</string>
     <string name="error">Error</string>
-    <string name="reload">Reload</string>
+
+    <!--    Cities names world-->
+    <string name="london">London</string>
+    <string name="tokyo">Tokyo</string>
+    <string name="paris">Paris</string>
+    <string name="berlin">Berlin</string>
+    <string name="rome">Rome</string>
+    <string name="minsk">Minsk</string>
+    <string name="istanbul">Istanbul</string>
+    <string name="washington">Washington</string>
+    <string name="kiev">Kiev</string>
+    <string name="beijing">Beijing</string>
+
+    <!--    Cities names Rus-->
+    <string name="moscow">Moscow</string>
+    <string name="saint_petersburg">Saint-Petersburg</string>
+    <string name="novosibirsk">Novosibirsk</string>
+    <string name="ekaterinburg">Ekaterinburg</string>
+    <string name="nizhniy_novgorod">Nizhniy Novgorod</string>
+    <string name="kazan">Kazan</string>
+    <string name="chelyabinsk">Chelyabinsk</string>
+    <string name="omsk">Omsk</string>
+    <string name="rostov_on_don">Rostov-on-Don</string>
+    <string name="ufa">Ufa</string>
+
+    <!--    Text for a snackbar-->
+    <string name="data_rendering_success">Data rendering is complete</string>
+    <string name="data_rendering_error">Data rendering error</string>
+    <string name="some_action_text">Some action text</string>
+    <string name="matrix_has_you">The matrix has you!</string>
+    <string name="try_again">Try again!</string>
+
+    <!--    Default text-->
+    <string name="empty_stroke">Empty stroke</string>
+
+    <!--    Tools text-->
+    <string name="tools_city_coordinates">lt/ln: 00.000000, 00.000000</string>
+    <string name="tools_city_name">City</string>
+    <string name="tools_temperature_label">0</string>
+    <string name="tools_feels_like_value">0</string>
+
+    <!--    Text for buttons-->
+    <string name="refresh_information">Refresh information</string>
+    <string name="search">search</string>
+    <string name="default_url">https://geekbrains.ru/</string>
+<!--    Menu titles-->
+    <string name="history_menu_title">History</string>
+    <string name="work_with_content_provider_menu_title">WWCP</string>
+    <string name="google_maps">google_maps</string>
+
+    <!--    Text for something-->
+    <string name="it_was_working_for">It was working for</string>
+    <string name="sec">sec.</string>
+
+    <!--    Text for activity & service communication-->
+    <string name="hallo_from_activity">Hallo, Service! I am Main Activity. </string>
+    <string name="hallo_from_service">Hallo, Activity! I am Main Service. </string>
+
+<!--    CONSTANCE-->
+    <string name="history_table">history_table</string>
+<!--    Alert dialogs-->
+    <string name="access_to_contacts_ad_title">Access to contacts</string>
+    <string name="description">We need to have access to your contacts!!!</string>
+    <string name="allow_access">Allow access</string>
+    <string name="close_access">Close access</string>
+
+
+    <string name="authorities">history_authority</string>
+    <string name="theaction">theaction</string>
+
+
+
+    <!--    Рационализация-->
+<!--    todo translate-->
+    <string name="dialog_button_close">Закрыть</string>
+    <string name="dialog_title_no_gps">Доступ к геолокации закрыт</string>
+    <string name="dialog_message_no_gps">Разрешите доступ к геолокации, если хотите узнать погоду текущего места</string>
+    <string name="dialog_title_gps_turned_off">GPS отключён</string>
+    <string name="dialog_message_last_location_unknown">Местонахождение неизвестно. Включите GPS, если хотите получить погоду по текущему адресу</string>
+    <string name="dialog_message_last_known_location">Показана последняя известная локация. Включите GPS, если хотите обновить местонахождение</string>
+    <string name="dialog_rationale_title">Доступ к геолокации</string>
+    <string name="explanation_message">Объяснение</string>
+    <string name="give_access">Предоставить доступ</string>
+    <string name="dialog_rationale_decline">Не надо</string>
+    <string name="dialog_address_title">Ваш адрес</string>
+    <string name="dialog_address_get_weather">Узнать погоду</string>
+
+
 </resources>
