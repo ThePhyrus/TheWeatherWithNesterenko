@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         createReceiver()
         setupSP()
 
-        Thread{
+        Thread {
             MainApp.getHistoryDao().getAll()
         }.start()
     }
@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         val defaultValueIsRussian = true
         sp.getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, defaultValueIsRussian)
     }
-
 
 
     private fun createReceiver() {//FIXME сколько угодно можно регистрировать ресиверов одной этой функцией?
@@ -76,23 +75,48 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         when (item.itemId) {
             R.id.action_history -> {
                 val fragmentA = supportFragmentManager.findFragmentByTag("tag")
-                if (fragmentA==null) {
+                if (fragmentA == null) {
                     supportFragmentManager.apply {
                         beginTransaction()
-                            .replace(R.id.container, HistoryWeatherListFragment.newInstance(), "tag")
+                            .replace(
+                                R.id.container,
+                                HistoryWeatherListFragment.newInstance(),
+                                "tag"
+                            )
                             .addToBackStack("")
                             .commit()
                     }
                 }
             }
             R.id.action_work_with_content_provider -> {
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.container, WorkWithContentProviderFragment.newInstance())
-                    .addToBackStack("").commit()
+                val fragmentB = supportFragmentManager.findFragmentByTag("tag")
+                if (fragmentB == null) {
+                    supportFragmentManager.apply {
+                        beginTransaction()
+                            .replace(
+                                R.id.container,
+                                WorkWithContentProviderFragment.newInstance(),
+                                "tag"
+                            )
+                            .addToBackStack("")
+                            .commit()
+                    }
+                }
             }
             R.id.action_menu_google_maps -> {
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.container, MapsFragment()).addToBackStack("").commit()
+                val fragmentB = supportFragmentManager.findFragmentByTag("tag")
+                if (fragmentB == null) {
+                    supportFragmentManager.apply {
+                        beginTransaction()
+                            .replace(
+                                R.id.container,
+                                MapsFragment(),
+                                "tag"
+                            )
+                            .addToBackStack("")
+                            .commit()
+                    }
+                }
             }
         }
         return super.onOptionsItemSelected(item)
