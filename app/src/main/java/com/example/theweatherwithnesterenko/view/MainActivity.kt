@@ -17,18 +17,17 @@ import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
-// todo HW научиться хранить в базе данных широту и долготу
-//TODO выводить проверки, вызвать картинку, shared preferences (сохранить настройки приложения
-//FIXME:
-// - кнопки меню добавляются в backstack,
-// - ui, выводимая информация,
-// + возможность звонить,
-// - дополнительные версии, ресурсы,
+
+//FIXME: это нужно как-то починить
+// - подправить ui и выводимую информацию,
+// - сделать дополнительные версии,
+// - ресурсы (как там порядок навести),
 // - обработка ошибок, обработка ответов сервера,
 // - порядок в snackbar,
 // - выводить иконку в истории запросов!!!???,
+// - научиться сохранять настройки приложения,
 
-class MainActivity : AppCompatActivity() { //todo разобрать бардак в этом классе
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,15 +43,15 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         }.start()
     }
 
+
     private fun setupSP() {//FIXME
-        val sp = getSharedPreferences(KEY_SP_FILE_NAME_1, MODE_PRIVATE)
+      val sp = getSharedPreferences(KEY_SP_FILE_NAME_1, MODE_PRIVATE)
         val editor = sp.edit()
         editor.putBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, true)
         editor.apply()
         val defaultValueIsRussian = true
         sp.getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, defaultValueIsRussian)
     }
-
 
     private fun createReceiver() {//FIXME сколько угодно можно регистрировать ресиверов одной этой функцией?
         val receiver = BroadcastReceiver() // создаётся ресивер (приёмник)
@@ -71,7 +70,7 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {//FIXME не переключаются между собой
         when (item.itemId) {
             R.id.action_history -> {
                 val fragmentA = supportFragmentManager.findFragmentByTag("tag")
