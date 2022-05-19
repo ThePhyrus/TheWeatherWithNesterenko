@@ -1,21 +1,15 @@
-package com.example.theweatherwithnesterenko.view
+package com.example.theweatherwithnesterenko
 
 import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.theweatherwithnesterenko.MainApp
-import com.example.theweatherwithnesterenko.R
-import com.example.theweatherwithnesterenko.BroadcastReceiver
 
-import com.example.theweatherwithnesterenko.WorkWithContentProviderFragment
 import com.example.theweatherwithnesterenko.utils.*
+import com.example.theweatherwithnesterenko.view.MapsFragment
 import com.example.theweatherwithnesterenko.view.historylist.HistoryWeatherListFragment
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
 
 
 //FIXME: это нужно как-то починить
@@ -36,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
         createReceiver()
-        setupSP()
+//        setupSP()
 
         Thread {
             MainApp.getHistoryDao().getAll()

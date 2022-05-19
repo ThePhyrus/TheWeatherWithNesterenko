@@ -1,11 +1,13 @@
 package com.example.theweatherwithnesterenko.repository.impl
 
+import android.util.Log
 import com.example.theweatherwithnesterenko.MainApp
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryAdd
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryAll
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryOne
 import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.Weather
+import com.example.theweatherwithnesterenko.utils.TAG
 import com.example.theweatherwithnesterenko.utils.convertHistoryEntityToWeather
 import com.example.theweatherwithnesterenko.utils.convertWeatherToEntity
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
@@ -29,6 +31,7 @@ class DetailsRepositoryRoomImpl : DetailsRepositoryOne, DetailsRepositoryAll, De
 
     override fun addWeather(weather: Weather) {
         MainApp.getHistoryDao().insert(convertWeatherToEntity(weather))
+        Log.d(TAG, "addWeather: $weather")
     }
 
 }

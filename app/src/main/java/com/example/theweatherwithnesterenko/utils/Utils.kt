@@ -27,7 +27,6 @@ const val KEY_BUNDLE_LON: String = "lon1"
 //
 const val KEY_SP_FILE_NAME_1: String = "fileName1"
 const val KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN: String = "is_russian"
-
 //
 const val DOT_SVG:String = ".svg"
 //
@@ -37,12 +36,7 @@ const val KEY_BUNDLE_ACTIVITY_MESSAGE: String = "activity_message"
 const val KEY_BUNDLE_SERVICE_MESSAGE: String = "service_message"
 // actions
 const val KEY_WAVE_THE_ACTION: String = "theaction" // как-то так?
-//Room
-const val KEY_HISTORY_TABLE :String= "history_table" //todo в строковые xml?
 //Permission request codes
-//const val REQUEST_CODE_FOR_PERMISSION_TO_READ_USER_CONTACTS:Int = 101
-//const val REQUEST_CODE_FOR_PERMISSION_TO_ACCESS_FINE_LOCATION:Int = 100
-
 const val REQUEST_CODE_CONTACTS:Int = 101
 const val REQUEST_CODE_LOCATION:Int = 102
 const val REQUEST_CODE_CALL:Int = 103

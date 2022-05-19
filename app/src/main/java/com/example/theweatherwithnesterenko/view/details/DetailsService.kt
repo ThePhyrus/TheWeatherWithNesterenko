@@ -24,7 +24,7 @@ class DetailsService(val name: String = "") : IntentService(name) {
             val uri = URL(urlText)
             val urlConnection: HttpURLConnection =
                 (uri.openConnection() as HttpURLConnection).apply {
-                    connectTimeout = 1000
+                    connectTimeout = 1000 //FIXME зачем таймауты тут нужны? значения в строковые константы в Utils.kt?
                     readTimeout = 1000
                     addRequestProperty(X_YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
                 }
@@ -35,6 +35,7 @@ class DetailsService(val name: String = "") : IntentService(name) {
                val clientside = 400..499
                val responseOk = 200..299
                val unknownSide = 0..199
+               Log.d(TAG, "onHandleIntent: responseCode is $responseCode")
 
                when(responseCode){
                    in responseOk -> {

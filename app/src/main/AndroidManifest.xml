@@ -35,7 +35,7 @@
             android:value="AIzaSyAEBSk-5424FSX8znNBgrnBQds2U0am0kE" />
 
         <activity
-            android:name=".view.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +47,7 @@
         <service android:name=".view.details.DetailsService" />
 
         <service
-            android:name="com.example.theweatherwithnesterenko.MyService"
+            android:name="com.example.theweatherwithnesterenko.PushNotificationService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

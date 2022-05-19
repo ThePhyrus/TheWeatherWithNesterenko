@@ -24,14 +24,12 @@ import com.example.theweatherwithnesterenko.databinding.FragmentWeatherListBindi
 import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
-import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_CONTACTS
 import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_LOCATION
 
 import com.example.theweatherwithnesterenko.utils.TAG
 import com.example.theweatherwithnesterenko.view.details.DetailsFragment
 import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
-import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 
@@ -66,7 +64,7 @@ class WeatherListFragment : Fragment(),
         val observer = { data: AppState -> renderData(data) }
         viewModel.getData().observe(viewLifecycleOwner, observer)
         doSetupFABCities()
-        doSetupFABLocation()
+        setupFABGetCurrentLocationInfo()
         viewModel.getWeatherRussia()
     }
 
@@ -77,13 +75,13 @@ class WeatherListFragment : Fragment(),
         }
     }
 
-    private fun doSetupFABLocation() {
+    private fun setupFABGetCurrentLocationInfo() {
         binding.mainFragmentFABLocation.setOnClickListener {
-            checkPermission()
+            checkPermissionToGetGeolocation()
         }
     }
 
-    private fun checkPermission() { //todo play with debugger to understand order of execution
+    private fun checkPermissionToGetGeolocation() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -99,12 +97,12 @@ class WeatherListFragment : Fragment(),
 
     private fun explain() {
         AlertDialog.Builder(requireContext())
-            .setTitle(resources.getString(R.string.dialog_title_no_gps))
-            .setMessage(resources.getString(R.string.explanation_message))
-            .setPositiveButton(resources.getString(R.string.give_access)) { _, _ ->
+            .setTitle("Нужен доступ к геолокации!")
+            .setMessage("Нам нам нужен доступ к геолокации, чтобы Вы могли узнать адрес Вашего местонахождения и сомнительную информацию о погоде.")
+            .setPositiveButton("Предоставить доступ") { _, _ ->
                 mRequestPermission()
             }
-            .setNegativeButton(R.string.close_access) { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton("Не предоставлять") { dialog, _ -> dialog.dismiss() }
             .create()
             .show()
     }
@@ -122,9 +120,10 @@ class WeatherListFragment : Fragment(),
         grantResults: IntArray
     ) {
         if (requestCode == REQUEST_CODE_LOCATION) {
-
             for (i in permissions.indices) {
-                if (permissions[i] == Manifest.permission.ACCESS_FINE_LOCATION && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                if (permissions[i] == Manifest.permission.ACCESS_FINE_LOCATION
+                    && grantResults[i] == PackageManager.PERMISSION_GRANTED
+                ) {
                     getLocation()
                 } else {
                     explain()
@@ -135,7 +134,8 @@ class WeatherListFragment : Fragment(),
         }
     }
 
-    private fun getAddressByLocation(location: Location) {
+
+    private fun getAddressByLocation(location: Location) { //todo настроить отображения адреса getAddressLine
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         //todo add location.altitude?
         val timeStump = System.currentTimeMillis()
@@ -144,8 +144,8 @@ class WeatherListFragment : Fragment(),
                 geocoder.getFromLocation(
                     location.latitude,
                     location.longitude,
-                    1000000 //FIXME хватит 1?
-                )[0].getAddressLine(0) //todo настроить отображения адреса
+                    1 //FIXME хватит 1?
+                )[0].getAddressLine(0)
             requireActivity().runOnUiThread {
                 showAddressDialog(addressText, location)
             }
@@ -190,27 +190,28 @@ class WeatherListFragment : Fragment(),
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 val providerGPS =
                     locationManager.getProvider(LocationManager.GPS_PROVIDER) // Why getBestProvider() does not work with LocationManager.GPS_PROVIDER
-                /*providerGPS?.let {
+                providerGPS?.let {
                     locationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER,
-                        10000L, //time between location request
-                        0f, //distance between location request
+                        1000000L, //time between location request
+                        10f, //distance between location request
                         locationListenerTime
                     )
-                }*/
-                providerGPS?.let {
+                }
+                /*providerGPS?.let {
                     locationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER,
                         0L, //time between location request
                         10f, //distance between location request
                         locationListenerDistance
                     )
-                }
+                }*/
             }
         }
+        Log.d(TAG, "getLocation: did something")
     }
 
-    private fun doSetupFABCities() { //todo убрать with
+    private fun doSetupFABCities() {
         binding.floatingActionButton.setOnClickListener {
             isRussian = !isRussian
             if (isRussian) {
@@ -235,27 +236,22 @@ class WeatherListFragment : Fragment(),
 
     private fun renderData(data: AppState) {
         when (data) {
-            is AppState.Error -> {
-                with(binding) {
-                    loadingLayout.visibility = View.GONE
-                }
-                Snackbar.make(
-                    binding.root,
-                    "${R.string.matrix_has_you}" + "${data.error}",
-                    Snackbar.LENGTH_LONG
-                )
-                    .show()
-            }
-            is AppState.Loading -> {
-                with(binding) {
-                    loadingLayout.visibility = View.VISIBLE
-                }
-            }
             is AppState.Success -> {
                 with(binding) {
                     loadingLayout.visibility = View.GONE
                 }
                 adapter.setData(data.weatherList)
+            }
+            is AppState.Error -> {
+                with(binding) {
+                    loadingLayout.visibility = View.GONE
+
+                }
+            }
+            is AppState.Loading -> {
+                with(binding) {
+                    loadingLayout.visibility = View.VISIBLE
+                }
             }
         }
     }

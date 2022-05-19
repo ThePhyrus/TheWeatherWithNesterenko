@@ -6,10 +6,7 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
-import com.example.theweatherwithnesterenko.domain.room.HistoryEntity
-import com.example.theweatherwithnesterenko.domain.room.ID
-import com.example.theweatherwithnesterenko.domain.room.NAME
-import com.example.theweatherwithnesterenko.domain.room.TEMPERATURE
+import com.example.theweatherwithnesterenko.domain.room.*
 import java.util.*
 
 private const val URI_ALL = 1
@@ -129,7 +126,8 @@ class HistoryContentProvider : ContentProvider() {
             val id = if (values.containsKey(ID)) values[ID] as Long else 0
             val city = values[NAME] as String
             val temperature = values[TEMPERATURE] as Int
-            HistoryEntity(id, city, temperature)
+            val icon = values[ICON] as Int
+            HistoryEntity(id, city, temperature, icon)
         }
     }
 

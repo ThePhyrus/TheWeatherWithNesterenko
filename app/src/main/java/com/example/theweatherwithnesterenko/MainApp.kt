@@ -49,7 +49,7 @@ class MainApp : Application() {
                 return@OnCompleteListener
             }
             val token = task.result
-            Log.d(TAG, "$token")
+            Log.d(TAG, "catchToken: $token")
         })
     }
 }
