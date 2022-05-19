@@ -74,6 +74,8 @@
     <string name="authorities">history_authority</string>
     <string name="theaction">theaction</string>
 
+    <string name="something_went_wrong">something_went_wrong</string>
+
 
 
     <!--    Рационализация-->

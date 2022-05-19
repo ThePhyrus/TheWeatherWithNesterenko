@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, WeatherListFragment.newInstance()).commit()
         }
-        catchToken()
         createReceiver()
         setupSP()
 
@@ -54,16 +53,7 @@ class MainActivity : AppCompatActivity() { //todo разобрать барда�
         sp.getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, defaultValueIsRussian)
     }
 
-    private fun catchToken() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-            val token = task.result
-            Log.d(TAG, "$token")
-        })
-    }
+
 
     private fun createReceiver() {//FIXME сколько угодно можно регистрировать ресиверов одной этой функцией?
         val receiver = BroadcastReceiver() // создаётся ресивер (приёмник)
