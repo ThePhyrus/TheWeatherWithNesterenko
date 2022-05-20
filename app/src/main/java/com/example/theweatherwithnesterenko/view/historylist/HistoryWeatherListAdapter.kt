@@ -42,6 +42,7 @@ class HistoryWeatherListAdapter(
                 tvCityName.text = weather.city.name
                 tvTemperature.text = weather.temperature.toString()
                 tvFeelsLike.text = weather.feelsLike.toString()
+                ivIcon
                 //todo HW вызвать отображение weather.icon
             }
         }

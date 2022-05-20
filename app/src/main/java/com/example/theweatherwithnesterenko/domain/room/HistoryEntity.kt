@@ -18,7 +18,8 @@ data class HistoryEntity( // тут будут все поля из Weather пл
     val city: String,
     val temperature: Int,//FIXME почему тут нет дефолтного значения ?
     val feelsLike: Int = 10,//FIXME и зачем дефолтное значение тут?
-    val icon: String = "skn_n"//FIXME а тут?
+    val icon: String = "skn_n",//FIXME а тут?
+    val condition:String = "default_condition"
 //      val timestamp: Long, //todo HW Сделать связку city и timestamp для первичного ключа
 )
 

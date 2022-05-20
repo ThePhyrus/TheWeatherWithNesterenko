@@ -62,12 +62,26 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupSP() {//FIXME
-      val sp = getSharedPreferences(KEY_SP_FILE_NAME_1, MODE_PRIVATE)
+
+        /*isRussian = requireActivity().getSharedPreferences(Settings.SHARED_PREF, Context.MODE_PRIVATE)
+.getBoolean(Settings.SETTING_RUS, Settings.settingRus)
+
+и запись (тут пару рутинных строк кода)
+на каждый клик по FAB кнопке открываем эдитор
+val sharedPreferences =
+requireActivity().getSharedPreferences(Settings.SHARED_PREF, Context.MODE_PRIVATE)
+val editor = sharedPreferences.edit()
+записываем текущее значение
+editor.putBoolean(Settings.SETTING_RUS, <true/false – зависит от текущего состояния>)
+и сохраняем изменение
+editor.apply()*/
+
+      val sp = getSharedPreferences(KEY_SP_SETTINGS, MODE_PRIVATE)
         val editor = sp.edit()
-        editor.putBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, true)
+        editor.putBoolean(KEY_SP_SETTINGS_KEY_RUSSIAN, true)
         editor.apply()
         val defaultValueIsRussian = true
-        sp.getBoolean(KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN, defaultValueIsRussian)
+        sp.getBoolean(KEY_SP_SETTINGS_KEY_RUSSIAN, defaultValueIsRussian)
     }
 
     private fun createReceiver() {//FIXME сколько угодно можно регистрировать ресиверов одной этой функцией?

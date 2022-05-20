@@ -34,7 +34,6 @@ class MainApp : Application() {
                         .build()
                 } else {
                     throw IllegalStateException("${R.string.something_went_wrong}")
-                    Log.d(TAG, "getHistoryDao() called")
                 }
             }
             return db!!.historyDao()
@@ -46,14 +45,6 @@ class MainApp : Application() {
             }
         }
     }
-/*    private fun catchToken() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-            val token = task.result
-            Log.d(TAG, "catchToken: $token")
-        })
-    }*/
+
+    
 }

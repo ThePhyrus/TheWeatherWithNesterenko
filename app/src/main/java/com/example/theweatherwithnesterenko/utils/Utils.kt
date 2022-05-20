@@ -24,9 +24,9 @@ const val LATITUDE = "lat"
 const val LONGITUDE = "lon"
 const val KEY_BUNDLE_LAT: String = "lat1"
 const val KEY_BUNDLE_LON: String = "lon1"
-//
-const val KEY_SP_FILE_NAME_1: String = "fileName1"
-const val KEY_SP_FILE_NAME_1_KEY_IS_RUSSIAN: String = "is_russian"
+//Shared preferences
+const val KEY_SP_SETTINGS: String = "settings"
+const val KEY_SP_SETTINGS_KEY_RUSSIAN: String = "russian"
 //
 const val DOT_SVG:String = ".svg"
 //
