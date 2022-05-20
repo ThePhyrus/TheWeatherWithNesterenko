@@ -61,8 +61,7 @@ class MapsFragment : Fragment() {
                 })
             ).addToBackStack("").commit()
         }
-        map.uiSettings.isZoomControlsEnabled = true // появятся "+" и "-" для ZOOM
-        map.uiSettings.isMyLocationButtonEnabled = true // а тут что?
+
         checkPermission()
 //        map.isMyLocationEnabled = true // todo add permission check
     }
@@ -74,6 +73,8 @@ class MapsFragment : Fragment() {
                     it,
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED -> {
+                    map.uiSettings.isZoomControlsEnabled = true // появятся "+" и "-" для ZOOM
+                    map.uiSettings.isMyLocationButtonEnabled = true // а тут что?
                     map.isMyLocationEnabled = true
                 }
                 shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {

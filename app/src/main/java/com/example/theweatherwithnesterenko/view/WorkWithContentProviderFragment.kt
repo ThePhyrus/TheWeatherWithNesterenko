@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko
+package com.example.theweatherwithnesterenko.view
 
 
 import android.Manifest

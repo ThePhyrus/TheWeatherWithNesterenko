@@ -4,7 +4,7 @@ import com.example.theweatherwithnesterenko.BuildConfig
 import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.WeatherAPI
 import com.example.theweatherwithnesterenko.repository.dto.WeatherDTO
-import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryOne
+import com.example.theweatherwithnesterenko.repository.repo.DetailsRepository
 import com.example.theweatherwithnesterenko.utils.MASTER_DOMAIN
 import com.example.theweatherwithnesterenko.utils.convertDtoToModel
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
@@ -15,8 +15,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DetailsRepositoryRetrofit2Impl : DetailsRepositoryOne {
-    override fun getWeatherDetails(city: City, callbackMy: DetailsViewModel.Callback) {
+class DetailsRepositoryRetrofit2Impl : DetailsRepository {
+    override fun getWeatherDetails(city: City, callbackForOneMy: DetailsViewModel.CallbackForOne) {
         val weatherAPI = Retrofit.Builder().apply {
             baseUrl(MASTER_DOMAIN)
             addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
@@ -29,15 +29,15 @@ class DetailsRepositoryRetrofit2Impl : DetailsRepositoryOne {
                         response.body()?.let {
                             val weather = convertDtoToModel(it)
                             weather.city = city
-                            callbackMy.onResponse(weather)
+                            callbackForOneMy.onResponse(weather)
                         }
                     } else{
-                        callbackMy.onFail() //FIXME
+                        callbackForOneMy.onFail() //FIXME
                     }
                 }
 
                 override fun onFailure(call: Call<WeatherDTO>, t: Throwable) {
-                    callbackMy.onFail() //FIXME
+                    callbackForOneMy.onFail() //FIXME
                 }
             })
     }

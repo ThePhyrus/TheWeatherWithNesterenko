@@ -10,11 +10,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListBinding
+import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.TAG
-import com.example.theweatherwithnesterenko.view.weatherlist.HistoryWeatherListAdapter
 import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 import com.example.theweatherwithnesterenko.viewmodel.HistoryViewModel
-import com.google.android.material.snackbar.Snackbar
 
 
 class HistoryWeatherListFragment : Fragment(){
@@ -36,7 +35,7 @@ class HistoryWeatherListFragment : Fragment(){
         return binding.root
     }
 
-    var isRussian = true
+//    var isRussian = true
     private val viewModel: HistoryViewModel by lazy {
         ViewModelProvider(this).get(HistoryViewModel::class.java)
     }
@@ -75,5 +74,6 @@ class HistoryWeatherListFragment : Fragment(){
         @JvmStatic
         fun newInstance() = HistoryWeatherListFragment()
     }
+
 
 }

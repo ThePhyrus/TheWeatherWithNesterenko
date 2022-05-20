@@ -45,7 +45,7 @@ class Utils {
 
 }
 
-fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
+/*fun convertDtoToModel(weatherDTO: WeatherDTO): Weather {
     val fact: FactDTO = weatherDTO.factDTO
     return (Weather(getDefaultCity(), fact.temperature, fact.feelsLike, fact.icon))
 }
@@ -59,7 +59,7 @@ fun convertHistoryEntityToWeather(entityList: List<HistoryEntity>): List<Weather
 
 fun convertWeatherToEntity(weather: Weather): HistoryEntity {
     return HistoryEntity(0, weather.city.name, weather.temperature,weather.feelsLike,weather.icon)
-}
+}*/
 
 
 

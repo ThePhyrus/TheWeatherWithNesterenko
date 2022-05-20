@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.theweatherwithnesterenko.MainApp
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryAdd
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryAll
-import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryOne
+import com.example.theweatherwithnesterenko.repository.repo.DetailsRepository
 import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.TAG
@@ -13,25 +13,33 @@ import com.example.theweatherwithnesterenko.utils.convertWeatherToEntity
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
 import com.example.theweatherwithnesterenko.viewmodel.HistoryViewModel
 
-class DetailsRepositoryRoomImpl : DetailsRepositoryOne, DetailsRepositoryAll, DetailsRepositoryAdd {
+
+class DetailsRepositoryRoomImpl : DetailsRepository, DetailsRepositoryAll, DetailsRepositoryAdd {
+
     override fun getAllWeatherDetails(callback: HistoryViewModel.CallbackForAll) {
+
         Thread {
             callback.onResponse(convertHistoryEntityToWeather(MainApp.getHistoryDao().getAll()))
         }.start()
+        Log.d(TAG, "getAllWeatherDetails() called with: callback = $callback")
     }
 
-    override fun getWeatherDetails(city: City, callback: DetailsViewModel.Callback) {
+    override fun getWeatherDetails(city: City, callbackForOne: DetailsViewModel.CallbackForOne) {
         val list = convertHistoryEntityToWeather(MainApp.getHistoryDao().getHistoryCity(city.name))
         if (list.isEmpty()) {
-            callback.onFail()
+            callbackForOne.onFail()
         } else {
-            callback.onResponse(list.last())
+            callbackForOne.onResponse(list.last()) //вернём только последний адрес из базы (room возвращает всю погоду)
         }
+        Log.d(
+            TAG,
+            "getWeatherDetails() called with: city = $city, callbackForOne = $callbackForOne"
+        )
     }
 
     override fun addWeather(weather: Weather) {
         MainApp.getHistoryDao().insert(convertWeatherToEntity(weather))
-        Log.d(TAG, "addWeather: $weather")
+        Log.d(TAG, "addWeather() called with: weather = $weather")
     }
 
 }

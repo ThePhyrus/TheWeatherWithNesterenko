@@ -14,11 +14,12 @@ class WeatherListAdapter(
 ) :
     RecyclerView.Adapter<WeatherListAdapter.CityHolder>() {
 
+    override fun getItemCount() = data.size
+
     fun setData(dataNew: List<Weather>) {
         this.data = dataNew
         notifyItemRangeChanged(0, data.size) // todo DiffUtil изучить!
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityHolder {
         val binding = FragmentWeatherListRecyclerItemBinding.inflate(
@@ -32,8 +33,6 @@ class WeatherListAdapter(
     override fun onBindViewHolder(holder: CityHolder, position: Int) {
         holder.bind(data.get(position))
     }
-
-    override fun getItemCount() = data.size
 
     inner class CityHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(weather: Weather) {

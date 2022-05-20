@@ -67,7 +67,7 @@ class PushNotificationService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         clientToken = token
-        Log.d(TAG, "onNewToken: $token")
+        Log.d(TAG, "onNewToken() called with: token = $token")
     }
 
 }

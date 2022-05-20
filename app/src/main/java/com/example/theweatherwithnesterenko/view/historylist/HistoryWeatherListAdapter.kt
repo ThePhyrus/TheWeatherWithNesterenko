@@ -1,4 +1,4 @@
-package com.example.theweatherwithnesterenko.view.weatherlist //FIXME как так получилось? Я пакеты пока не менял
+package com.example.theweatherwithnesterenko.view.historylist //FIXME как так получилось? Я пакеты пока не менял
 
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +14,11 @@ class HistoryWeatherListAdapter(
 ) :
     RecyclerView.Adapter<HistoryWeatherListAdapter.CityHolder>() {
 
+    override fun getItemCount() = data.size
+
     fun setData(dataNew: List<Weather>) {
         this.data = dataNew
-        notifyItemRangeChanged(0, data.size) // todo DiffUtil блин, хотя бы почитать!
+        notifyItemRangeChanged(0, data.size) //DiffUtil бы почитать!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityHolder {
@@ -32,7 +34,7 @@ class HistoryWeatherListAdapter(
         holder.bind(data.get(position))
     }
 
-    override fun getItemCount() = data.size
+
 
     inner class CityHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(weather: Weather) {

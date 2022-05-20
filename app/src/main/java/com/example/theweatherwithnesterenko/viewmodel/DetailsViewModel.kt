@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryAdd
-import com.example.theweatherwithnesterenko.repository.repo.DetailsRepositoryOne
+import com.example.theweatherwithnesterenko.repository.repo.DetailsRepository
 import com.example.theweatherwithnesterenko.repository.impl.DetailsRepositoryRetrofit2Impl
 import com.example.theweatherwithnesterenko.repository.impl.DetailsRepositoryRoomImpl
 import com.example.theweatherwithnesterenko.repository.weather.City
@@ -17,7 +17,7 @@ class DetailsViewModel(
     private val liveData: MutableLiveData<DetailsState> = MutableLiveData(),
     private val repositoryAdd: DetailsRepositoryAdd = DetailsRepositoryRoomImpl(),
 ) : ViewModel() {
-    private var repositoryOne: DetailsRepositoryOne = DetailsRepositoryRetrofit2Impl()
+    private var repositoryOne: DetailsRepository = DetailsRepositoryRetrofit2Impl()
 
     fun getLiveData() = liveData
 
@@ -29,7 +29,7 @@ class DetailsViewModel(
             DetailsRepositoryRoomImpl()
         }
 
-        repositoryOne.getWeatherDetails(city, object : Callback {
+        repositoryOne.getWeatherDetails(city, object : CallbackForOne {
             override fun onResponse(weather: Weather) {
                 liveData.value = (DetailsState.Success(weather)) //FIXME postValue??
                 if (isInternet()) {
@@ -37,12 +37,13 @@ class DetailsViewModel(
                         repositoryAdd.addWeather(weather)
                     }.start()
                 } else {
-                    Log.d(TAG, "onResponse() called") //todo что-ещё
+                    Log.d(TAG, "onResponse() called with: weather = $weather")
+                    Log.d(TAG, "onResponse: $weather")
                 }
             }
 
             override fun onFail() {
-                Log.d(TAG, "onFail() called") //todo что-ещё
+                Log.d(TAG, "onFail: some fail2")
             }
         })
 
@@ -53,7 +54,7 @@ class DetailsViewModel(
         return true //todo если будет false, то в историю запросов ничего добавляться не будет. Почему? Зачем?
     }
 
-    interface Callback {
+    interface CallbackForOne {
         fun onResponse(weather: Weather)
         fun onFail() //todo сделать что-нибудь полезное из этой функции? Или она идеальна? :)
     }

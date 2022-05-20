@@ -211,9 +211,13 @@ class WeatherListFragment : Fragment(),
         Log.d(TAG, "getLocation: did something")
     }
 
-    private fun doSetupFABCities() {
+    private fun doSetupFABCities() {//FIXME shared pref
         binding.floatingActionButton.setOnClickListener {
             isRussian = !isRussian
+
+       /*     isRussian = requireActivity().getSharedPreferences(Settings.SHARED_PREF, Context.MODE_PRIVATE)
+                .getBoolean(Settings.SETTING_RUS, Settings.settingRus)*/
+
             if (isRussian) {
                 viewModel.getWeatherRussia()
                 binding.floatingActionButton.setImageDrawable(

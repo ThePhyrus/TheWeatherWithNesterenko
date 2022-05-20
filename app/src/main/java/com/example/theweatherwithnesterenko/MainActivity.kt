@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 import com.example.theweatherwithnesterenko.utils.*
 import com.example.theweatherwithnesterenko.view.MapsFragment
+import com.example.theweatherwithnesterenko.view.WorkWithContentProviderFragment
 import com.example.theweatherwithnesterenko.view.historylist.HistoryWeatherListFragment
 import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 
@@ -17,9 +18,31 @@ import com.example.theweatherwithnesterenko.view.weatherlist.WeatherListFragment
 // - сделать дополнительные версии,
 // - ресурсы (как там порядок навести),
 // - обработка ошибок, обработка ответов сервера,
-// - порядок в snackbar,
+// - порядок в snackbar почти наведён (надо всё перепроверить),
 // - выводить иконку в истории запросов!!!???,
 // - научиться сохранять настройки приложения,
+// - кнопки меню не переключают некорректно, не правильно переключаются между собой, что-то с добавлением в бекстек
+// - научиться хранить в базе данных lat, lon
+
+
+/**
+ * Андрей Нестеренко・Преподаватель
+Здравствуйте, Роман!
+• У вас сейчас апри каждом вызове
+getWeatherDetails
+пересоздается экземпляр ретрофит клиента, хотелось бы этого избежать, например, путем
+выноса его за пределы getWeatherDetails в какую-то внутреннюю переменную репозитория.
+Или вообще на уровень приложения MyApp или как там у нас было на
+уроке (класс наследующий Application)
+
+• Для функции load (речь про coil) мы можем указывать, что делать в случае ошибки
+загрузки error, и чем скрасить ожидание placeholder
+binding.ivHeader.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png"){
+placeholder(R.drawable.ic_russia)
+error(R.drawable.ic_earth)
+}
+это позволяет вашему приложению выглядеть более живым для пользователя, что ли
+ */
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,17 +87,17 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {//FIXME не переключаются между собой
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {//FIXME не правильно переключаются между собой, что-то с добавлением в бекстек
         when (item.itemId) {
             R.id.action_history -> {
-                val fragmentA = supportFragmentManager.findFragmentByTag("tag")
+                val fragmentA = supportFragmentManager.findFragmentByTag("tagA")
                 if (fragmentA == null) {
                     supportFragmentManager.apply {
                         beginTransaction()
                             .replace(
                                 R.id.container,
                                 HistoryWeatherListFragment.newInstance(),
-                                "tag"
+                                "tagA"
                             )
                             .addToBackStack("")
                             .commit()
@@ -82,14 +105,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             R.id.action_work_with_content_provider -> {
-                val fragmentB = supportFragmentManager.findFragmentByTag("tag")
+                val fragmentB = supportFragmentManager.findFragmentByTag("tagB")
                 if (fragmentB == null) {
                     supportFragmentManager.apply {
                         beginTransaction()
                             .replace(
                                 R.id.container,
                                 WorkWithContentProviderFragment.newInstance(),
-                                "tag"
+                                "tagB"
                             )
                             .addToBackStack("")
                             .commit()
@@ -97,14 +120,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             R.id.action_menu_google_maps -> {
-                val fragmentB = supportFragmentManager.findFragmentByTag("tag")
-                if (fragmentB == null) {
+                val fragmentC = supportFragmentManager.findFragmentByTag("tagC")
+                if (fragmentC == null) {
                     supportFragmentManager.apply {
                         beginTransaction()
                             .replace(
                                 R.id.container,
                                 MapsFragment(),
-                                "tag"
+                                "tagC"
                             )
                             .addToBackStack("")
                             .commit()
