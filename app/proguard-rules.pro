@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-#-keep class com.example.theweatherwithnesterenko.view.** { *; } раскомметируй, если будут ломаться ссылки, импорты (смотри настройки proguard - гугл знает)
+-keep class com.example.theweatherwithnesterenko.view.** { *; }

@@ -23,35 +23,30 @@ android {
     buildTypes.each {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
-        def apiKey = properties.getProperty("yandex_weather_api_key", "")//FIXME why ""?
+        def apiKey = properties.getProperty("yandex_weather_api_key", "")
         it.buildConfigField "String", "WEATHER_API_KEY", apiKey
     }
 
-//    signingConfigs { //вроде бы копия кода Андрея, но не работает(( Что-то начудил с файлом ключей?
-//        myRelease {
-//            Properties properties = new Properties()
-//            properties.load(rootProject.file("password.properties").newDataInputStream())
-//            def password = properties.getProperty("password") // FIXME
-//            // def password = "123456"
-//
-//            storeFile file("FileOfKeys.jks")
-//            storePassword = password
-//            keyAlias 'KeyAliasForFreeAdultRelease'
-//            keyPassword = password
-//        }
-//    }
+    signingConfigs {
+        freeAdultRelease {
+            Properties properties = new Properties()
+            properties.load(rootProject.file("password.properties").newDataInputStream())
+            def password = properties.getProperty("password")
+            storeFile file("key_app.jks")
+            storePassword = password
+            keyAlias 'alias'
+            keyPassword = password
+        }
 
-    buildTypes { // про настройку загрузки приложения (режим загрузки)
+    }
+
+    buildTypes {
 
         release {
-
-//            signingConfig signingConfigs.myRelease
-            minifyEnabled true //true включит прогвард
+            signingConfig signingConfigs.freeAdultRelease
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//            multiDexEnabled true // если имён функций болше 65000 (по возможности ставить false)
             multiDexEnabled false
-
-
         }
 
     }
@@ -65,12 +60,10 @@ android {
     buildFeatures {
         viewBinding true
     }
-    namespace 'com.example.theweatherwithnesterenko'
-    //FIXME что это и зачем? Откуда взялось не помню.
 
 
-    /*flavorDimensions 'distribution', 'age'
-    productFlavors { //про версии приложения (картинки, функционал, внешний вид и прочее)
+    flavorDimensions 'distribution', 'age'
+    productFlavors {
         free {
             dimension 'distribution'
         }
@@ -83,7 +76,10 @@ android {
         adult {
             dimension 'age'
         }
-    }*/
+    }
+
+    namespace 'com.example.theweatherwithnesterenko'
+//FIXME что это и зачем? Откуда взялось не помню.
 
 }
 

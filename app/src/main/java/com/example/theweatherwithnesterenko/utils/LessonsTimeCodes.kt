@@ -14,7 +14,7 @@ package com.example.theweatherwithnesterenko.utils
 
 0:32 - про SQLite
 
-0:
+0: - Дальше про аномалии... страшно смотреть
 
 0:
 
@@ -76,4 +76,54 @@ HistoryViewModel
 4:01 - миграции баз данных.
 
 4:21 Урок окончен.
+*/
+
+/*
+0:10 - Build variants (Build types + Product Flavors)
+
+0:
+
+0:
+
+0:
+
+0:42 - создаём фаил ключей
+
+1:00 - коротко про настройки прогвард
+
+1:05 - multiDexEnabled
+
+1:07 - подитог  Build variants (Build types + Product Flavors)
+
+1:10 - переменка
+
+1:20 - коммит. Познакомились с Build variants (Build types + Product Flavors)
+
+1:32 - кому интересно заморочится с несколькими версиями сборки приложения?
+
+1:41 - Фаил ключей
+Как проверить релизную версию на эмуляторе.
+
+1:44 - Прописываем signing config
+
+1:45 - создаём фаил password.properties  !!
+
+1:48 - > Keystore file 'D:\Kotlin\TheWeatherWithNesterenko\app\key_app.jks' not found for signing
+config 'freeAdultRelease'.
+
+1:55 - Build variants (Build types + Product Flavors) пройдены.
+
+2:00 - Принципы здорового разработчика:
+
+2:
+
+2:
+
+2:
+
+2:
+
+2:
+
+2:
 */
