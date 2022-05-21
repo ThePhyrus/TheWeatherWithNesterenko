@@ -78,8 +78,8 @@ android {
         }
     }
 
-    namespace 'com.example.theweatherwithnesterenko'
-//FIXME что это и зачем? Откуда взялось не помню.
+    namespace 'com.example.theweatherwithnesterenko' //FIXME что это и зачем? Откуда взялось не помню.
+
 
 }
 

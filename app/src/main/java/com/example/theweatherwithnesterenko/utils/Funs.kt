@@ -21,3 +21,4 @@ fun catchToken() {
         Log.d(TAG, "catchToken() called with: task = $token")
     })
 }
+

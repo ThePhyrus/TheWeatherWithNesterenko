@@ -7,14 +7,20 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.theweatherwithnesterenko.domain.room.HistoryDao
 import com.example.theweatherwithnesterenko.domain.MainDataBase
+import com.example.theweatherwithnesterenko.repository.weather.WeatherAPI
+import com.example.theweatherwithnesterenko.utils.MASTER_DOMAIN
 import com.example.theweatherwithnesterenko.utils.TAG
 import com.example.theweatherwithnesterenko.utils.catchToken
 import com.example.theweatherwithnesterenko.utils.mainFunction
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.GsonBuilder
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.IllegalStateException
 
 class MainApp : Application() {
+
 
     override fun onCreate() {
         super.onCreate()

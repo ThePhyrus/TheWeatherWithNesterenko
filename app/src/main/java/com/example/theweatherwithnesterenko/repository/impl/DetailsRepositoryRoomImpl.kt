@@ -14,10 +14,20 @@ import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
 import com.example.theweatherwithnesterenko.viewmodel.HistoryViewModel
 
 
+/**
+ * Андрей Нестеренко・Преподаватель
+Здравствуйте, Роман!
+• У вас сейчас апри каждом вызове
+getWeatherDetails
+пересоздается экземпляр ретрофит клиента, хотелось бы этого избежать, например, путем выноса его за
+пределы getWeatherDetails в какую-то внутреннюю переменную репозитория.
+Или вообще на уровень приложения MyApp или как там у нас было на уроке(класс наследующий Application)
+ */
+
+
 class DetailsRepositoryRoomImpl : DetailsRepository, DetailsRepositoryAll, DetailsRepositoryAdd {
 
     override fun getAllWeatherDetails(callback: HistoryViewModel.CallbackForAll) {
-
         Thread {
             callback.onResponse(convertHistoryEntityToWeather(MainApp.getHistoryDao().getAll()))
         }.start()
@@ -29,7 +39,7 @@ class DetailsRepositoryRoomImpl : DetailsRepository, DetailsRepositoryAll, Detai
         if (list.isEmpty()) {
             callbackForOne.onFail()
         } else {
-            callbackForOne.onResponse(list.last()) //вернём только последний адрес из базы (room возвращает всю погоду)
+            callbackForOne.onResponse(list.last())
         }
         Log.d(
             TAG,
