@@ -117,9 +117,9 @@ config 'freeAdultRelease'.
 
 2:14 - Начинаем редактировать код
 
-2:
+2:28 - пример из другого приложения с WorkWithContentProviderFragment
 
-2:
+2:46 - Как можно исправить onRequestPermissionsResult (MyWeather123454) //todo пересмотреть с этой отметки это про контракты же вроде?
 
 2:
 

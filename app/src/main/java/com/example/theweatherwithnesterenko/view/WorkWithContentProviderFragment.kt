@@ -101,7 +101,7 @@ class WorkWithContentProviderFragment : Fragment() {
         }
     }
 
-    @SuppressLint("Range")
+
     private fun getContacts() {
         context?.let { it ->
             val contentResolver = it.contentResolver
@@ -116,9 +116,9 @@ class WorkWithContentProviderFragment : Fragment() {
                 for (i in 0 until cursor.count) {
                     cursor.moveToPosition(i)
                     val name =
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))//FIXME
                     val contactId =
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))//FIXME
                     val number = getNumberFromID(contentResolver, contactId)
                     addView(name, number)
                 }

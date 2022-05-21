@@ -77,11 +77,11 @@ class WeatherListFragment : Fragment(),
 
     private fun setupFABGetCurrentLocationInfo() {
         binding.mainFragmentFABLocation.setOnClickListener {
-            checkPermissionToGetGeolocation()
+            checkPermission()
         }
     }
 
-    private fun checkPermissionToGetGeolocation() {
+    private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -135,16 +135,15 @@ class WeatherListFragment : Fragment(),
     }
 
 
-    private fun getAddressByLocation(location: Location) { //todo настроить отображения адреса getAddressLine
+    private fun getAddressByLocation(location: Location) { //FIXME как настроить отображения адреса?s
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        //todo add location.altitude?
         val timeStump = System.currentTimeMillis()
         Thread {
             val addressText =
                 geocoder.getFromLocation(
                     location.latitude,
                     location.longitude,
-                    1 //FIXME хватит 1?
+                    1
                 )[0].getAddressLine(0)
             requireActivity().runOnUiThread {
                 showAddressDialog(addressText, location)
@@ -168,22 +167,7 @@ class WeatherListFragment : Fragment(),
         }
     }
 
-    private val locationListenerDistance = object : LocationListener {
-        override fun onLocationChanged(location: Location) {
-            Log.d(TAG, "onLocationChangedByDistance: $location")
-            getAddressByLocation(location)
-        }
-
-        override fun onProviderEnabled(provider: String) {
-            super.onProviderEnabled(provider)
-        }
-
-        override fun onProviderDisabled(provider: String) {
-            super.onProviderDisabled(provider)
-        }
-    }
-
-    @SuppressLint("MissingPermission") // разрешения проверенны в  fun checkPermission()
+    @SuppressLint("MissingPermission")
     private fun getLocation() {
         context?.let {
             val locationManager = it.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -198,14 +182,6 @@ class WeatherListFragment : Fragment(),
                         locationListenerTime
                     )
                 }
-                /*providerGPS?.let {
-                    locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,
-                        0L, //time between location request
-                        10f, //distance between location request
-                        locationListenerDistance
-                    )
-                }*/
             }
         }
         Log.d(TAG, "getLocation: did something")
@@ -214,9 +190,6 @@ class WeatherListFragment : Fragment(),
     private fun doSetupFABCities() {//FIXME shared pref
         binding.floatingActionButton.setOnClickListener {
             isRussian = !isRussian
-
-       /*     isRussian = requireActivity().getSharedPreferences(Settings.SHARED_PREF, Context.MODE_PRIVATE)
-                .getBoolean(Settings.SETTING_RUS, Settings.settingRus)*/
 
             if (isRussian) {
                 viewModel.getWeatherRussia()
@@ -236,6 +209,7 @@ class WeatherListFragment : Fragment(),
                 viewModel.getWeatherWorld()
             }
         }
+        Log.d(TAG, "doSetupFABCities() called")
     }
 
     private fun renderData(data: AppState) {
@@ -271,7 +245,8 @@ class WeatherListFragment : Fragment(),
             DetailsFragment.newInstance(Bundle().apply {
                 putParcelable(KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS, weather)
             })
-        ).addToBackStack("").commit()
+        ).addToBackStack("").commit()//FIXME
+        Log.d(TAG, "onItemClick() called with: weather = $weather")
     }
 
     private fun showAddressDialog(address: String, location: Location) {
@@ -294,5 +269,6 @@ class WeatherListFragment : Fragment(),
                 .create()
                 .show()
         }
+        Log.d(TAG, "showAddressDialog() called with: address = $address, location = $location")
     }
 }

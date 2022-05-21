@@ -67,6 +67,7 @@ class DetailsService(val name: String = "") : IntentService(name) {
                Log.d(TAG, "onHandleIntent: $e")
            } finally {
                urlConnection.disconnect()
+               Log.d(TAG, "onHandleIntent() called")
            }
         }
         Log.d(TAG, "DetailsService finished")

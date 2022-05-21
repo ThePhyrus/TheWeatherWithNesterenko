@@ -12,9 +12,17 @@ import com.example.theweatherwithnesterenko.utils.TAG
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
+
+/**
+ *запрос на отправку пуша через сторонний сервер (не FCM)
+ *
+ * http://45.87.1.212/gb/fcm_send.php?sudent_client_id=<ключ клиента> &sudent_server_key=<ключ сервера>
+ */
+
+
 class PushNotificationService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(message: RemoteMessage) { //todo попробовать сделать что-нибудь другое вместо
+    override fun onMessageReceived(message: RemoteMessage) {
         Log.d(TAG, "onMessageReceived: ${message.data}")
         if (!message.data.isNullOrEmpty()) {
             val title = message.data[KEY_NOTIFICATION_TITLE]

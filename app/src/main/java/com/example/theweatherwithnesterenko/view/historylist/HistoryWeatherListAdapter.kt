@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListRecyclerItemBinding
 import com.example.theweatherwithnesterenko.repository.weather.Weather
+import kotlinx.android.synthetic.main.fragment_details.view.*
 
 
 class HistoryWeatherListAdapter(

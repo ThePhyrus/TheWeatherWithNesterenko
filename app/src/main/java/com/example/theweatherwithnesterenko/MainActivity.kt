@@ -45,6 +45,12 @@ error(R.drawable.ic_earth)
 это позволяет вашему приложению выглядеть более живым для пользователя, что ли
  */
 
+/**
+ *запрос на отправку пуша через сторонний сервер (не FCM)
+ *
+ * http://45.87.1.212/gb/fcm_send.php?sudent_client_id=<ключ клиента> &sudent_server_key=<ключ сервера>
+ */
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
