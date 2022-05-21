@@ -65,6 +65,45 @@ class WorkWithContentProviderFragment : Fragment() {
         }
     }
 
+
+    private fun explain() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Нужен доступ к контактам")
+            .setMessage("Объяснение: Вот зачем нам нужен доступ к контактам")
+            .setPositiveButton("Предоставить доступ") { _, _ ->
+                myRequestPermission()
+            }
+            .setNegativeButton("Не предоставлять") { dialog, _ -> dialog.dismiss() }
+            .create()
+            .show()
+    }
+
+    private fun getContacts() {//FIXME
+        context?.let { it ->
+            val contentResolver = it.contentResolver
+            val cursor = contentResolver.query(
+                ContactsContract.Contacts.CONTENT_URI,
+                null,
+                null,
+                null,
+                ContactsContract.Contacts.DISPLAY_NAME + " ASC"
+            )
+            cursor?.let { cursor ->
+                for (i in 0 until cursor.count) {
+                    cursor.moveToPosition(i)
+                    val name =
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))//FIXME
+                    val contactId =
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))//FIXME
+                    val number = getNumberFromID(contentResolver, contactId)
+                    addView(name, number)
+                }
+            }
+            cursor?.close()
+        }
+    }
+
+
     private fun myRequestPermission() {
         requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_CODE_CONTACTS)
     }
@@ -102,31 +141,6 @@ class WorkWithContentProviderFragment : Fragment() {
     }
 
 
-    private fun getContacts() {
-        context?.let { it ->
-            val contentResolver = it.contentResolver
-            val cursor = contentResolver.query(
-                ContactsContract.Contacts.CONTENT_URI,
-                null,
-                null,
-                null,
-                ContactsContract.Contacts.DISPLAY_NAME + " ASC"
-            )
-            cursor?.let { cursor ->
-                for (i in 0 until cursor.count) {
-                    cursor.moveToPosition(i)
-                    val name =
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))//FIXME
-                    val contactId =
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))//FIXME
-                    val number = getNumberFromID(contentResolver, contactId)
-                    addView(name, number)
-                }
-            }
-            cursor?.close()
-        }
-    }
-
     @SuppressLint("Range")
     private fun getNumberFromID(cr: ContentResolver, contactId: String): String {
         val phones = cr.query(
@@ -157,6 +171,7 @@ class WorkWithContentProviderFragment : Fragment() {
         })
     }
 
+
     private var numberCurrent: String = "none"
     private fun makeCall() {
         if (ContextCompat.checkSelfPermission(
@@ -169,18 +184,6 @@ class WorkWithContentProviderFragment : Fragment() {
         } else {
             requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CODE_CALL)
         }
-    }
-
-    private fun explain() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Нужен доступ к контактам")
-            .setMessage("Объяснение: Вот зачем нам нужен доступ к контактам")
-            .setPositiveButton("Предоставить доступ") { _, _ ->
-                myRequestPermission()
-            }
-            .setNegativeButton("Не предоставлять") { dialog, _ -> dialog.dismiss() }
-            .create()
-            .show()
     }
 
     companion object {

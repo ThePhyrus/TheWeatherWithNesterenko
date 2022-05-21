@@ -6,13 +6,11 @@
     android:layout_height="match_parent">
 
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mainFragmentFABLocation"
@@ -24,18 +22,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="@dimen/max_size_fab" />
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:maxImageSize="@dimen/max_size_fab"
+        android:layout_margin="@dimen/margin_fab"
+        android:src="@drawable/ic_russia"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@null"
-        android:layout_margin="@dimen/margin_fab"
-        android:src="@drawable/ic_russia"/>
+        app:maxImageSize="@dimen/max_size_fab"
+        app:tint="@null" />
 
     <FrameLayout
         android:id="@+id/loadingLayout"

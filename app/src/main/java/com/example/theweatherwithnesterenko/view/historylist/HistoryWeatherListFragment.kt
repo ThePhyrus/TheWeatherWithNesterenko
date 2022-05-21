@@ -3,20 +3,19 @@ package com.example.theweatherwithnesterenko.view.historylist
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListBinding
-import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.TAG
-import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 import com.example.theweatherwithnesterenko.viewmodel.HistoryViewModel
+import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 
 
-class HistoryWeatherListFragment : Fragment(){
+class HistoryWeatherListFragment : Fragment() {
 
     private var _binding: FragmentHistoryWeatherListBinding? = null
     private val binding: FragmentHistoryWeatherListBinding get() = _binding!!
@@ -35,7 +34,6 @@ class HistoryWeatherListFragment : Fragment(){
         return binding.root
     }
 
-//    var isRussian = true
     private val viewModel: HistoryViewModel by lazy {
         ViewModelProvider(this).get(HistoryViewModel::class.java)
     }
@@ -48,12 +46,14 @@ class HistoryWeatherListFragment : Fragment(){
         viewModel.getAll()
     }
 
+
     private fun initRecyclerView() {
         binding.recyclerView.also {
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext())
         }
     }
+
 
     private fun renderData(data: AppState) {
         when (data) {

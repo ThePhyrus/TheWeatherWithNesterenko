@@ -71,7 +71,7 @@ class PushNotificationService : FirebaseMessagingService() {
         notificationManager.notify(NOTIFICATION_ID_HIGH, notificationBuilderHigh.build())
     }
 
-    private lateinit var clientToken:String
+    private lateinit var clientToken: String
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         clientToken = token

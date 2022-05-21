@@ -31,17 +31,27 @@ class MapsFragment : Fragment() {
     private lateinit var map: GoogleMap
     private val markers: ArrayList<Marker> = arrayListOf()
 
-    private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Saint-Petersburg, Russia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMapsMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
+        initView()
+    }
+
+    private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
         val saintPetersburg = LatLng(59.939099, 30.315877)
         map.addMarker(
@@ -61,10 +71,11 @@ class MapsFragment : Fragment() {
                 })
             ).addToBackStack("").commit()
         }
-
+        map.uiSettings.isZoomControlsEnabled = true
+        map.uiSettings.isMyLocationButtonEnabled = true
         checkPermission()
-//        map.isMyLocationEnabled = true // todo add permission check
     }
+
 
     private fun checkPermission() {
         context?.let {
@@ -73,8 +84,6 @@ class MapsFragment : Fragment() {
                     it,
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED -> {
-                    map.uiSettings.isZoomControlsEnabled = true // появятся "+" и "-" для ZOOM
-                    map.uiSettings.isMyLocationButtonEnabled = true // а тут что?
                     map.isMyLocationEnabled = true
                 }
                 shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
@@ -87,9 +96,11 @@ class MapsFragment : Fragment() {
         }
     }
 
+
     private fun myRequestPermission() {
         requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE_LOCATION)
     }
+
 
     private fun explain() {
         AlertDialog.Builder(requireContext())
@@ -104,40 +115,21 @@ class MapsFragment : Fragment() {
 
     }
 
-    private fun getAddressByLocation(location: LatLng): String {
+
+    private fun getAddressByLocation(location: LatLng): String {//FIXME
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        //todo add location.altitude?
-        val addressText =
-            geocoder.getFromLocation(
-                location.latitude,
-                location.longitude,
-                1 //FIXME хватит 1?
-            )[0].getAddressLine(0) //todo настроить отображения адреса
-        return addressText
+        return geocoder.getFromLocation(
+            location.latitude,
+            location.longitude,
+            1
+        )[0].getAddressLine(0)
     }
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentMapsMainBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
-        initView()
-    }
-
-    private fun initView() {
+    private fun initView() {//FIXME
         binding.buttonSearch.setOnClickListener {
             val searchText = binding.searchAddress.text.toString()
-            //todo HW провести проверку searchText на Null
             val geocoder = Geocoder(requireContext(), Locale.getDefault())
-            //todo HW провести проверку results на Null & java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
             val results = geocoder.getFromLocationName(searchText, 1)
             val location = LatLng(
                 results[0].latitude, results[0].longitude
@@ -153,10 +145,12 @@ class MapsFragment : Fragment() {
         }
     }
 
+
     private fun addMarkerToArray(location: LatLng) {
         val marker = setMarker(location, markers.size.toString(), R.drawable.ic_map_pin)
         markers.add(marker)
     }
+
 
     private fun drawLine() {
         var previousMarker: Marker? = null
@@ -172,6 +166,7 @@ class MapsFragment : Fragment() {
         }
     }
 
+
     private fun setMarker(
         location: LatLng,
         searchText: String,
@@ -185,8 +180,5 @@ class MapsFragment : Fragment() {
         )!!
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+
 }

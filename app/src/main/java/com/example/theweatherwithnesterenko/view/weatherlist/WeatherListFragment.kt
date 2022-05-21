@@ -11,12 +11,12 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.theweatherwithnesterenko.R
@@ -25,16 +25,14 @@ import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
 import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_LOCATION
-
 import com.example.theweatherwithnesterenko.utils.TAG
 import com.example.theweatherwithnesterenko.view.details.DetailsFragment
-import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 import com.example.theweatherwithnesterenko.viewmodel.MainViewModel
+import com.example.theweatherwithnesterenko.viewmodel.states.AppState
 import java.util.*
 
 
-class WeatherListFragment : Fragment(),
-    OnItemListClickListener {
+class WeatherListFragment : Fragment(), OnItemListClickListener {
 
     private var _binding: FragmentWeatherListBinding? = null
     private val binding: FragmentWeatherListBinding get() = _binding!!
@@ -68,6 +66,7 @@ class WeatherListFragment : Fragment(),
         viewModel.getWeatherRussia()
     }
 
+
     private fun initRecyclerView() {
         binding.recyclerView.also {
             it.adapter = adapter
@@ -75,11 +74,13 @@ class WeatherListFragment : Fragment(),
         }
     }
 
+
     private fun setupFABGetCurrentLocationInfo() {
         binding.mainFragmentFABLocation.setOnClickListener {
             checkPermission()
         }
     }
+
 
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(
@@ -95,6 +96,7 @@ class WeatherListFragment : Fragment(),
         }
     }
 
+
     private fun explain() {
         AlertDialog.Builder(requireContext())
             .setTitle("Нужен доступ к геолокации!")
@@ -106,6 +108,7 @@ class WeatherListFragment : Fragment(),
             .create()
             .show()
     }
+
 
     private fun mRequestPermission() {
         requestPermissions(
@@ -135,7 +138,28 @@ class WeatherListFragment : Fragment(),
     }
 
 
-    private fun getAddressByLocation(location: Location) { //FIXME как настроить отображения адреса?s
+    @SuppressLint("MissingPermission")
+    private fun getLocation() {//FIXME
+        context?.let {
+            val locationManager = it.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                val providerGPS =
+                    locationManager.getProvider(LocationManager.GPS_PROVIDER)
+                providerGPS?.let {
+                    locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        1000000L, //time between location request
+                        10f, //distance between location request
+                        locationListenerTime
+                    )
+                }
+            }
+        }
+        Log.d(TAG, "getLocation: did something")
+    }
+
+
+    private fun getAddressByLocation(location: Location) { //FIXME
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         val timeStump = System.currentTimeMillis()
         Thread {
@@ -167,25 +191,6 @@ class WeatherListFragment : Fragment(),
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private fun getLocation() {
-        context?.let {
-            val locationManager = it.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                val providerGPS =
-                    locationManager.getProvider(LocationManager.GPS_PROVIDER) // Why getBestProvider() does not work with LocationManager.GPS_PROVIDER
-                providerGPS?.let {
-                    locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,
-                        1000000L, //time between location request
-                        10f, //distance between location request
-                        locationListenerTime
-                    )
-                }
-            }
-        }
-        Log.d(TAG, "getLocation: did something")
-    }
 
     private fun doSetupFABCities() {//FIXME shared pref
         binding.floatingActionButton.setOnClickListener {
@@ -211,6 +216,7 @@ class WeatherListFragment : Fragment(),
         }
         Log.d(TAG, "doSetupFABCities() called")
     }
+
 
     private fun renderData(data: AppState) {
         when (data) {
@@ -248,6 +254,7 @@ class WeatherListFragment : Fragment(),
         ).addToBackStack("").commit()//FIXME
         Log.d(TAG, "onItemClick() called with: weather = $weather")
     }
+
 
     private fun showAddressDialog(address: String, location: Location) {
         activity?.let {

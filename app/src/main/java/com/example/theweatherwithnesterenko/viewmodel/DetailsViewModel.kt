@@ -41,15 +41,14 @@ class DetailsViewModel(
                 }
             }
 
-            override fun onFail() { //FIXME
+            override fun onFail() {
                 Log.d(TAG, "onFail() called")
             }
         })
 
     }
 
-    private fun isInternet(): Boolean { //todo как-то переписать эту функцию
-        // заглушка
+    private fun isInternet(): Boolean { //FIXME
         return true //todo если будет false, то в историю запросов ничего добавляться не будет
     }
 
@@ -59,7 +58,8 @@ class DetailsViewModel(
 
         fun onFail(){
             Log.d(TAG, "onFail() called")
-        } //todo сделать что-нибудь полезное из этой функции
+        }
     }
+
 
 }

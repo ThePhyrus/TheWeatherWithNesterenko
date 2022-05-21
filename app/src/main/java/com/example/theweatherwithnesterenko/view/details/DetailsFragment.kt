@@ -1,6 +1,5 @@
 package com.example.theweatherwithnesterenko.view.details
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +16,8 @@ import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentDetailsBinding
 import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.*
-import com.example.theweatherwithnesterenko.viewmodel.states.DetailsState
 import com.example.theweatherwithnesterenko.viewmodel.DetailsViewModel
+import com.example.theweatherwithnesterenko.viewmodel.states.DetailsState
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -26,6 +25,7 @@ class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding: FragmentDetailsBinding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +39,7 @@ class DetailsFragment : Fragment() {
         ViewModelProvider(this).get(DetailsViewModel::class.java)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLiveData().observe(viewLifecycleOwner, object : Observer<DetailsState> {
@@ -47,7 +48,7 @@ class DetailsFragment : Fragment() {
             }
         })
         arguments?.getParcelable<Weather>(KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS)?.let {
-            Thread{
+            Thread {
                 viewModel.getWeather(it.city)
             }.start()
         }
@@ -61,7 +62,8 @@ class DetailsFragment : Fragment() {
                 binding.root.showSnackBarWithAction(
                     getString(R.string.data_rendering_error),
                     getString(R.string.try_again), {
-                    }, Snackbar.LENGTH_LONG)
+                    }, Snackbar.LENGTH_LONG
+                )
             }
             DetailsState.Loading -> {
                 with(binding) {
@@ -93,6 +95,7 @@ class DetailsFragment : Fragment() {
         Snackbar.make(binding.root, text, length).show()
     }
 
+
     private fun View.showSnackBarWithAction( //FIXME вроде бы правильно, но с вызовом трудности.
         text: String,
         actionText: String,
@@ -101,6 +104,7 @@ class DetailsFragment : Fragment() {
     ) {
         Snackbar.make(this, text, length).setAction(actionText, action).show()
     }
+
 
     private fun ImageView.loadSvg(url: String) {
         val imageLoader = ImageLoader.Builder(this.context)
@@ -123,6 +127,7 @@ class DetailsFragment : Fragment() {
             return fragment
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

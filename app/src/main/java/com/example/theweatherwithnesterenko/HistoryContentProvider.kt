@@ -17,10 +17,8 @@ class HistoryContentProvider : ContentProvider() {
 
     private var authorities: String? = null // Адрес URI
     private lateinit var uriMatcher: UriMatcher // Помогает определить тип адреса URI
-
     private var entityContentType: String? = null // Набор строк
     private var entityContentItemType: String? = null // Одна строка
-
     private lateinit var contentUri: Uri // Адрес URI Provider
 
     override fun onCreate(): Boolean {
@@ -94,10 +92,8 @@ class HistoryContentProvider : ContentProvider() {
         val id = ContentUris.parseId(uri)
         val historyDao = MainApp.getHistoryDao()
         historyDao.deleteByID(id)
-
-
         context?.contentResolver?.notifyChange(uri, null)
-        return 1 // FIXME???
+        return 1 // FIXME??? почему 1
     }
 
     override fun update(
@@ -115,7 +111,7 @@ class HistoryContentProvider : ContentProvider() {
             historyDao.update(it)
         }
         context?.contentResolver?.notifyChange(uri, null)
-        return 1 // FIXME???
+        return 1 // FIXME??? почему 1
     }
 
     // Переводим ContentValues в HistoryEntity

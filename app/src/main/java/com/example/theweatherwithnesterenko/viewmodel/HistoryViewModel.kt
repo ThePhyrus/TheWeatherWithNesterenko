@@ -27,7 +27,7 @@ class HistoryViewModel(
                 Log.d(TAG, "onResponse() called with: listWeather = $weatherList")
             }
 
-            override fun onFail() {
+            override fun onFail() {//FIXME
                 Log.d(TAG, "onFail() called")
             }
 

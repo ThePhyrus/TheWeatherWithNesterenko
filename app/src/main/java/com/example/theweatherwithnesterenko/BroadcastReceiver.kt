@@ -8,7 +8,7 @@ import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_SERVICE_MESSAGE
 import com.example.theweatherwithnesterenko.utils.TAG
 
 
-class BroadcastReceiver : BroadcastReceiver() { // TheBroadcastReceiver - это есть приёмник
+class BroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         intent?.let {
             val extra = it.getStringExtra(KEY_BUNDLE_SERVICE_MESSAGE)

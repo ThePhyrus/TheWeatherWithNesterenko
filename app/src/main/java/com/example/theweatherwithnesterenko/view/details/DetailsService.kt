@@ -24,51 +24,48 @@ class DetailsService(val name: String = "") : IntentService(name) {
             val uri = URL(urlText)
             val urlConnection: HttpURLConnection =
                 (uri.openConnection() as HttpURLConnection).apply {
-                    connectTimeout = 1000 //FIXME зачем таймауты тут нужны? значения в строковые константы в Utils.kt?
+                    connectTimeout =
+                        1000 //FIXME зачем таймауты тут нужны? значения в строковые константы в Utils.kt?
                     readTimeout = 1000
                     addRequestProperty(X_YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
                 }
-           try {
-               val responseCode = urlConnection.responseCode
-               val responseMessage = urlConnection.responseMessage
-               val serverside = 500..599
-               val clientside = 400..499
-               val responseOk = 200..299
-               val unknownSide = 0..199
-               Log.d(TAG, "onHandleIntent: responseCode is $responseCode")
+            try {
+                val responseCode = urlConnection.responseCode
+                val responseMessage = urlConnection.responseMessage
+                val serverside = 500..599
+                val clientside = 400..499
+                val responseOk = 200..299
+                val unknownSide = 0..199
+                Log.d(TAG, "onHandleIntent: responseCode is $responseCode")
 
-               when(responseCode){
-                   in responseOk -> {
-                       val buffer = BufferedReader(InputStreamReader(urlConnection.inputStream))
-                       val weatherDTO: WeatherDTO = Gson().fromJson(buffer, WeatherDTO::class.java)
-                       val message = Intent(KEY_WAVE_SERVICE_BROADCAST)
-                       message.putExtra(KEY_BUNDLE_SERVICE_BROADCAST_WEATHER, weatherDTO)
-                       LocalBroadcastManager.getInstance(this).sendBroadcast(message)
-                   }
-                   in clientside -> {
-                       //todo разобраться с callback в другом классе
-                       Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
-                   }
-                   in serverside -> {
-                       //FIXME не могу разобраться с callback
-                       Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
-                   }
-                   in unknownSide -> {
-                       //FIXME не могу разобраться с callback
-                       Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
-                   }
-                   else -> {
-                       //FIXME не могу разобраться с callback
-                       Log.d(TAG, "onHandleIntent: Что-то не так с when??")
-                   }
-               }
-           } catch (e: JsonSyntaxException){
-               // ловим ошибки любезно предоставленные автогенерацией Джейсонов
-               Log.d(TAG, "onHandleIntent: $e")
-           } finally {
-               urlConnection.disconnect()
-               Log.d(TAG, "onHandleIntent() called")
-           }
+                when (responseCode) {
+                    in responseOk -> {
+                        val buffer = BufferedReader(InputStreamReader(urlConnection.inputStream))
+                        val weatherDTO: WeatherDTO = Gson().fromJson(buffer, WeatherDTO::class.java)
+                        val message = Intent(KEY_WAVE_SERVICE_BROADCAST)
+                        message.putExtra(KEY_BUNDLE_SERVICE_BROADCAST_WEATHER, weatherDTO)
+                        LocalBroadcastManager.getInstance(this).sendBroadcast(message)
+                    }
+                    in clientside -> {
+                        Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
+                    }
+                    in serverside -> {
+                        Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
+                    }
+                    in unknownSide -> {
+                        Log.d(TAG, "onHandleIntent: $responseMessage $responseCode")
+                    }
+                    else -> {
+                        Log.d(TAG, "onHandleIntent: Что-то не так с when??")
+                    }
+                }
+            } catch (e: JsonSyntaxException) {
+                // ловим ошибки любезно предоставленные автогенерацией Джейсонов
+                Log.d(TAG, "onHandleIntent: $e")
+            } finally {
+                urlConnection.disconnect()
+                Log.d(TAG, "onHandleIntent() called")
+            }
         }
         Log.d(TAG, "DetailsService finished")
     }

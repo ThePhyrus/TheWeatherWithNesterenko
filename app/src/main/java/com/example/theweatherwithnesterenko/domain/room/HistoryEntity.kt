@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 const val ID = "id"
 const val NAME = "city"
 const val TEMPERATURE = "temperature"
-const val FEELS_LIKE = "feelsLike"
 const val ICON = "icon"
 
 

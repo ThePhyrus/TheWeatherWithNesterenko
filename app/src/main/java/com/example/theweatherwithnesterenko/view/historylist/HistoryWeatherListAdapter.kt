@@ -4,10 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.theweatherwithnesterenko.R
 import com.example.theweatherwithnesterenko.databinding.FragmentHistoryWeatherListRecyclerItemBinding
 import com.example.theweatherwithnesterenko.repository.weather.Weather
-import kotlinx.android.synthetic.main.fragment_details.view.*
 
 
 class HistoryWeatherListAdapter(
@@ -20,7 +18,7 @@ class HistoryWeatherListAdapter(
 
     fun setData(dataNew: List<Weather>) {
         this.data = dataNew
-        notifyItemRangeChanged(0, data.size) //DiffUtil бы почитать!
+        notifyItemRangeChanged(0, data.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityHolder {
@@ -37,14 +35,12 @@ class HistoryWeatherListAdapter(
     }
 
 
-
     inner class CityHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(weather: Weather) {
             FragmentHistoryWeatherListRecyclerItemBinding.bind(itemView).apply {
                 tvCityName.text = weather.city.name
                 tvTemperature.text = weather.temperature.toString()
                 tvFeelsLike.text = weather.feelsLike.toString()
-                ivIcon
                 //todo HW вызвать отображение weather.icon
             }
         }

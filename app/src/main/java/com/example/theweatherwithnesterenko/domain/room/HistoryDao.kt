@@ -2,7 +2,6 @@ package com.example.theweatherwithnesterenko.domain.room
 
 import android.database.Cursor
 import androidx.room.*
-import com.example.theweatherwithnesterenko.domain.room.HistoryEntity
 
 
 @Dao
@@ -31,11 +30,5 @@ interface HistoryDao {
 
     @Query("DELETE FROM history_table WHERE id = :id")
     fun deleteByID(id: Long)
-
-
-
-
-    @Query("INSERT INTO history_table (city,temperature,feelsLike,icon) VALUES(:city, :temperature, :feelsLike,:icon)")
-    fun nativeInsert(city: String, temperature: Int, feelsLike: Int, icon: String)
 
 }
