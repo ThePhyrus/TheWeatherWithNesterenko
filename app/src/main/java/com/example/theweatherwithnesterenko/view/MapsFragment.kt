@@ -5,9 +5,11 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -17,6 +19,7 @@ import com.example.theweatherwithnesterenko.repository.weather.City
 import com.example.theweatherwithnesterenko.repository.weather.Weather
 import com.example.theweatherwithnesterenko.utils.KEY_BUNDLE_WEATHER_FROM_LIST_TO_DETAILS
 import com.example.theweatherwithnesterenko.utils.REQUEST_CODE_LOCATION
+import com.example.theweatherwithnesterenko.utils.TAG
 import com.example.theweatherwithnesterenko.view.details.DetailsFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -129,19 +132,27 @@ class MapsFragment : Fragment() {
     private fun initView() {//FIXME
         binding.buttonSearch.setOnClickListener {
             val searchText = binding.searchAddress.text.toString()
-            val geocoder = Geocoder(requireContext(), Locale.getDefault())
-            val results = geocoder.getFromLocationName(searchText, 1)
-            val location = LatLng(
-                results[0].latitude, results[0].longitude
-            )
-            map.addMarker(
-                MarkerOptions().position(location)
-                    .title(searchText)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker))
-            )
-            map.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(location, 15f)
-            )
+            if (searchText.isNotEmpty()){
+                val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                val results = geocoder.getFromLocationName(searchText, 1)
+                if (results.size > 0) {
+                    val location = LatLng(
+                        results[0].latitude, results[0].longitude
+                    )
+                    map.addMarker(
+                        MarkerOptions().position(location)
+                            .title(searchText)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker))
+                    )
+                    map.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(location, 15f)
+                    )
+                }else {
+                    Log.d(TAG, "initView() called")
+                }
+            }
+            Log.d(TAG, "initView() called")
+
         }
     }
 
