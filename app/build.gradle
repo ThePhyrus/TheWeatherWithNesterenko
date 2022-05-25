@@ -16,7 +16,6 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,7 +36,6 @@ android {
             keyAlias 'alias'
             keyPassword = password
         }
-
     }
 
     buildTypes {
@@ -48,19 +46,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             multiDexEnabled false
         }
-
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
     }
-
 
     flavorDimensions 'distribution', 'age'
     productFlavors {
@@ -80,8 +79,6 @@ android {
 
     namespace 'com.example.theweatherwithnesterenko'
     //FIXME что это и зачем? Откуда взялось не помню.
-
-
 }
 
 dependencies {
